@@ -90,17 +90,22 @@ const ProductsSection = () => {
                 <ul className="mb-6 space-y-2">
                   {product.features.map((feature, index) => (
                     <li key={index} className="flex items-start">
-                      <CheckCircle className={`${product.color} w-4 h-4 mr-2 mt-1 flex-shrink-0`} />
+                      <CheckCircle 
+                        className={`w-4 h-4 mr-2 mt-1 flex-shrink-0`} 
+                        style={{ 
+                          color: product.color === "text-primary" ? "#0047AB" : 
+                                 product.color === "text-secondary" ? "#2E8B57" : 
+                                 product.color === "text-accent" ? "#4B0082" : "#0047AB" 
+                        }} 
+                      />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <Link href={product.link}>
-                  <a className={`${product.color} font-medium flex items-center hover:underline`}>
-                    Learn more
-                    <ArrowRight className="ml-1 w-4 h-4" />
-                  </a>
-                </Link>
+                <div className={`${product.color} font-medium flex items-center hover:underline cursor-pointer`} onClick={() => window.location.href = product.link}>
+                  Learn more
+                  <ArrowRight className="ml-1 w-4 h-4" />
+                </div>
               </CardContent>
             </Card>
           ))}

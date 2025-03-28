@@ -8,7 +8,8 @@ import {
   Lightbulb,
   LayoutTemplate,
   TrendingUp,
-  Settings
+  Settings,
+  CheckCircle
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Service } from "@/lib/types";
@@ -174,7 +175,10 @@ const ServicesSection = () => {
                       <ul className="mb-4 space-y-2">
                         {service.features.map((feature, index) => (
                           <li key={index} className="flex items-start">
-                            <CheckCircle className="text-primary w-4 h-4 mr-2 mt-1 flex-shrink-0" />
+                            <CheckCircle 
+                              className="w-4 h-4 mr-2 mt-1 flex-shrink-0" 
+                              style={{ color: "#0047AB" }}
+                            />
                             <span className="text-sm">{feature}</span>
                           </li>
                         ))}
@@ -210,6 +214,3 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
-
-// Import CheckCircle which was missing
-import { CheckCircle } from "lucide-react";
