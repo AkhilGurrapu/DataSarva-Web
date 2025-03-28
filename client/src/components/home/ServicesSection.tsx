@@ -118,7 +118,11 @@ const iconComponents = {
   Cloud,
   Database,
   LineChart,
-  RefreshCw
+  RefreshCw,
+  Lightbulb,
+  LayoutTemplate,
+  TrendingUp,
+  Settings
 };
 
 const ServicesSection = () => {

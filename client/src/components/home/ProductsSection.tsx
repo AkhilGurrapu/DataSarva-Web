@@ -83,7 +83,15 @@ const ProductsSection = () => {
                 ></div>
               </div>
               <CardContent className="p-6">
-                <h3 className={`text-xl font-bold mb-3 ${product.color}`}>{product.title}</h3>
+                <h3 className="text-xl font-bold mb-3" 
+                   style={{ 
+                     color: product.color === "text-primary" ? "#0047AB" : 
+                            product.color === "text-secondary" ? "#2E8B57" : 
+                            product.color === "text-accent" ? "#4B0082" : "#0047AB" 
+                   }}
+                >
+                  {product.title}
+                </h3>
                 <p className="text-neutral-700 mb-4">
                   {product.description}
                 </p>
@@ -102,7 +110,25 @@ const ProductsSection = () => {
                     </li>
                   ))}
                 </ul>
-                <div className={`${product.color} font-medium flex items-center hover:underline cursor-pointer`} onClick={() => window.location.href = product.link}>
+                <div 
+                  className="font-medium flex items-center hover:underline cursor-pointer" 
+                  style={{ 
+                    color: product.color === "text-primary" ? "#0047AB" : 
+                           product.color === "text-secondary" ? "#2E8B57" : 
+                           product.color === "text-accent" ? "#4B0082" : "#0047AB" 
+                  }}
+                  onClick={() => {
+                    // Handle anchor links that point to sections on the same page
+                    if (product.link.startsWith('#')) {
+                      const targetElement = document.getElementById(product.link.substring(1));
+                      if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    } else {
+                      window.location.href = product.link;
+                    }
+                  }}
+                >
                   Learn more
                   <ArrowRight className="ml-1 w-4 h-4" />
                 </div>

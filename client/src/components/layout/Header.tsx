@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -37,6 +37,23 @@ const Header = () => {
     { href: "/about", label: "About" },
   ];
 
+  const handleNavigation = (href: string) => {
+    if (href.startsWith('/#')) {
+      navigate('/');
+      
+      // Allow time for navigation to complete before scrolling
+      setTimeout(() => {
+        const elementId = href.substring(2);
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      navigate(href);
+    }
+  };
+
   return (
     <header 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
@@ -45,22 +62,25 @@ const Header = () => {
     >
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div className="flex items-center">
-          <Link href="/">
-            <a className="text-2xl font-bold cursor-pointer">
-              <span className="text-primary">Data</span>
-              <span className="text-accent">AI</span>
-            </a>
-          </Link>
+          <div 
+            onClick={() => navigate('/')} 
+            className="text-2xl font-bold cursor-pointer"
+          >
+            <span className="text-primary">Data</span>
+            <span className="text-accent">AI</span>
+          </div>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <a className="text-neutral-800 hover:text-primary font-medium transition-all duration-300">
-                {link.label}
-              </a>
-            </Link>
+            <div 
+              key={link.href} 
+              onClick={() => handleNavigation(link.href)} 
+              className="text-neutral-800 hover:text-primary font-medium transition-all duration-300 cursor-pointer"
+            >
+              {link.label}
+            </div>
           ))}
         </nav>
 
@@ -78,13 +98,12 @@ const Header = () => {
         </button>
 
         {/* Contact Button (Desktop) */}
-        <Link href="/#contact">
-          <Button 
-            className="hidden md:block bg-primary hover:bg-primary/90 text-white"
-          >
-            Get Started
-          </Button>
-        </Link>
+        <Button 
+          onClick={() => handleNavigation("/#contact")}
+          className="hidden md:block bg-primary hover:bg-primary/90 text-white"
+        >
+          Get Started
+        </Button>
       </div>
 
       {/* Mobile Menu */}
@@ -93,19 +112,20 @@ const Header = () => {
       }`}>
         <nav className="flex flex-col space-y-4">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <a className="text-neutral-800 hover:text-primary font-medium transition-all duration-300">
-                {link.label}
-              </a>
-            </Link>
-          ))}
-          <Link href="/#contact">
-            <Button 
-              className="w-full bg-primary hover:bg-primary/90 text-white"
+            <div 
+              key={link.href} 
+              onClick={() => handleNavigation(link.href)} 
+              className="text-neutral-800 hover:text-primary font-medium transition-all duration-300 cursor-pointer"
             >
-              Get Started
-            </Button>
-          </Link>
+              {link.label}
+            </div>
+          ))}
+          <Button 
+            onClick={() => handleNavigation("/#contact")}
+            className="w-full bg-primary hover:bg-primary/90 text-white"
+          >
+            Get Started
+          </Button>
         </nav>
       </div>
     </header>
