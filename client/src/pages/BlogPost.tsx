@@ -122,11 +122,17 @@ const BlogPostPage = () => {
       setIsLoading(true);
       setError(null);
       
+      // Extract the slug from the post.link URL
+      // The link format is "/blog/post-slug"
+      const postSlug = post.link.split('/').pop();
+      
+      console.log('Fetching markdown for:', postSlug);
+      
       // Fetch the markdown content
-      fetch(`/src/data/blog-posts/${slug}.md`)
+      fetch(`/src/data/blog-posts/${postSlug}.md`)
         .then(response => {
           if (!response.ok) {
-            throw new Error('Failed to load markdown content');
+            throw new Error(`Failed to load markdown content for ${postSlug}`);
           }
           return response.text();
         })
@@ -140,7 +146,7 @@ const BlogPostPage = () => {
           setIsLoading(false);
         });
     }
-  }, [post, slug]);
+  }, [post]);
   
   useEffect(() => {
     // Handle scroll spy for the navigation
@@ -390,15 +396,35 @@ const BlogPostPage = () => {
                         <p>{post.description}</p>
                       </section>
                       
-                      {/* Prerequisites section */}
-                      <section id="prerequisites" className="mb-8">
-                        <h2 className="text-2xl font-bold mb-4">Prerequisites</h2>
-                        <ul>
-                          <li>A Microsoft Fabric account with appropriate permissions</li>
-                          <li>Basic understanding of data warehousing concepts</li>
-                          <li>Familiarity with SQL syntax for querying data</li>
-                        </ul>
-                      </section>
+                      {/* Render the actual markdown content */}
+                      <div 
+                        className="markdown-content" 
+                        dangerouslySetInnerHTML={{ 
+                          __html: markdownContent
+                            // Process alerts/notes
+                            .replace(/:::note([\s\S]*?):::/g, '<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-4"><div class="flex"><span class="text-blue-700 mr-2">ℹ️</span><div><h4 class="text-blue-700 font-medium">Note</h4><p class="text-blue-700">$1</p></div></div></div>')
+                            .replace(/:::warning([\s\S]*?):::/g, '<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-4"><div class="flex"><span class="text-yellow-700 mr-2">⚠️</span><div><h4 class="text-yellow-700 font-medium">Warning</h4><p class="text-yellow-700">$1</p></div></div></div>')
+                            .replace(/:::tip([\s\S]*?):::/g, '<div class="bg-green-50 border-l-4 border-green-500 p-4 my-4"><div class="flex"><span class="text-green-700 mr-2">💡</span><div><h4 class="text-green-700 font-medium">Tip</h4><p class="text-green-700">$1</p></div></div></div>')
+                            // Process headers with section IDs
+                            .replace(/## (.*?)(?=\n)/g, '<section id="$1-section" class="mb-8"><h2 class="text-2xl font-bold mb-4" id="$1">$1</h2>')
+                            .replace(/### (.*?)(?=\n)/g, '<h3 class="text-xl font-semibold mt-6 mb-3" id="$1">$1</h3>')
+                            // Process code blocks
+                            .replace(/```(.*?)\n([\s\S]*?)```/g, '<div class="bg-neutral-800 text-white p-4 rounded font-mono text-sm my-4"><pre class="whitespace-pre-wrap">$2</pre></div>')
+                            // Process lists
+                            .replace(/^\s*\d+\.\s+(.*?)$/gm, '<li>$1</li>')
+                            .replace(/^\s*\*\s+(.*?)$/gm, '<li>$1</li>')
+                            .replace(/(<li>.*?<\/li>\n)+/g, '<ol>$&</ol>')
+                            // Process bold and italic text
+                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                            // Process links
+                            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-primary hover:underline">$1</a>')
+                            // Process paragraphs
+                            .replace(/^(?!<[a-z]|$)(.*?)$/gm, '<p>$1</p>')
+                            // Close sections
+                            .replace(/<section id="(.*?)">([\s\S]*?)(?=<section id="|$)/g, '<section id="$1">$2</section>')
+                        }} 
+                      />
                       
                       {/* Setup section */}
                       <section id="setup" className="mb-8">
