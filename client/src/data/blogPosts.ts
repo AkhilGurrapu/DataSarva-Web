@@ -12,75 +12,75 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: "2",
-    title: "Getting Started with Power BI Dashboards",
-    description: "Discover how to create interactive Power BI dashboards that transform your data into actionable insights with custom visualizations.",
-    date: "February 28, 2023",
+    title: "Building an End-to-End ML Pipeline with Databricks",
+    description: "A step-by-step tutorial for implementing a production-ready machine learning pipeline using Databricks.",
+    date: "May 28, 2023",
     category: "Tutorials",
-    image: "https://cdn.pixabay.com/photo/2017/01/29/13/21/analytics-2017980_1280.png",
-    link: "/blog/power-bi-dashboards"
+    image: "https://unsplash.com/photos/gray-laptop-computer-showing-codes-8bghKxNU1j0/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTJ8fG1hY2hpbmUlMjBsZWFybmluZ3xlbnwwfHx8fDE3MTczNzE0NTF8MA&force=true&w=1920",
+    link: "/blog/building-ml-pipeline-databricks-tutorial"
   },
   {
     id: "3",
-    title: "Implementing Snowflake Data Warehouse",
-    description: "A comprehensive guide to implementing a Snowflake data warehouse architecture for enterprise-grade analytics and reporting.",
-    date: "January 12, 2023",
-    category: "Implementation",
-    image: "https://cdn.pixabay.com/photo/2016/12/11/08/01/data-mining-1898751_1280.jpg",
-    link: "/blog/snowflake-data-warehouse"
+    title: "The Business Leader's Guide to Data Governance",
+    description: "Understanding why data governance matters and how to implement it effectively in your organization.",
+    date: "May 10, 2023",
+    category: "Data Strategy",
+    image: "https://unsplash.com/photos/people-sitting-on-chair-in-front-of-table-with-laptop-and-monitor-NBPhiA3UorA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8YnVzaW5lc3MlMjBsZWFkZXJ8ZW58MHx8fHwxNzE3MzcxNDcwfDA&force=true&w=1920",
+    link: "/blog/business-leaders-guide-data-governance"
   },
   {
     id: "4",
-    title: "Using AI to Enhance Data Analytics Pipelines",
-    description: "Explore how artificial intelligence can be integrated into your data analytics pipelines to improve efficiency and uncover deeper insights.",
-    date: "December 5, 2022",
-    category: "AI & ML",
-    image: "https://cdn.pixabay.com/photo/2017/07/10/23/43/question-mark-2492009_1280.jpg",
-    link: "/blog/ai-data-analytics"
+    title: "Optimizing Snowflake Performance: Advanced Techniques",
+    description: "Learn advanced techniques for optimizing query performance and managing costs in your Snowflake environment.",
+    date: "April 22, 2023",
+    category: "Snowflake",
+    image: "https://unsplash.com/photos/person-looking-at-computer-monitor-8qEB0fTe9Vw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fHNub3dmbGFrZSUyMGRhdGF8ZW58MHx8fHwxNzE3MzcxNjQ1fDA&force=true&w=1920",
+    link: "/blog/optimizing-snowflake-performance"
   },
   {
     id: "5",
-    title: "Data Governance Best Practices",
-    description: "Learn essential data governance strategies to ensure data quality, security, and compliance across your organization.",
-    date: "November 18, 2022",
-    category: "Best Practices",
-    image: "https://cdn.pixabay.com/photo/2016/11/27/21/42/stock-1863880_1280.jpg",
-    link: "/blog/data-governance"
+    title: "Ethical Considerations in AI Development",
+    description: "Exploring the ethical challenges and best practices in developing artificial intelligence solutions.",
+    date: "April 5, 2023",
+    category: "AI & Ethics",
+    image: "https://unsplash.com/photos/robot-toy-on-white-surface-734mbWSojr8/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8QUklMjBldGhpY3N8ZW58MHx8fHwxNzE3MzcxNjY1fDA&force=true&w=1920",
+    link: "/blog/ethical-considerations-ai-development"
   },
   {
     id: "6",
-    title: "Introduction to Databricks for Analytics",
-    description: "Understand how Databricks provides a unified analytics platform for big data processing and machine learning at scale.",
-    date: "October 30, 2022",
-    category: "Tutorials",
-    image: "https://cdn.pixabay.com/photo/2018/03/15/16/11/background-3229528_1280.jpg",
-    link: "/blog/databricks-analytics"
+    title: "Implementing a Data Mesh Architecture",
+    description: "A comprehensive guide to implementing a data mesh architecture in your organization.",
+    date: "March 18, 2023",
+    category: "Data Architecture",
+    image: "https://unsplash.com/photos/person-using-macbook-pro-on-brown-wooden-table-IgUR1iX0mqM/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8ZGF0YSUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3MTczNzE2ODV8MA&force=true&w=1920",
+    link: "/blog/implementing-data-mesh-architecture"
   },
   {
     id: "7",
-    title: "Real-time Analytics with Kafka and Spark",
-    description: "Build a real-time analytics pipeline using Apache Kafka and Apache Spark for streaming data processing.",
-    date: "September 14, 2022",
-    category: "Implementation",
-    image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    link: "/blog/real-time-analytics"
+    title: "Power BI vs. Tableau: Choosing the Right BI Tool",
+    description: "A detailed comparison of two leading business intelligence platforms to help you make the right choice for your organization.",
+    date: "March 3, 2023",
+    category: "Business Intelligence",
+    image: "https://unsplash.com/photos/woman-in-blue-shirt-sitting-beside-table-UBhpOIHnazM/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8N3x8YnVzaW5lc3MlMjBpbnRlbGxpZ2VuY2V8ZW58MHx8fHwxNzE3MzcxNzA3fDA&force=true&w=1920",
+    link: "/blog/power-bi-vs-tableau"
   },
   {
     id: "8",
-    title: "Building a Data Mesh Architecture",
-    description: "Explore the principles and implementation strategies for a modern data mesh architecture that enables domain-oriented data ownership.",
-    date: "August 22, 2022",
-    category: "Architecture",
-    image: "https://cdn.pixabay.com/photo/2018/05/17/16/03/compass-3408928_1280.jpg",
-    link: "/blog/data-mesh"
+    title: "Getting Started with Apache Spark on Databricks",
+    description: "A beginner's guide to setting up and running Apache Spark workloads in the Databricks environment.",
+    date: "February 14, 2023",
+    category: "Tutorials",
+    image: "https://unsplash.com/photos/person-typing-on-laptop-computer-b1Hg7QI-zcc/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NXx8ZGF0YWJyaWNrc3xlbnwwfHx8fDE3MTczNzE3MjV8MA&force=true&w=1920",
+    link: "/blog/getting-started-spark-databricks"
   },
   {
     id: "9",
-    title: "Predictive Analytics for Business Forecasting",
-    description: "Learn how to implement predictive analytics models to improve business forecasting and decision-making processes.",
-    date: "July 7, 2022",
-    category: "AI & ML",
-    image: "https://cdn.pixabay.com/photo/2017/12/21/12/08/consulting-3031678_1280.jpg",
-    link: "/blog/predictive-analytics"
+    title: "5 AI Trends Reshaping Enterprise Data Analytics in 2023",
+    description: "Explore the latest advancements in AI and how they're transforming how enterprises derive value from their data.",
+    date: "June 15, 2023",
+    category: "AI & Machine Learning",
+    image: "https://unsplash.com/photos/people-sitting-on-chair-looking-at-the-person-standing-HyTwtsk8XqA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8QUklMjB0cmVuZHN8ZW58MHx8fHwxNzE3MzcxNDIzfDA&force=true&w=1920",
+    link: "/blog/ai-trends-reshaping-enterprise-data-analytics"
   },
   {
     id: "10",
@@ -125,23 +125,25 @@ export const learningPaths = [
 export const categories = [
   "All Categories",
   "Tutorials",
-  "Implementation",
-  "AI & ML",
-  "Architecture",
-  "Best Practices",
+  "Data Strategy",
+  "Snowflake",
+  "AI & Ethics",
+  "AI & Machine Learning",
+  "Data Architecture",
+  "Business Intelligence",
   "Security"
 ];
 
 // Popular tags
 export const popularTags = [
-  "Fabric",
+  "Microsoft Fabric",
   "Snowflake",
   "Databricks",
   "Power BI",
-  "Data Lake",
-  "ETL",
-  "AI",
+  "Tableau",
+  "Data Mesh",
+  "AI Ethics",
   "Machine Learning",
-  "SQL",
-  "Python"
+  "Data Governance",
+  "Apache Spark"
 ];
