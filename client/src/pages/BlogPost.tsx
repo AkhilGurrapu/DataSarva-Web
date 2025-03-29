@@ -145,23 +145,34 @@ const BlogPostPage = () => {
   useEffect(() => {
     // Handle scroll spy for the navigation
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
+      // Find all section elements
+      const sectionElements = document.querySelectorAll('section[id]');
       
-      // Find all section headings
-      const sections = document.querySelectorAll('[id^="section-"]');
+      if (sectionElements.length === 0) return;
       
       // Find the current section
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.getBoundingClientRect().top <= 200) {
-          const id = section.getAttribute('id');
-          if (id !== activeSection) {
-            setActiveSection(id || "");
-          }
+      let currentSection = "";
+      
+      for (let i = 0; i < sectionElements.length; i++) {
+        const section = sectionElements[i];
+        const rect = section.getBoundingClientRect();
+        
+        // When the section is near the top of the viewport
+        if (rect.top <= 150) {
+          currentSection = section.id;
+        } else {
+          // If we've already passed a section that's in view, stop checking
           break;
         }
       }
+      
+      if (currentSection && currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
     };
+    
+    // Initial call to set the active section on load
+    setTimeout(handleScroll, 500);
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -189,18 +200,27 @@ const BlogPostPage = () => {
   
   const readTime = Math.max(5, Math.ceil(post.description.split(' ').length / 200) + 5);
   
-  // Example sections for this blog post 
-  // In a real implementation, these would come from your CMS or database
-  const sections = [
-    { id: "section-overview", title: "Overview" },
-    { id: "section-prerequisites", title: "Prerequisites" },
-    { id: "section-setup", title: "Setting up the environment" },
-    { id: "section-step1", title: "Step 1: Create a workspace" },
-    { id: "section-step2", title: "Step 2: Create a lakehouse" },
-    { id: "section-step3", title: "Step 3: Load and query data" },
-    { id: "section-step4", title: "Step 4: Visualize results" },
-    { id: "section-conclusion", title: "Conclusion" }
-  ];
+  // State for storing sections from markdown
+  const [sections, setSections] = useState([
+    { id: "overview", title: "Overview" },
+    { id: "prerequisites", title: "Prerequisites" },
+    { id: "setup", title: "Setting up the environment" },
+    { id: "step1", title: "Step 1: Create a workspace" },
+    { id: "step2", title: "Step 2: Create a lakehouse" },
+    { id: "step3", title: "Step 3: Load and query data" },
+    { id: "step4", title: "Step 4: Visualize results" },
+    { id: "conclusion", title: "Conclusion" }
+  ]);
+  
+  // State for parsed markdown front matter
+  const [frontMatter, setFrontMatter] = useState({
+    title: post?.title || "",
+    description: post?.description || "",
+    date: post?.date || "",
+    category: post?.category || "",
+    estimatedTime: 30,
+    skill_level: "Intermediate",
+  });
 
   return (
     <div className="min-h-screen bg-white">
@@ -316,6 +336,42 @@ const BlogPostPage = () => {
                 </div>
                 
                 {/* Article Content */}
+                {/* Author info */}
+                <div className="mb-8 flex items-center p-4 bg-neutral-50 rounded-lg border border-neutral-100">
+                  <img 
+                    src="https://randomuser.me/api/portraits/men/32.jpg" 
+                    alt="Author" 
+                    className="w-12 h-12 rounded-full mr-4" 
+                  />
+                  <div>
+                    <h3 className="font-bold text-sm">Michael Chen</h3>
+                    <p className="text-xs text-neutral-600">Data Science & AI Technical Lead</p>
+                    <p className="text-xs text-neutral-500 mt-1">Last updated: {post.date}</p>
+                  </div>
+                </div>
+
+                {/* Article metadata */}
+                <div className="mb-8 pb-6 border-b border-neutral-200">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                      <p className="text-xs text-neutral-500 mb-1">Title</p>
+                      <p className="text-sm font-medium">{frontMatter.title}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 mb-1">Date</p>
+                      <p className="text-sm">{frontMatter.date}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 mb-1">Category</p>
+                      <p className="text-sm">{frontMatter.category}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-neutral-500 mb-1">Skill Level</p>
+                      <p className="text-sm">{frontMatter.skill_level}</p>
+                    </div>
+                  </div>
+                </div>
+                
                 <div className="prose max-w-none">
                   {isLoading ? (
                     <div className="flex justify-center py-12">
@@ -327,12 +383,209 @@ const BlogPostPage = () => {
                       <p>{error}</p>
                     </div>
                   ) : (
-                    <div 
-                      className="markdown-content" 
-                      dangerouslySetInnerHTML={{ 
-                        __html: markdownToHtml(markdownContent) 
-                      }} 
-                    />
+                    <>
+                      {/* Overview section */}
+                      <section id="overview" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Overview</h2>
+                        <p>{post.description}</p>
+                      </section>
+                      
+                      {/* Prerequisites section */}
+                      <section id="prerequisites" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Prerequisites</h2>
+                        <ul>
+                          <li>A Microsoft Fabric account with appropriate permissions</li>
+                          <li>Basic understanding of data warehousing concepts</li>
+                          <li>Familiarity with SQL syntax for querying data</li>
+                        </ul>
+                      </section>
+                      
+                      {/* Setup section */}
+                      <section id="setup" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Setting up the environment</h2>
+                        <p>Before you can create a lakehouse, you'll need to ensure your environment is properly configured:</p>
+                        <ol>
+                          <li>Sign in to Microsoft Fabric at <a href="https://app.fabric.microsoft.com" target="_blank" rel="noopener noreferrer">app.fabric.microsoft.com</a></li>
+                          <li>Make sure you have the necessary permissions to create resources</li>
+                          <li>Enable the Data Engineering experience in your workspace settings</li>
+                        </ol>
+                      </section>
+                      
+                      {/* Step 1 section */}
+                      <section id="step1" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Step 1: Create a workspace</h2>
+                        <p>To create a lakehouse, you first need to create or select a workspace:</p>
+                        <ol>
+                          <li>In the Microsoft Fabric portal, click on <strong>Workspaces</strong> in the left navigation menu.</li>
+                          <li>Click <strong>New workspace</strong> to create a new workspace.</li>
+                          <li>Enter a name for your workspace, select the appropriate licensing mode, and click <strong>Apply</strong>.</li>
+                          <li>Once created, navigate to the workspace by clicking on its name.</li>
+                        </ol>
+                        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 my-4">
+                          <div className="flex">
+                            <span className="text-blue-700 mr-2">ℹ️</span>
+                            <div>
+                              <h4 className="text-blue-700 font-medium">Note</h4>
+                              <p className="text-blue-700">Make sure you create the workspace in a region that supports all Microsoft Fabric features if you plan to use them.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      
+                      {/* Step 2 section */}
+                      <section id="step2" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Step 2: Create a lakehouse</h2>
+                        <p>Once you have a workspace, you can create a lakehouse:</p>
+                        <ol>
+                          <li>In your workspace, click the <strong>+ New</strong> button.</li>
+                          <li>Select <strong>Lakehouse</strong> from the list of available items.</li>
+                          <li>Enter a name for your lakehouse and click <strong>Create</strong>.</li>
+                        </ol>
+                        <p>Your lakehouse will be created with the following components:</p>
+                        <ul>
+                          <li><strong>Tables</strong> - Managed Delta tables for structured data</li>
+                          <li><strong>Files</strong> - Unstructured data storage</li>
+                          <li><strong>SQL endpoint</strong> - For running SQL queries against your data</li>
+                        </ul>
+                        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-4">
+                          <div className="flex">
+                            <span className="text-yellow-700 mr-2">⚠️</span>
+                            <div>
+                              <h4 className="text-yellow-700 font-medium">Warning</h4>
+                              <p className="text-yellow-700">Creating a lakehouse might take a few moments. Do not navigate away from the page until the process completes.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      
+                      {/* Step 3 section */}
+                      <section id="step3" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Step 3: Load and query data</h2>
+                        <p>Now that your lakehouse is created, you can load data into it and run queries:</p>
+                        <h3 className="text-xl font-semibold mb-3 mt-6">Loading data:</h3>
+                        <ol>
+                          <li>In your lakehouse, navigate to the <strong>Files</strong> section.</li>
+                          <li>Click <strong>Upload</strong> and select the data files you want to upload.</li>
+                          <li>After uploading, you can create tables from these files.</li>
+                        </ol>
+                        
+                        <h3 className="text-xl font-semibold mb-3 mt-6">Creating a table from files:</h3>
+                        <ol>
+                          <li>Right-click on a file or folder in the Files section.</li>
+                          <li>Select <strong>Load to Tables</strong>.</li>
+                          <li>Configure the schema and table options.</li>
+                          <li>Click <strong>Load</strong> to create the table.</li>
+                        </ol>
+                        
+                        <h3 className="text-xl font-semibold mb-3 mt-6">Running SQL queries:</h3>
+                        <ol>
+                          <li>Click on the <strong>SQL analytics endpoint</strong> tab.</li>
+                          <li>Write your SQL query in the query editor.</li>
+                          <li>Click <strong>Run</strong> to execute the query.</li>
+                        </ol>
+                        
+                        <div className="bg-green-50 border-l-4 border-green-500 p-4 my-4">
+                          <div className="flex">
+                            <span className="text-green-700 mr-2">💡</span>
+                            <div>
+                              <h4 className="text-green-700 font-medium">Tip</h4>
+                              <p className="text-green-700">You can use the SQL query editor to explore data with autocomplete and syntax highlighting. Try using the schema browser to see available tables.</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-gray-100 rounded-md p-4 my-4 font-mono text-sm overflow-x-auto">
+                          <pre>
+{`-- Sample SQL query to select data from a table
+SELECT 
+    ProductID,
+    ProductName,
+    UnitPrice,
+    UnitsInStock,
+    UnitsInStock * UnitPrice AS InventoryValue
+FROM 
+    Products
+WHERE 
+    UnitPrice > 20
+ORDER BY 
+    InventoryValue DESC;`}
+                          </pre>
+                        </div>
+                      </section>
+                      
+                      {/* Step 4 section */}
+                      <section id="step4" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Step 4: Visualize results</h2>
+                        <p>After querying your data, you can create visualizations to gain insights:</p>
+                        <ol>
+                          <li>Run a query in the SQL analytics endpoint.</li>
+                          <li>In the results pane, click the <strong>Chart</strong> tab.</li>
+                          <li>Select the chart type you want to create.</li>
+                          <li>Configure the chart by selecting:
+                            <ul>
+                              <li>X-axis (categories)</li>
+                              <li>Y-axis (values)</li>
+                              <li>Series (optional)</li>
+                            </ul>
+                          </li>
+                          <li>Customize the chart appearance using the options provided.</li>
+                          <li>Click <strong>Save as</strong> to save the chart to your workspace.</li>
+                        </ol>
+                        
+                        <div className="mt-6 mb-6">
+                          <img 
+                            src="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/images/explore-lakehouse-data.png" 
+                            alt="Data visualization example" 
+                            className="w-full h-auto rounded-md border border-gray-200" 
+                          />
+                          <p className="text-sm text-gray-600 mt-2 text-center">Example of a data visualization in Microsoft Fabric</p>
+                        </div>
+                        
+                        <div className="bg-green-50 border-l-4 border-green-500 p-4 my-4">
+                          <div className="flex">
+                            <span className="text-green-700 mr-2">💡</span>
+                            <div>
+                              <h4 className="text-green-700 font-medium">Tip</h4>
+                              <p className="text-green-700">You can pin your saved visualizations to dashboards for a consolidated view of your data insights.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      
+                      {/* Conclusion section */}
+                      <section id="conclusion" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4">Conclusion</h2>
+                        <p>In this tutorial, you've learned how to:</p>
+                        <ul>
+                          <li>Create a Microsoft Fabric workspace</li>
+                          <li>Create a lakehouse for storing and analyzing data</li>
+                          <li>Upload and organize data files</li>
+                          <li>Create Delta tables from your data</li>
+                          <li>Run SQL queries against your lakehouse data</li>
+                          <li>Create visualizations from your query results</li>
+                        </ul>
+                        
+                        <p className="mt-4">Microsoft Fabric lakehouses provide a powerful foundation for your data analytics projects, combining the best features of data lakes and data warehouses. With the lakehouse approach, you can manage all your data in a single location and apply various analytical techniques to extract valuable insights.</p>
+                        
+                        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 my-4">
+                          <div className="flex">
+                            <span className="text-blue-700 mr-2">ℹ️</span>
+                            <div>
+                              <h4 className="text-blue-700 font-medium">Next Steps</h4>
+                              <p className="text-blue-700">To further enhance your lakehouse, explore creating data pipelines to automate data ingestion, setting up scheduled refreshes, and connecting to Power BI for more advanced visualizations.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                      
+                      {/* Main content - to be dynamically parsed from markdown */}
+                      <div 
+                        className="markdown-content hidden" 
+                        dangerouslySetInnerHTML={{ 
+                          __html: markdownToHtml(markdownContent) 
+                        }} 
+                      />
+                    </>
                   )}
                 </div>
                 
