@@ -160,6 +160,7 @@ const BlogPostPage = () => {
               // Skip if it's an "Overview" section since we already added it
               if (title.toLowerCase() !== "overview") {
                 const id = title.toLowerCase().replace(/[^\w]+/g, '-') + "-section";
+                console.log("Adding section:", { id, title }); // Debug log
                 extractedSections.push({ id, title });
               }
             });
@@ -184,7 +185,12 @@ const BlogPostPage = () => {
       // Find all section elements
       const sectionElements = document.querySelectorAll('section[id]');
       
-      if (sectionElements.length === 0) return;
+      if (sectionElements.length === 0) {
+        console.log("No section elements found");
+        return;
+      }
+      
+      console.log("Found sections:", sectionElements.length);
       
       // Find the current section
       let currentSection = "";
@@ -196,6 +202,7 @@ const BlogPostPage = () => {
         // When the section is near the top of the viewport
         if (rect.top <= 150) {
           currentSection = section.id;
+          console.log("Section in view:", currentSection);
         } else {
           // If we've already passed a section that's in view, stop checking
           break;
@@ -203,6 +210,7 @@ const BlogPostPage = () => {
       }
       
       if (currentSection && currentSection !== activeSection) {
+        console.log("Setting active section:", currentSection);
         setActiveSection(currentSection);
       }
     };
@@ -294,13 +302,18 @@ const BlogPostPage = () => {
                             ? "border-primary text-primary font-medium" 
                             : "border-neutral-200 text-neutral-700"
                         }`}
+                        data-section-id={section.id}
                         onClick={(e) => {
                           e.preventDefault();
+                          console.log("Clicking on section:", section.id);
                           const element = document.getElementById(section.id);
                           if (element) {
-                            const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
+                            console.log("Element found:", element);
+                            const y = element.getBoundingClientRect().top + window.scrollY - 100;
                             window.scrollTo({top: y, behavior: 'smooth'});
                             setActiveSection(section.id);
+                          } else {
+                            console.log("Element not found with ID:", section.id);
                           }
                         }}
                       >
@@ -409,6 +422,12 @@ const BlogPostPage = () => {
                   ) : (
                     <>
                       {/* Render the actual markdown content */}
+                      {/* Add overview section manually */}
+                      <section id="overview-section" className="mb-8">
+                        <h2 className="text-2xl font-bold mb-4" id="overview-section-header">Overview</h2>
+                        <p>{post.description}</p>
+                      </section>
+                    
                       <div 
                         className="markdown-content" 
                         dangerouslySetInnerHTML={{ 
@@ -417,9 +436,15 @@ const BlogPostPage = () => {
                             .replace(/:::note([\s\S]*?):::/g, '<div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-4"><div class="flex"><span class="text-blue-700 mr-2">ℹ️</span><div><h4 class="text-blue-700 font-medium">Note</h4><p class="text-blue-700">$1</p></div></div></div>')
                             .replace(/:::warning([\s\S]*?):::/g, '<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-4"><div class="flex"><span class="text-yellow-700 mr-2">⚠️</span><div><h4 class="text-yellow-700 font-medium">Warning</h4><p class="text-yellow-700">$1</p></div></div></div>')
                             .replace(/:::tip([\s\S]*?):::/g, '<div class="bg-green-50 border-l-4 border-green-500 p-4 my-4"><div class="flex"><span class="text-green-700 mr-2">💡</span><div><h4 class="text-green-700 font-medium">Tip</h4><p class="text-green-700">$1</p></div></div></div>')
-                            // Process headers with section IDs
-                            .replace(/## (.*?)(?=\n)/g, '<section id="$1-section" class="mb-8"><h2 class="text-2xl font-bold mb-4" id="$1">$1</h2>')
-                            .replace(/### (.*?)(?=\n)/g, '<h3 class="text-xl font-semibold mt-6 mb-3" id="$1">$1</h3>')
+                            // Process headers with section IDs - create section IDs with lowercase and dashes
+                            .replace(/## (.*?)(?=\n)/g, function(match, title) {
+                              const id = title.toLowerCase().replace(/[^\w]+/g, '-') + "-section";
+                              return `<section id="${id}" class="mb-8"><h2 class="text-2xl font-bold mb-4" id="${id}-header">${title}</h2>`;
+                            })
+                            .replace(/### (.*?)(?=\n)/g, function(match, title) {
+                              const id = title.toLowerCase().replace(/[^\w]+/g, '-');
+                              return `<h3 class="text-xl font-semibold mt-6 mb-3" id="${id}">${title}</h3>`;
+                            })
                             // Process code blocks
                             .replace(/```(.*?)\n([\s\S]*?)```/g, '<div class="bg-neutral-800 text-white p-4 rounded font-mono text-sm my-4"><pre class="whitespace-pre-wrap">$2</pre></div>')
                             // Process lists
