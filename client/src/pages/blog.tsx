@@ -31,12 +31,12 @@ import { BlogPost } from "@/lib/types";
 const blogPosts: BlogPost[] = [
   {
     id: "1",
-    title: "5 AI Trends Reshaping Enterprise Data Analytics in 2023",
-    description: "Explore the latest advancements in AI and how they're transforming how enterprises derive value from their data.",
-    date: "June 15, 2023",
-    category: "AI & Machine Learning",
-    image: "https://unsplash.com/photos/people-sitting-on-chair-looking-at-the-person-standing-HyTwtsk8XqA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8QUklMjB0cmVuZHN8ZW58MHx8fHwxNzE3MzcxNDIzfDA&force=true&w=1920",
-    link: "/blog/ai-trends-reshaping-enterprise-data-analytics"
+    title: "Create a Microsoft Fabric Lakehouse",
+    description: "Learn how to create and configure a Microsoft Fabric lakehouse to store, process, and analyze large volumes of data using Delta tables and SQL queries.",
+    date: "March 15, 2023",
+    category: "Tutorials",
+    image: "https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/images/fabric-homepage.png",
+    link: "/blog/create-microsoft-fabric-lakehouse"
   },
   {
     id: "2",
