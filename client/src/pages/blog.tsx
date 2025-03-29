@@ -1,9 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, ArrowRight, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Search, 
+  ArrowRight, 
+  Calendar, 
+  Clock, 
+  Bookmark,
+  BookOpen, 
+  ChevronRight, 
+  ChevronDown, 
+  Tag,
+  Star,
+  ThumbsUp,
+  BookMarked,
+  Lightbulb,
+  FileText,
+  Filter,
+  BarChart2,
+  Brain,
+  Database
+} from "lucide-react";
 import { BlogPost } from "@/lib/types";
 
 // Extended blog posts list for the blog page
@@ -94,10 +115,188 @@ const categories = [
   "Business Intelligence"
 ];
 
+// Learning paths
+const learningPaths = [
+  {
+    title: "Data Engineering Fundamentals",
+    description: "Master the core concepts and tools of modern data engineering",
+    articles: 8,
+    hours: 12,
+    icon: <Database className="h-5 w-5 mr-2" />
+  },
+  {
+    title: "AI & ML in Production",
+    description: "Learn to deploy and manage AI/ML models in production environments",
+    articles: 6,
+    hours: 10,
+    icon: <Brain className="h-5 w-5 mr-2" />
+  },
+  {
+    title: "Business Intelligence Mastery",
+    description: "Develop expertise in BI tools, dashboarding, and data storytelling",
+    articles: 7,
+    hours: 8,
+    icon: <BarChart2 className="h-5 w-5 mr-2" />
+  }
+];
+
+// Popular tags
+const popularTags = [
+  "Snowflake", "Databricks", "Power BI", "Python", "SQL", "Data Lake", 
+  "Machine Learning", "Data Governance", "Data Mesh", "AI Ethics"
+];
+
+// Read time estimation function
+const estimateReadTime = (description: string): number => {
+  // Assume average reading speed of 200 words per minute
+  const words = description.split(' ').length;
+  // Add a base time of 3 minutes plus calculated time from description
+  return Math.max(5, Math.ceil(words / 200) + 3);
+};
+
+// Component for each learning path card
+const LearningPathCard = ({ path }: { path: any }) => (
+  <Card className="rounded-lg hover:shadow-md transition-all duration-300 border-l-4 border-primary">
+    <CardContent className="p-4 flex">
+      <div className="bg-primary/10 rounded-full p-3 mr-3 flex-shrink-0">
+        {path.icon}
+      </div>
+      <div>
+        <h3 className="font-bold text-lg">{path.title}</h3>
+        <p className="text-neutral-700 text-sm mb-2">{path.description}</p>
+        <div className="flex items-center text-sm text-neutral-600">
+          <FileText className="h-4 w-4 mr-1" />
+          <span className="mr-3">{path.articles} articles</span>
+          <Clock className="h-4 w-4 mr-1" />
+          <span>Approx. {path.hours} hours</span>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+);
+
+// Main blog post component with level indicator
+const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: boolean }) => {
+  const readTime = estimateReadTime(post.description);
+  
+  // Assign a difficulty level based on category and description
+  const getDifficultyLevel = () => {
+    if (post.category === "Tutorials" || post.title.includes("Getting Started")) {
+      return "Beginner";
+    } else if (post.title.includes("Advanced") || post.category === "Data Architecture") {
+      return "Advanced";
+    }
+    return "Intermediate";
+  };
+  
+  const difficulty = getDifficultyLevel();
+  const difficultyColor = 
+    difficulty === "Beginner" ? "bg-green-100 text-green-800" :
+    difficulty === "Intermediate" ? "bg-blue-100 text-blue-800" :
+    "bg-purple-100 text-purple-800";
+  
+  if (featured) {
+    return (
+      <Card className="rounded-xl shadow-md overflow-hidden bg-white border-none">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          <div className="h-full">
+            <div 
+              className="w-full h-full bg-cover bg-center min-h-[240px]"
+              style={{ backgroundImage: `url(${post.image})` }}
+              aria-label={`${post.title} illustration`}
+            ></div>
+          </div>
+          <CardContent className="p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className={`text-xs px-2 py-1 rounded-full ${difficultyColor} font-medium`}>
+                  {difficulty}
+                </span>
+                <div className="flex items-center text-neutral-500 text-xs">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  <span>{post.date}</span>
+                </div>
+              </div>
+              <span className="inline-block bg-primary/10 text-primary text-xs px-3 py-1 rounded-full mb-3">
+                {post.category}
+              </span>
+              <h3 className="text-xl font-bold mb-3 line-clamp-2">{post.title}</h3>
+              <p className="text-neutral-700 mb-4 text-sm line-clamp-3">
+                {post.description}
+              </p>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center text-sm text-neutral-600">
+                <Clock className="h-4 w-4 mr-1" />
+                <span>{readTime} min read</span>
+              </div>
+              <a 
+                href={post.link} 
+                className="text-primary font-medium flex items-center hover:underline"
+              >
+                Read Post
+                <ArrowRight className="ml-1 w-4 h-4" />
+              </a>
+            </div>
+          </CardContent>
+        </div>
+      </Card>
+    );
+  }
+  
+  return (
+    <Card className="rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden bg-white border-none">
+      <div className="h-40 overflow-hidden relative">
+        <div 
+          className="w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${post.image})` }}
+          aria-label={`${post.title} illustration`}
+        ></div>
+        <span className={`absolute top-2 right-2 text-xs px-2 py-1 rounded-full ${difficultyColor} font-medium`}>
+          {difficulty}
+        </span>
+      </div>
+      <CardContent className="p-5">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+            {post.category}
+          </span>
+          <div className="flex items-center text-neutral-500 text-xs">
+            <Calendar className="h-3 w-3 mr-1" />
+            <span>{post.date}</span>
+          </div>
+        </div>
+        <h3 className="text-lg font-bold mb-2 line-clamp-2">{post.title}</h3>
+        <p className="text-neutral-600 mb-4 text-sm line-clamp-2">
+          {post.description}
+        </p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center text-sm text-neutral-600">
+            <Clock className="h-4 w-4 mr-1" />
+            <span>{readTime} min read</span>
+          </div>
+          <a 
+            href={post.link} 
+            className="text-primary font-medium flex items-center hover:underline text-sm"
+          >
+            Read Post
+            <ArrowRight className="ml-1 w-3 h-3" />
+          </a>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+// No need for imports here as they're already imported at the top
+
 const Blog = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeCategory, setActiveCategory] = useState<string>("All Categories");
-
+  const [showFilters, setShowFilters] = useState(false);
+  // State for different tabs
+  const [activeTab, setActiveTab] = useState("all");
+  
   const filterBlogPosts = (posts: BlogPost[]) => {
     return posts
       .filter(post => 
@@ -110,97 +309,256 @@ const Blog = () => {
   };
 
   const filteredPosts = filterBlogPosts(blogPosts);
+  
+  // Get the featured post (first post or first in filtered list)
+  const featuredPost = filteredPosts.length > 0 ? filteredPosts[0] : null;
+  // Get remaining posts
+  const remainingPosts = filteredPosts.length > 1 ? filteredPosts.slice(1) : [];
+  
+  // Tutorial posts
+  const tutorialPosts = blogPosts.filter(post => post.category === "Tutorials");
+  
+  // Add smooth scrolling to anchor links
+  useEffect(() => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href')?.substring(1);
+        if (targetId) {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-neutral-50">
       <Header />
-      <main className="pt-32 pb-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Blog</h1>
-            <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
-              Stay updated with our latest insights, tutorials, and industry trends.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto mb-10">
-            <div className="relative">
-              <Input
-                type="text"
-                placeholder="Search articles..."
-                className="pl-10 py-6 text-lg"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <Search className="absolute top-1/2 left-3 transform -translate-y-1/2 text-neutral-500 h-5 w-5" />
+      <main className="pt-24 pb-20">
+        {/* Hero Banner */}
+        <div className="bg-gradient-to-r from-primary/90 to-primary text-white py-12 mb-8">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Knowledge Center</h1>
+              <p className="text-xl opacity-90 mb-8">
+                Discover tutorials, guides, and insights to accelerate your data analytics journey
+              </p>
+              <div className="relative max-w-2xl mx-auto">
+                <Input
+                  type="text"
+                  placeholder="Search for articles, tutorials, and more..."
+                  className="pl-10 py-6 text-lg rounded-full bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white/70 h-5 w-5" />
+              </div>
             </div>
           </div>
-
-          {/* Category Filters */}
-          <div className="flex flex-wrap justify-center mb-12 gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                className={`px-4 py-2 rounded-full border ${
-                  activeCategory === category 
-                    ? "bg-primary text-white border-primary" 
-                    : "border-neutral-300 text-neutral-700 hover:border-primary hover:text-primary"
-                } transition-all duration-300`}
-                onClick={() => setActiveCategory(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Blog Posts Grid */}
-          {filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post) => (
-                <Card 
-                  key={post.id}
-                  className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
-                >
-                  <div className="h-48 overflow-hidden">
-                    <div 
-                      className="w-full h-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${post.image})` }}
-                      aria-label={`${post.title} illustration`}
-                    ></div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center mb-3">
-                      <Calendar className="h-4 w-4 text-neutral-500 mr-1" />
-                      <span className="text-xs text-neutral-700">{post.date}</span>
-                      <span className="mx-2">•</span>
-                      <span className="text-xs text-neutral-700">{post.category}</span>
-                    </div>
-                    <h3 className="text-lg font-bold mb-2">{post.title}</h3>
-                    <p className="text-neutral-700 mb-4 text-sm">
-                      {post.description}
-                    </p>
-                    <a 
-                      href={post.link} 
-                      className="text-primary font-medium flex items-center hover:underline"
-                    >
-                      Read Post
-                      <ArrowRight className="ml-1 w-4 h-4" />
-                    </a>
-                  </CardContent>
-                </Card>
+        </div>
+        
+        <div className="container mx-auto px-6">
+          {/* Learning Paths Section */}
+          <section className="mb-12">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold flex items-center">
+                <BookMarked className="mr-2 h-6 w-6 text-primary" />
+                Learning Paths
+              </h2>
+              <a href="#" className="text-primary font-medium flex items-center hover:underline">
+                View all paths
+                <ChevronRight className="ml-1 w-4 h-4" />
+              </a>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {learningPaths.map((path, index) => (
+                <LearningPathCard key={index} path={path} />
               ))}
             </div>
-          ) : (
-            <div className="text-center py-16">
-              <div className="text-neutral-500 mb-4">
-                <Search className="h-12 w-12 mx-auto" />
-              </div>
-              <h3 className="text-2xl font-bold mb-2">No articles found</h3>
-              <p className="text-neutral-700">
-                Try adjusting your search or filter to find what you're looking for.
-              </p>
+          </section>
+          
+          {/* Main Content Tabs */}
+          <Tabs defaultValue="all" className="mb-8" onValueChange={setActiveTab}>
+            <div className="flex justify-between items-center mb-4">
+              <TabsList className="bg-transparent border">
+                <TabsTrigger 
+                  value="all" 
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  All Content
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="tutorials" 
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  Tutorials
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="articles" 
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  Articles
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="saved" 
+                  className="data-[state=active]:bg-primary data-[state=active]:text-white"
+                >
+                  Saved
+                </TabsTrigger>
+              </TabsList>
+              
+              <Button 
+                variant="outline" 
+                className="flex items-center"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Filter className="mr-2 h-4 w-4" />
+                Filters
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
             </div>
-          )}
+            
+            {/* Filters */}
+            {showFilters && (
+              <div className="bg-white p-4 rounded-lg shadow-sm mb-6 border border-neutral-200">
+                <h3 className="font-medium mb-3">Filter by category:</h3>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      className={`px-3 py-1.5 rounded-full text-sm ${
+                        activeCategory === category 
+                          ? "bg-primary text-white" 
+                          : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
+                      } transition-all duration-300`}
+                      onClick={() => setActiveCategory(category)}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+                
+                <h3 className="font-medium mb-2">Popular tags:</h3>
+                <div className="flex flex-wrap gap-2">
+                  {popularTags.map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700 cursor-pointer hover:bg-neutral-200"
+                    >
+                      <Tag className="mr-1 h-3 w-3" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <TabsContent value="all" className="mt-0">
+              {/* Featured Article */}
+              {featuredPost && (
+                <div className="mb-8">
+                  <h2 className="text-2xl font-bold mb-4">Featured</h2>
+                  <BlogPostCard post={featuredPost} featured={true} />
+                </div>
+              )}
+              
+              {/* Recent Articles */}
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold mb-4">Recent Articles</h2>
+                {remainingPosts.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {remainingPosts.map((post) => (
+                      <BlogPostCard key={post.id} post={post} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-10 bg-white rounded-lg">
+                    <div className="text-neutral-400 mb-4">
+                      <Search className="h-12 w-12 mx-auto" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">No articles found</h3>
+                    <p className="text-neutral-600 max-w-md mx-auto">
+                      Try adjusting your search or filter to find what you're looking for.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="tutorials" className="mt-0">
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-2xl font-bold">Step-by-Step Tutorials</h2>
+                  <div className="flex items-center text-neutral-700 text-sm">
+                    <Lightbulb className="h-4 w-4 mr-1 text-yellow-500" />
+                    <span>Learn hands-on skills</span>
+                  </div>
+                </div>
+                
+                {tutorialPosts.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {tutorialPosts.map((post) => (
+                      <BlogPostCard key={post.id} post={post} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-10 bg-white rounded-lg">
+                    <p className="text-neutral-600">No tutorials available in this category.</p>
+                  </div>
+                )}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="articles" className="mt-0">
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold mb-4">Articles & Insights</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {blogPosts
+                    .filter(post => post.category !== "Tutorials")
+                    .map((post) => (
+                      <BlogPostCard key={post.id} post={post} />
+                    ))}
+                </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="saved" className="mt-0">
+              <div className="text-center py-16 bg-white rounded-lg">
+                <Bookmark className="h-12 w-12 mx-auto text-neutral-400 mb-4" />
+                <h3 className="text-xl font-bold mb-2">No saved articles yet</h3>
+                <p className="text-neutral-600 max-w-md mx-auto mb-6">
+                  Save articles to read later by clicking the bookmark icon on any article.
+                </p>
+                <Button onClick={() => setActiveTab("all")}>
+                  Browse Articles
+                </Button>
+              </div>
+            </TabsContent>
+          </Tabs>
+          
+          {/* Page Navigation */}
+          <div className="flex justify-center mt-10">
+            <div className="flex space-x-2">
+              <Button variant="outline" className="px-4">
+                1
+              </Button>
+              <Button variant="outline" className="px-4">
+                2
+              </Button>
+              <Button variant="outline" className="px-4">
+                3
+              </Button>
+              <Button variant="outline" className="px-4">
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
