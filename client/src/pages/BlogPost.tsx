@@ -19,14 +19,10 @@ import {
 import { BlogPost } from "@/lib/types";
 import { blogPosts } from "../data/blogPosts";
 import { Button } from "@/components/ui/button";
-
-interface CodeBlockProps {
-  language: string;
-  code: string;
-}
+import { parseMarkdown, markdownToHtml } from "@/lib/markdown";
 
 // Code Block Component
-const CodeBlock = ({ language, code }: CodeBlockProps) => {
+const CodeBlock = ({ language, code }: { language: string; code: string }) => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -110,12 +106,41 @@ const BlogPostPage = () => {
   const [location] = useLocation();
   const slug = location.split("/").pop();
   const [activeSection, setActiveSection] = useState("");
+  const [markdownContent, setMarkdownContent] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Find the blog post data from our mock data
   const post = blogPosts.find((p: BlogPost) => {
     const postSlug = p.link.split("/").pop();
     return postSlug === slug;
   });
+  
+  // In a real implementation, we would fetch the markdown content from an API
+  useEffect(() => {
+    if (post) {
+      setIsLoading(true);
+      setError(null);
+      
+      // Fetch the markdown content
+      fetch(`/src/data/blog-posts/${slug}.md`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to load markdown content');
+          }
+          return response.text();
+        })
+        .then(content => {
+          setMarkdownContent(content);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error loading markdown:', error);
+          setError(error.message);
+          setIsLoading(false);
+        });
+    }
+  }, [post, slug]);
   
   useEffect(() => {
     // Handle scroll spy for the navigation
@@ -290,224 +315,25 @@ const BlogPostPage = () => {
                   </div>
                 </div>
                 
-                {/* Article Content - this would be dynamically generated from your CMS */}
+                {/* Article Content */}
                 <div className="prose max-w-none">
-                  {/* Overview Section */}
-                  <section id="section-overview" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                    <p className="mb-4">
-                      Large-scale data analytics solutions have traditionally been built around a data warehouse, in which data is stored in relational tables and queried using SQL. The growth in "big data" (characterized by high volumes, variety, and velocity of new data assets) together with the availability of low-cost storage and cloud-scale distributed compute technologies has led to an approach to analytical data in which, the data itself is often stored in files in a data lake, rather than imposed with a fixed schema.
-                    </p>
-                    <p className="mb-4">
-                      However, many data engineers and analysts need to benefit from the best features of both of these approaches by combining them in a data lakehouse; in which data is stored in files in a data lake and a relational schema is applied to them as a metadata layer so that they can be queried using traditional SQL semantics.
-                    </p>
-                  </section>
-                  
-                  {/* Prerequisites Section */}
-                  <section id="section-prerequisites" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Prerequisites</h2>
-                    <p className="mb-4">To complete this exercise, you will need:</p>
-                    <ul className="list-disc pl-6 mb-6">
-                      <li>Access to a Microsoft Fabric environment</li>
-                      <li>Basic understanding of SQL concepts</li>
-                      <li>Understanding of data lakes and warehouses</li>
-                    </ul>
-                    
-                    <Note>
-                      This lab takes approximately 30 minutes to complete.
-                    </Note>
-                  </section>
-                  
-                  {/* Setup Section */}
-                  <section id="section-setup" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Setting up the environment</h2>
-                    <p className="mb-4">
-                      In Microsoft Fabric, a lakehouse provides highly scalable file storage in a OneLake store (built on Azure Data Lake Store Gen2) with a metadata for relational objects such as tables and views based on the open source Delta Lake table format. Delta Lake enables you to define a schema of tables in your lakehouse that you can query using SQL.
-                    </p>
-                    
-                    <Note type="warning">
-                      You need a Microsoft Fabric trial to complete this exercise.
-                    </Note>
-                  </section>
-                  
-                  {/* Step 1 */}
-                  <section id="section-step1" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Create a workspace</h2>
-                    <p className="mb-4">Before working with data in Fabric, create a workspace with the Fabric trial enabled.</p>
-                    
-                    <Step number={1} title="Navigate to the Microsoft Fabric home page">
-                      <p className="mb-4">Go to <a href="https://app.fabric.microsoft.com" className="text-primary hover:underline">https://app.fabric.microsoft.com</a> in a browser, and sign in with your Fabric credentials.</p>
-                    </Step>
-                    
-                    <Step number={2} title="Select Workspaces">
-                      <p className="mb-4">In the menu bar on the left, select <strong>Workspaces</strong> (the icon looks similar to ⬡).</p>
-                    </Step>
-                    
-                    <Step number={3} title="Create a new workspace">
-                      <p className="mb-4">Create a new workspace with a name of your choice, selecting a licensing mode in the <strong>Advanced</strong> section that includes Fabric capacity (Trial, Premium, or Fabric).</p>
-                      
-                      <CodeBlock 
-                        language="bash" 
-                        code='# Example PowerShell command (if using automation)
-New-FabricWorkspace -Name "DataAnalytics-Workshop" -CapacityType "Trial"'
-                      />
-                    </Step>
-                    
-                    <Step number={4} title="Verify the workspace">
-                      <p className="mb-4">When your new workspace opens, it should be empty. You'll now create a Data Engineering experience in this workspace.</p>
-                      
-                      <img 
-                        src="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/images/create-workspace.png" 
-                        alt="Empty Fabric workspace" 
-                        className="w-full rounded-md border border-neutral-200 shadow-sm mb-4"
-                      />
-                    </Step>
-                  </section>
-                  
-                  {/* Step 2 */}
-                  <section id="section-step2" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Create a lakehouse</h2>
-                    <p className="mb-4">Now that you have a workspace, it's time to create a lakehouse to store your data.</p>
-                    
-                    <Step number={1} title="Create a new lakehouse">
-                      <p className="mb-4">In your Fabric workspace:</p>
-                      <ol className="list-decimal pl-6 mb-4">
-                        <li>Select the <strong>Data Engineering</strong> experience from the experience switcher at the bottom left.</li>
-                        <li>On the Data Engineering home page, select the <strong>Lakehouse</strong> tile to create a new lakehouse.</li>
-                        <li>In the <strong>New lakehouse</strong> dialog box, enter the name "Data-Lakehouse" for your lakehouse, then select <strong>Create</strong>.</li>
-                      </ol>
-                      
-                      <Note type="tip">
-                        Creating a lakehouse provisions both a storage layer and a compute engine, allowing you to immediately start querying and analyzing data.
-                      </Note>
-                    </Step>
-                    
-                    <Step number={2} title="Explore the lakehouse interface">
-                      <p className="mb-4">After a few seconds, a new lakehouse will be created and its interface will be displayed. You should see something like this:</p>
-                      
-                      <img 
-                        src="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/images/new-lakehouse.png" 
-                        alt="New lakehouse interface" 
-                        className="w-full rounded-md border border-neutral-200 shadow-sm mb-4"
-                      />
-                      
-                      <p className="mb-4">The lakehouse interface includes:</p>
-                      <ul className="list-disc pl-6 mb-4">
-                        <li>A <strong>Tables</strong> folder where you can define and work with tables</li>
-                        <li>A <strong>Files</strong> section where you can explore the underlying files in the lakehouse</li>
-                        <li>A query pane where you can run SQL code against the tables</li>
-                      </ul>
-                    </Step>
-                  </section>
-                  
-                  {/* Step 3 */}
-                  <section id="section-step3" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Load and query data</h2>
-                    
-                    <Step number={1} title="Upload a sample file">
-                      <p className="mb-4">Let's load some data into the lakehouse:</p>
-                      <ol className="list-decimal pl-6 mb-4">
-                        <li>Download the <a href="https://aka.ms/fabric-lakehouse-data" className="text-primary hover:underline">sample data file</a> to your local machine.</li>
-                        <li>In the lakehouse interface, select the <strong>Files</strong> section.</li>
-                        <li>On the toolbar, select <strong>Upload</strong> {'->'} <strong>Upload files</strong>.</li>
-                        <li>Browse to and select the downloaded data file, then click <strong>Open</strong>.</li>
-                      </ol>
-                      
-                      <CodeBlock 
-                        language="sql" 
-                        code="-- Example SQL query to view the table after loading
-SELECT TOP 100 * FROM sales_data;"
-                      />
-                    </Step>
-                    
-                    <Step number={2} title="Create a table from the file">
-                      <p className="mb-4">Now that we have a file in our lakehouse, let's create a table from it:</p>
-                      <ol className="list-decimal pl-6 mb-4">
-                        <li>Right-click the uploaded file and select <strong>Load to Tables</strong>.</li>
-                        <li>In the dialog box, accept the default settings and select <strong>Load</strong>.</li>
-                      </ol>
-                      
-                      <Note>
-                        The data is being loaded into a Delta table. Delta provides transaction logs, data versioning, and other advanced features.
-                      </Note>
-                    </Step>
-                  </section>
-                  
-                  {/* Step 4 */}
-                  <section id="section-step4" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Visualize results</h2>
-                    
-                    <Step number={1} title="Query the data">
-                      <p className="mb-4">Now that we have a table, let's query it:</p>
-                      <CodeBlock 
-                        language="sql" 
-                        code="SELECT 
-  YEAR(OrderDate) AS Year,
-  MONTH(OrderDate) AS Month,
-  SUM(SalesAmount) AS TotalSales
-FROM 
-  sales_data
-GROUP BY 
-  YEAR(OrderDate),
-  MONTH(OrderDate)
-ORDER BY 
-  Year, Month;"
-                      />
-                    </Step>
-                    
-                    <Step number={2} title="Create a visualization">
-                      <p className="mb-4">Let's turn these results into a visualization:</p>
-                      <ol className="list-decimal pl-6 mb-4">
-                        <li>Run the query above.</li>
-                        <li>After the results appear, select the <strong>Chart</strong> view.</li>
-                        <li>Choose <strong>Line chart</strong> as the visualization type.</li>
-                        <li>Configure the chart settings:
-                          <ul className="list-disc pl-6 mb-2">
-                            <li>X-axis: Month</li>
-                            <li>Y-axis: TotalSales</li>
-                            <li>Legend: Year</li>
-                          </ul>
-                        </li>
-                      </ol>
-                      
-                      <img 
-                        src="https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/images/sales-visualization.png" 
-                        alt="Sales visualization" 
-                        className="w-full rounded-md border border-neutral-200 shadow-sm mb-4"
-                      />
-                    </Step>
-                  </section>
-                  
-                  {/* Conclusion */}
-                  <section id="section-conclusion" className="mb-10">
-                    <h2 className="text-2xl font-bold mb-4">Conclusion</h2>
-                    <p className="mb-4">
-                      In this exercise, you explored how to create a lakehouse in Microsoft Fabric. You learned how to:
-                    </p>
-                    <ul className="list-disc pl-6 mb-6">
-                      <li>Create a workspace with Fabric enabled</li>
-                      <li>Create a lakehouse to store data</li>
-                      <li>Upload files to the lakehouse</li>
-                      <li>Create tables from the files</li>
-                      <li>Query and visualize the data</li>
-                    </ul>
-                    
-                    <p className="mb-4">
-                      Lakehouses combine the best features of data lakes and data warehouses, providing both the flexibility of files and the structure of tables. This allows you to work with your data using familiar SQL semantics while maintaining the advantages of a data lake architecture.
-                    </p>
-                    
-                    <div className="bg-neutral-100 p-6 rounded-lg mt-8">
-                      <h3 className="text-xl font-bold mb-4">Further Learning</h3>
-                      <p className="mb-4">
-                        To learn more about Microsoft Fabric lakehouses, explore these resources:
-                      </p>
-                      <ul className="list-disc pl-6">
-                        <li><a href="#" className="text-primary hover:underline">Microsoft Fabric documentation</a></li>
-                        <li><a href="#" className="text-primary hover:underline">Delta Lake documentation</a></li>
-                        <li><a href="#" className="text-primary hover:underline">Advanced data engineering in Fabric</a></li>
-                      </ul>
+                  {isLoading ? (
+                    <div className="flex justify-center py-12">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                     </div>
-                  </section>
+                  ) : error ? (
+                    <div className="bg-red-50 text-red-800 p-4 rounded-md">
+                      <h3 className="font-bold mb-2">Error Loading Content</h3>
+                      <p>{error}</p>
+                    </div>
+                  ) : (
+                    <div 
+                      className="markdown-content" 
+                      dangerouslySetInnerHTML={{ 
+                        __html: markdownToHtml(markdownContent) 
+                      }} 
+                    />
+                  )}
                 </div>
                 
                 {/* Related Articles */}
@@ -531,9 +357,13 @@ ORDER BY
                             />
                           </div>
                           <div className="p-4">
-                            <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">{relatedPost.category}</span>
+                            <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">
+                              {relatedPost.category}
+                            </span>
                             <h3 className="font-bold mt-2 mb-1">{relatedPost.title}</h3>
-                            <p className="text-sm text-neutral-600 line-clamp-2">{relatedPost.description}</p>
+                            <p className="text-sm text-neutral-600 line-clamp-2">
+                              {relatedPost.description}
+                            </p>
                           </div>
                         </a>
                       ))}

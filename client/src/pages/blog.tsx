@@ -321,9 +321,10 @@ const Blog = () => {
   // Add smooth scrolling to anchor links
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const targetId = this.getAttribute('href')?.substring(1);
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        const targetId = href?.substring(1);
         if (targetId) {
           const targetElement = document.getElementById(targetId);
           if (targetElement) {
