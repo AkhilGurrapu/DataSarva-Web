@@ -102,6 +102,12 @@ const Step = ({ number, title, children }: { number: number; title: string; chil
   );
 };
 
+// Define a type for our section structure
+interface Section {
+  id: string;
+  title: string;
+}
+
 const BlogPostPage = () => {
   const [location] = useLocation();
   const slug = location.split("/").pop();
@@ -109,6 +115,7 @@ const BlogPostPage = () => {
   const [markdownContent, setMarkdownContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [sections, setSections] = useState<Section[]>([]);
   
   // Find the blog post data from our mock data
   const post = blogPosts.find((p: BlogPost) => {
@@ -143,14 +150,14 @@ const BlogPostPage = () => {
           const extractedSections = [];
           
           // First add the overview section
-          extractedSections.push({ id: "overview", title: "Overview" });
+          extractedSections.push({ id: "overview-section", title: "Overview" });
           
           // Then extract all h2 headings to build the navigation
           const h2Matches = content.match(/## (.*?)(?=\n)/g);
           if (h2Matches) {
             h2Matches.forEach(match => {
               const title = match.replace('## ', '').trim();
-              const id = title.toLowerCase().replace(/[^\w]+/g, '-');
+              const id = title.toLowerCase().replace(/[^\w]+/g, '-') + "-section";
               extractedSections.push({ id, title });
             });
           }
@@ -225,11 +232,6 @@ const BlogPostPage = () => {
   }
   
   const readTime = Math.max(5, Math.ceil(post.description.split(' ').length / 200) + 5);
-  
-  // State for storing sections from markdown
-  const [sections, setSections] = useState([
-    { id: "overview", title: "Overview" }
-  ]);
   
   // State for parsed markdown front matter
   const [frontMatter, setFrontMatter] = useState({
@@ -404,7 +406,7 @@ const BlogPostPage = () => {
                   ) : (
                     <>
                       {/* Overview section */}
-                      <section id="overview" className="mb-8">
+                      <section id="overview-section" className="mb-8">
                         <h2 className="text-2xl font-bold mb-4">Overview</h2>
                         <p>{post.description}</p>
                       </section>
