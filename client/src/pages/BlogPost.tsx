@@ -147,9 +147,9 @@ const BlogPostPage = () => {
           setMarkdownContent(content);
           
           // Extract sections from the markdown content
-          const extractedSections = [];
+          const extractedSections: Section[] = [];
           
-          // First add the overview section
+          // First add the overview section manually
           extractedSections.push({ id: "overview-section", title: "Overview" });
           
           // Then extract all h2 headings to build the navigation
@@ -157,8 +157,11 @@ const BlogPostPage = () => {
           if (h2Matches) {
             h2Matches.forEach(match => {
               const title = match.replace('## ', '').trim();
-              const id = title.toLowerCase().replace(/[^\w]+/g, '-') + "-section";
-              extractedSections.push({ id, title });
+              // Skip if it's an "Overview" section since we already added it
+              if (title.toLowerCase() !== "overview") {
+                const id = title.toLowerCase().replace(/[^\w]+/g, '-') + "-section";
+                extractedSections.push({ id, title });
+              }
             });
           }
           
@@ -405,12 +408,6 @@ const BlogPostPage = () => {
                     </div>
                   ) : (
                     <>
-                      {/* Overview section */}
-                      <section id="overview-section" className="mb-8">
-                        <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                        <p>{post.description}</p>
-                      </section>
-                      
                       {/* Render the actual markdown content */}
                       <div 
                         className="markdown-content" 
