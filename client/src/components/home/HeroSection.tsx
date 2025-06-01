@@ -304,7 +304,7 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute bottom-32 left-12 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute bottom-20 left-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 4s',
                   boxShadow: '0 8px 32px rgba(251, 146, 60, 0.2)'
@@ -319,7 +319,7 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute bottom-12 right-16 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute bottom-8 right-12 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 6s',
                   boxShadow: '0 8px 32px rgba(64, 224, 208, 0.2)'
@@ -334,7 +334,7 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute top-1/2 left-2 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute top-1/2 transform -translate-y-1/2 left-8 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 8s',
                   boxShadow: '0 8px 32px rgba(245, 158, 11, 0.2)'
@@ -381,7 +381,7 @@ const HeroSection = () => {
                 />
                 {/* Databricks (orange) */}
                 <path
-                  d="M90,420 Q160,360 240,300"
+                  d="M100,480 Q170,390 240,300"
                   stroke="rgba(251, 146, 60, 0.4)"
                   strokeWidth="2"
                   fill="none"
@@ -392,7 +392,7 @@ const HeroSection = () => {
                 />
                 {/* Microsoft Fabric (teal) */}
                 <path
-                  d="M340,520 Q290,410 240,300"
+                  d="M360,540 Q300,420 240,300"
                   stroke="rgba(64, 224, 208, 0.4)"
                   strokeWidth="2"
                   fill="none"
@@ -403,7 +403,7 @@ const HeroSection = () => {
                 />
                 {/* Power BI (yellow) */}
                 <path
-                  d="M30,300 Q135,300 240,300"
+                  d="M60,300 Q150,300 240,300"
                   stroke="rgba(234, 179, 8, 0.4)"
                   strokeWidth="2"
                   fill="none"
