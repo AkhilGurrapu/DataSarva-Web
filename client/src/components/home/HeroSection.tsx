@@ -304,7 +304,7 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute bottom-20 left-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute bottom-8 left-32 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 4s',
                   boxShadow: '0 8px 32px rgba(251, 146, 60, 0.2)'
@@ -381,7 +381,7 @@ const HeroSection = () => {
                 />
                 {/* Databricks (orange) */}
                 <path
-                  d="M100,480 Q170,390 240,300"
+                  d="M140,540 Q190,420 240,300"
                   stroke="rgba(251, 146, 60, 0.4)"
                   strokeWidth="2"
                   fill="none"
