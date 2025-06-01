@@ -297,7 +297,7 @@ const HeroSection = () => {
               >
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">AI/ML</span>
+                  <span className="text-xs text-white/80 font-mono">AI</span>
                 </div>
                 <div className="text-2xl">🤖</div>
                 <div className="text-xs text-white/60 mt-1">GPT • LLMs • GenAI</div>
@@ -456,16 +456,16 @@ const HeroSection = () => {
                 />
               </svg>
 
-              {/* Holographic Display */}
+              {/* AI Insights Display */}
               <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm p-3 rounded border border-cyan-400/50 font-mono text-xs text-cyan-400">
                 <div className="flex items-center space-x-2 mb-1">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                  <span>SYSTEM STATUS</span>
+                  <span>AI INSIGHTS</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
-                  <div>CPU: 97% ████████░</div>
-                  <div>MEM: 84% ███████░░</div>
-                  <div>NET: 156 Mbps ████████████</div>
+                  <div>LLM: 97% ████████░</div>
+                  <div>NLP: 84% ███████░░</div>
+                  <div>RAG: 92% █████████░</div>
                 </div>
               </div>
             </div>
