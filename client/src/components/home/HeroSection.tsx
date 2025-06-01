@@ -304,10 +304,10 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute bottom-24 left-8 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute bottom-32 left-12 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 4s',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+                  boxShadow: '0 8px 32px rgba(251, 146, 60, 0.2)'
                 }}
               >
                 <div className="flex items-center space-x-2 mb-2">
@@ -319,14 +319,14 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute bottom-16 right-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute bottom-12 right-16 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 6s',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+                  boxShadow: '0 8px 32px rgba(64, 224, 208, 0.2)'
                 }}
               >
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-3 h-3 bg-indigo-400 rounded-full animate-pulse"></div>
+                  <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">MS FABRIC</span>
                 </div>
                 <img src={fabricLogo} alt="Microsoft Fabric" className="w-8 h-8 object-contain" />
@@ -334,10 +334,10 @@ const HeroSection = () => {
               </div>
 
               <div 
-                className="absolute top-1/2 left-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute top-1/2 left-2 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 8s',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+                  boxShadow: '0 8px 32px rgba(245, 158, 11, 0.2)'
                 }}
               >
                 <div className="flex items-center space-x-2 mb-2">
@@ -381,7 +381,7 @@ const HeroSection = () => {
                 />
                 {/* Databricks (orange) */}
                 <path
-                  d="M80,450 Q160,380 240,300"
+                  d="M90,420 Q160,360 240,300"
                   stroke="rgba(251, 146, 60, 0.4)"
                   strokeWidth="2"
                   fill="none"
@@ -390,10 +390,10 @@ const HeroSection = () => {
                     animation: 'dataFlow 4s ease-in-out infinite 2s'
                   }}
                 />
-                {/* Microsoft Fabric (indigo) */}
+                {/* Microsoft Fabric (teal) */}
                 <path
-                  d="M360,480 Q300,400 240,300"
-                  stroke="rgba(129, 140, 248, 0.4)"
+                  d="M340,520 Q290,410 240,300"
+                  stroke="rgba(64, 224, 208, 0.4)"
                   strokeWidth="2"
                   fill="none"
                   style={{
@@ -403,7 +403,7 @@ const HeroSection = () => {
                 />
                 {/* Power BI (yellow) */}
                 <path
-                  d="M40,300 Q140,300 240,300"
+                  d="M30,300 Q135,300 240,300"
                   stroke="rgba(234, 179, 8, 0.4)"
                   strokeWidth="2"
                   fill="none"
