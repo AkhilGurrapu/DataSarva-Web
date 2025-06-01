@@ -259,8 +259,8 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">AI/ML</span>
                 </div>
-                <div className="text-2xl">🤖</div>
-                <div className="text-xs text-white/60 mt-1">Intelligence</div>
+                <div className="text-2xl">🚀</div>
+                <div className="text-xs text-white/60 mt-1">GPT • LLMs • GenAI</div>
               </div>
 
               <div 
@@ -271,17 +271,32 @@ const HeroSection = () => {
                 }}
               >
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">REALTIME</span>
+                  <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-white/80 font-mono">DATABRICKS</span>
                 </div>
-                <div className="text-2xl">⚡</div>
-                <div className="text-xs text-white/60 mt-1">Analytics</div>
+                <div className="text-2xl">🔥</div>
+                <div className="text-xs text-white/60 mt-1">Unified Analytics</div>
               </div>
 
               <div 
                 className="absolute bottom-16 right-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite 6s',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+                }}
+              >
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-3 h-3 bg-indigo-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-white/80 font-mono">MS FABRIC</span>
+                </div>
+                <div className="text-2xl">🧩</div>
+                <div className="text-xs text-white/60 mt-1">Unified Platform</div>
+              </div>
+
+              <div 
+                className="absolute top-1/2 left-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                style={{
+                  animation: 'floatModule 8s ease-in-out infinite 8s',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                 }}
               >
@@ -296,6 +311,7 @@ const HeroSection = () => {
               {/* Data Flow Lines */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none">
                 {/* Animated connection lines to central sphere */}
+                {/* Snowflake (blue) */}
                 <path
                   d="M80,80 Q200,150 240,300"
                   stroke="rgba(59, 130, 246, 0.4)"
@@ -306,6 +322,7 @@ const HeroSection = () => {
                     animation: 'dataFlow 4s ease-in-out infinite'
                   }}
                 />
+                {/* AI/ML (purple) */}
                 <path
                   d="M320,150 Q300,200 240,300"
                   stroke="rgba(168, 85, 247, 0.4)"
@@ -316,9 +333,10 @@ const HeroSection = () => {
                     animation: 'dataFlow 4s ease-in-out infinite 1s'
                   }}
                 />
+                {/* Databricks (orange) */}
                 <path
                   d="M80,450 Q160,380 240,300"
-                  stroke="rgba(34, 197, 94, 0.4)"
+                  stroke="rgba(251, 146, 60, 0.4)"
                   strokeWidth="2"
                   fill="none"
                   style={{
@@ -326,14 +344,26 @@ const HeroSection = () => {
                     animation: 'dataFlow 4s ease-in-out infinite 2s'
                   }}
                 />
+                {/* Microsoft Fabric (indigo) */}
                 <path
                   d="M360,480 Q300,400 240,300"
-                  stroke="rgba(234, 179, 8, 0.4)"
+                  stroke="rgba(129, 140, 248, 0.4)"
                   strokeWidth="2"
                   fill="none"
                   style={{
                     strokeDasharray: '6 3',
                     animation: 'dataFlow 4s ease-in-out infinite 3s'
+                  }}
+                />
+                {/* Power BI (yellow) */}
+                <path
+                  d="M40,300 Q140,300 240,300"
+                  stroke="rgba(234, 179, 8, 0.4)"
+                  strokeWidth="2"
+                  fill="none"
+                  style={{
+                    strokeDasharray: '8 6',
+                    animation: 'dataFlow 4s ease-in-out infinite 4s'
                   }}
                 />
               </svg>
