@@ -244,7 +244,10 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">SNOWFLAKE</span>
                 </div>
-                <div className="text-2xl">❄️</div>
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L15.5 8.5L22 12L15.5 15.5L12 22L8.5 15.5L2 12L8.5 8.5L12 2Z" fill="#29B5E8"/>
+                  <path d="M12 6L14 10L18 12L14 14L12 18L10 14L6 12L10 10L12 6Z" fill="#005EB8"/>
+                </svg>
                 <div className="text-xs text-white/60 mt-1">Cloud DW</div>
               </div>
 
@@ -259,7 +262,11 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">AI/ML</span>
                 </div>
-                <div className="text-2xl">🚀</div>
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="3" stroke="#A855F7" strokeWidth="2" fill="none"/>
+                  <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24" stroke="#A855F7" strokeWidth="1.5"/>
+                  <circle cx="12" cy="12" r="1" fill="#A855F7"/>
+                </svg>
                 <div className="text-xs text-white/60 mt-1">GPT • LLMs • GenAI</div>
               </div>
 
@@ -274,7 +281,11 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">DATABRICKS</span>
                 </div>
-                <div className="text-2xl">🔥</div>
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="8" width="20" height="8" rx="2" fill="#FF6B35"/>
+                  <rect x="6" y="4" width="12" height="8" rx="2" fill="#FF8C42"/>
+                  <rect x="10" y="12" width="4" height="8" rx="1" fill="#FF4500"/>
+                </svg>
                 <div className="text-xs text-white/60 mt-1">Unified Analytics</div>
               </div>
 
@@ -289,7 +300,12 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-indigo-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">MS FABRIC</span>
                 </div>
-                <div className="text-2xl">🧩</div>
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 4h6c1 0 2 1 2 2v6c0 1-1 2-2 2H4c-1 0-2-1-2-2V6c0-1 1-2 2-2z" fill="#40E0D0"/>
+                  <path d="M14 4h6c1 0 2 1 2 2v6c0 1-1 2-2 2h-6c-1 0-2-1-2-2V6c0-1 1-2 2-2z" fill="#20B2AA"/>
+                  <path d="M4 14h6c1 0 2 1 2 2v6c0 1-1 2-2 2H4c-1 0-2-1-2-2v-6c0-1 1-2 2-2z" fill="#008B8B"/>
+                  <path d="M14 14h6c1 0 2 1 2 2v6c0 1-1 2-2 2h-6c-1 0-2-1-2-2v-6c0-1 1-2 2-2z" fill="#48CAE4"/>
+                </svg>
                 <div className="text-xs text-white/60 mt-1">Unified Platform</div>
               </div>
 
@@ -304,7 +320,13 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">POWER BI</span>
                 </div>
-                <div className="text-2xl">📊</div>
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="#F59E0B" strokeWidth="1" fill="none"/>
+                  <rect x="6" y="12" width="3" height="6" fill="#F59E0B"/>
+                  <rect x="10" y="8" width="3" height="10" fill="#FBBF24"/>
+                  <rect x="14" y="6" width="3" height="12" fill="#FCD34D"/>
+                  <circle cx="18" cy="6" r="1" fill="#F59E0B"/>
+                </svg>
                 <div className="text-xs text-white/60 mt-1">Visualization</div>
               </div>
 
