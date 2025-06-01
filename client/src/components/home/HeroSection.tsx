@@ -47,85 +47,94 @@ const HeroSection = () => {
         animation: 'gradientShift 8s ease infinite'
       }}
     >
-      {/* 3D Background Elements */}
+      {/* Star Wars Space Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Animated Grid */}
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-            transform: 'perspective(1000px) rotateX(25deg) translateZ(-100px)',
-            animation: 'gridMove 20s linear infinite'
-          }}
-        />
-        
-        {/* Floating Particles */}
-        <div ref={particlesRef} className="absolute inset-0">
-          {Array.from({ length: 15 }, (_, i) => (
+        {/* Starfield */}
+        <div className="absolute inset-0">
+          {Array.from({ length: 200 }, (_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-white rounded-full opacity-60"
+              className="absolute bg-white rounded-full"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animation: `float ${5 + Math.random() * 10}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * 5}s`,
-                filter: 'blur(0.5px)',
-                boxShadow: '0 0 10px rgba(255,255,255,0.8)'
+                width: `${Math.random() * 2 + 1}px`,
+                height: `${Math.random() * 2 + 1}px`,
+                animation: `twinkle ${3 + Math.random() * 4}s ease-in-out infinite`,
+                animationDelay: `${Math.random() * 3}s`,
+                opacity: Math.random() * 0.8 + 0.2
               }}
             />
           ))}
         </div>
 
-        {/* 3D Geometric Shapes */}
-        <div className="absolute top-20 left-10 w-32 h-32 opacity-20">
+        {/* Moving Stars Effect */}
+        <div ref={particlesRef} className="absolute inset-0">
+          {Array.from({ length: 50 }, (_, i) => (
+            <div
+              key={i}
+              className="absolute bg-white"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: '1px',
+                height: `${Math.random() * 60 + 20}px`,
+                animation: `starWarp ${8 + Math.random() * 4}s linear infinite`,
+                animationDelay: `${Math.random() * 8}s`,
+                opacity: 0.6,
+                transformOrigin: 'center center'
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Nebula Effect */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `
+              radial-gradient(ellipse at 20% 50%, rgba(75, 0, 130, 0.4) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(46, 139, 87, 0.3) 0%, transparent 50%),
+              radial-gradient(ellipse at 40% 80%, rgba(0, 71, 171, 0.3) 0%, transparent 50%)
+            `,
+            animation: 'nebulaShift 20s ease-in-out infinite'
+          }}
+        />
+
+        {/* Digital Grid Lines */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+            transform: 'perspective(1000px) rotateX(60deg) translateZ(-200px)',
+            animation: 'gridScroll 15s linear infinite'
+          }}
+        />
+
+        {/* Holographic Elements */}
+        <div className="absolute top-1/4 left-10 opacity-20">
           <div 
-            className="w-full h-full border-2 border-white"
+            className="w-24 h-24 border border-cyan-400 rounded-full"
             style={{
-              transform: 'perspective(400px) rotateX(45deg) rotateY(45deg)',
-              animation: 'rotate3d 15s linear infinite'
+              boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)',
+              animation: 'holoScan 6s ease-in-out infinite'
             }}
           />
         </div>
         
-        <div className="absolute bottom-20 right-20 w-24 h-24 opacity-30">
+        <div className="absolute bottom-1/4 right-16 opacity-25">
           <div 
-            className="w-full h-full bg-white rounded-full"
+            className="w-16 h-16 border-2 border-blue-400"
             style={{
-              transform: 'perspective(400px) rotateX(30deg)',
-              animation: 'pulse 3s ease-in-out infinite, rotate3d 12s linear infinite reverse'
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              boxShadow: '0 0 15px rgba(0, 100, 255, 0.4)',
+              animation: 'holoRotate 8s linear infinite'
             }}
           />
-        </div>
-
-        {/* Data Visualization Elements */}
-        <div className="absolute top-1/2 right-10 transform -translate-y-1/2 opacity-40">
-          <svg width="120" height="80" viewBox="0 0 120 80" className="text-white">
-            <path 
-              d="M10,60 Q30,20 50,40 T90,30 L110,10" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2"
-              style={{ animation: 'drawLine 4s ease-in-out infinite' }}
-            />
-            {Array.from({ length: 6 }, (_, i) => (
-              <circle
-                key={i}
-                cx={10 + i * 20}
-                cy={60 - Math.random() * 40}
-                r="3"
-                fill="currentColor"
-                style={{
-                  animation: `pulse ${2 + Math.random() * 2}s ease-in-out infinite`,
-                  animationDelay: `${i * 0.5}s`
-                }}
-              />
-            ))}
-          </svg>
         </div>
       </div>
 
@@ -160,13 +169,12 @@ const HeroSection = () => {
           </div>
           <div className="w-full md:w-1/2">
             <div className="relative">
-              {/* Floating Data Cards with 3D Effects */}
+              {/* Professional Data Cards */}
               <div 
-                className="bg-white p-6 rounded-lg shadow-lg mb-6 ml-12 transform transition-all duration-300 hover:scale-105"
+                className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-xl mb-6 ml-12 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
                 style={{
-                  transform: 'perspective(1000px) rotateY(-5deg)',
-                  animation: 'float 6s ease-in-out infinite',
-                  boxShadow: '0 25px 50px rgba(0,0,0,0.15)'
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                 }}
               >
                 <div className="text-primary font-mono text-sm mb-2 flex items-center">
@@ -198,11 +206,10 @@ const HeroSection = () => {
               </div>
               
               <div 
-                className="bg-white p-6 rounded-lg shadow-lg mb-6 mr-12 transform transition-all duration-300 hover:scale-105"
+                className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-xl mb-6 mr-12 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
                 style={{
-                  transform: 'perspective(1000px) rotateY(5deg)',
-                  animation: 'float 6s ease-in-out infinite 2s',
-                  boxShadow: '0 25px 50px rgba(0,0,0,0.15)'
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                 }}
               >
                 <div className="text-accent font-mono text-sm mb-2 flex items-center">
@@ -239,11 +246,10 @@ const HeroSection = () => {
               </div>
               
               <div 
-                className="bg-white p-6 rounded-lg shadow-lg ml-6 transform transition-all duration-300 hover:scale-105"
+                className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-xl ml-6 transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
                 style={{
-                  transform: 'perspective(1000px) rotateY(-3deg)',
-                  animation: 'float 6s ease-in-out infinite 4s',
-                  boxShadow: '0 25px 50px rgba(0,0,0,0.15)'
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                 }}
               >
                 <div className="text-green-600 font-mono text-sm mb-2 flex items-center">
