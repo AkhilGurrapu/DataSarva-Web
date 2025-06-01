@@ -213,41 +213,79 @@ const HeroSection = () => {
               {/* Central Data Sphere */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div 
-                  className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/30 flex items-center justify-center relative"
+                  className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/30 flex items-center justify-center relative overflow-hidden"
                   style={{
                     animation: 'centralSphere 10s ease-in-out infinite',
                     boxShadow: '0 0 60px rgba(59, 130, 246, 0.3)'
                   }}
                 >
+                  {/* Pulsing energy waves */}
+                  <div 
+                    className="absolute inset-0 rounded-full border-2 border-cyan-400/30"
+                    style={{ animation: 'pulseWave 3s ease-out infinite' }}
+                  />
+                  <div 
+                    className="absolute inset-2 rounded-full border border-purple-400/30"
+                    style={{ animation: 'pulseWave 3s ease-out infinite 1s' }}
+                  />
+                  <div 
+                    className="absolute inset-4 rounded-full border border-green-400/30"
+                    style={{ animation: 'pulseWave 3s ease-out infinite 2s' }}
+                  />
+                  
                   {/* Inner rotating rings */}
                   <div 
-                    className="absolute inset-4 border-2 border-green-400/50 rounded-full"
+                    className="absolute inset-8 border-2 border-green-400/50 rounded-full"
                     style={{ animation: 'rotateRing 15s linear infinite' }}
                   />
                   <div 
-                    className="absolute inset-8 border border-blue-400/40 rounded-full"
+                    className="absolute inset-12 border border-blue-400/40 rounded-full"
                     style={{ animation: 'rotateRing 12s linear infinite reverse' }}
                   />
                   
-                  {/* Central icon */}
-                  <div className="text-4xl font-bold text-white">∞</div>
+                  {/* Swirling data particles inside sphere */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden">
+                    {Array.from({ length: 8 }, (_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+                        style={{
+                          left: '50%',
+                          top: '50%',
+                          transformOrigin: `${30 + i * 10}px 0`,
+                          animation: `orbitSphere ${8 + i * 2}s linear infinite`,
+                          animationDelay: `${i * 0.5}s`
+                        }}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Central holographic icon */}
+                  <div className="text-4xl font-bold text-white relative z-10" style={{ animation: 'hologramFlicker 4s ease-in-out infinite' }}>∞</div>
                 </div>
               </div>
 
               {/* Floating Tech Modules */}
               <div 
-                className="absolute top-16 left-16 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
+                className="absolute top-16 left-16 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer group"
                 style={{
                   animation: 'floatModule 8s ease-in-out infinite',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+                  boxShadow: '0 8px 32px rgba(59, 130, 246, 0.2)'
                 }}
               >
-                <div className="flex items-center space-x-2 mb-2">
+                {/* Glowing border effect on hover */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="flex items-center space-x-2 mb-2 relative z-10">
                   <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">SNOWFLAKE</span>
                 </div>
-                <div className="text-2xl">❄️</div>
-                <div className="text-xs text-white/60 mt-1">Cloud DW</div>
+                <div className="text-2xl relative z-10 group-hover:animate-bounce">❄️</div>
+                <div className="text-xs text-white/60 mt-1 relative z-10">Cloud DW</div>
+                
+                {/* Sparkle effects */}
+                <div className="absolute top-2 right-2 w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100" style={{ animation: 'sparkle 2s ease-in-out infinite' }} />
+                <div className="absolute bottom-2 left-2 w-1 h-1 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100" style={{ animation: 'sparkle 2s ease-in-out infinite 0.5s' }} />
               </div>
 
               <div 
@@ -378,7 +416,7 @@ const HeroSection = () => {
 
               {/* Floating Data Particles */}
               <div className="absolute inset-0 pointer-events-none">
-                {Array.from({ length: 20 }, (_, i) => (
+                {Array.from({ length: 30 }, (_, i) => (
                   <div
                     key={i}
                     className="absolute w-1 h-1 bg-white rounded-full opacity-60"
@@ -391,6 +429,32 @@ const HeroSection = () => {
                   />
                 ))}
               </div>
+
+              {/* Lightning Energy Bolts */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+                <path
+                  d="M80,80 L90,100 L85,120 L95,140 L240,280"
+                  stroke="rgba(0, 255, 255, 0.6)"
+                  strokeWidth="2"
+                  fill="none"
+                  style={{
+                    strokeDasharray: '4 8',
+                    animation: 'energyBolt 6s ease-in-out infinite',
+                    filter: 'drop-shadow(0 0 4px rgba(0, 255, 255, 0.8))'
+                  }}
+                />
+                <path
+                  d="M320,150 L310,170 L315,190 L305,210 L240,290"
+                  stroke="rgba(255, 0, 255, 0.6)"
+                  strokeWidth="2"
+                  fill="none"
+                  style={{
+                    strokeDasharray: '6 10',
+                    animation: 'energyBolt 6s ease-in-out infinite 2s',
+                    filter: 'drop-shadow(0 0 4px rgba(255, 0, 255, 0.8))'
+                  }}
+                />
+              </svg>
 
               {/* Holographic Display */}
               <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm p-3 rounded border border-cyan-400/50 font-mono text-xs text-cyan-400">
