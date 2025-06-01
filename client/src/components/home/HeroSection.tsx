@@ -275,10 +275,14 @@ const HeroSection = () => {
                   <span className="text-xs text-white/80 font-mono">DATABRICKS</span>
                 </div>
                 <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                  <rect x="4" y="20" width="24" height="6" rx="1" fill="#FF3621"/>
-                  <rect x="6" y="14" width="20" height="6" rx="1" fill="#FF5722"/>
-                  <rect x="8" y="8" width="16" height="6" rx="1" fill="#FF6B35"/>
-                  <rect x="10" y="2" width="12" height="6" rx="1" fill="#FF8C42"/>
+                  {/* Databricks 3D layered brick logo - based on attached image */}
+                  <path d="M4 20 L8 16 L24 16 L28 20 L24 24 L8 24 Z" fill="#FF3621"/>
+                  <path d="M6 14 L10 10 L22 10 L26 14 L22 18 L10 18 Z" fill="#FF5722"/>
+                  <path d="M8 8 L12 4 L20 4 L24 8 L20 12 L12 12 Z" fill="#FF6B35"/>
+                  {/* 3D edge effects */}
+                  <path d="M8 16 L8 24 L24 24 L28 20 L24 16" fill="#E53E3E" opacity="0.7"/>
+                  <path d="M10 10 L10 18 L22 18 L26 14 L22 10" fill="#DD6B20" opacity="0.7"/>
+                  <path d="M12 4 L12 12 L20 12 L24 8 L20 4" fill="#F56500" opacity="0.7"/>
                 </svg>
                 <div className="text-xs text-white/60 mt-1">Unified Analytics</div>
               </div>
@@ -295,17 +299,26 @@ const HeroSection = () => {
                   <span className="text-xs text-white/80 font-mono">MS FABRIC</span>
                 </div>
                 <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                  <path d="M4 8 Q8 4 16 8 Q24 12 28 8 Q24 16 16 12 Q8 8 4 16 Q8 20 16 16 Q24 20 28 16 Q24 24 16 20 Q8 16 4 24 Z" fill="url(#fabricGradient1)"/>
-                  <path d="M6 12 Q12 8 20 12 Q26 16 24 20 Q18 16 10 20 Q6 16 6 12 Z" fill="url(#fabricGradient2)"/>
+                  {/* Microsoft Fabric flowing F logo - based on attached image */}
+                  <path d="M6 4 Q12 2 20 8 Q26 12 28 18 Q26 24 20 26 Q14 28 8 24 Q4 20 6 14 Q8 8 14 6 Q18 4 22 8 Q24 12 22 16 Q20 20 16 18 Q12 16 10 12" 
+                        fill="url(#fabricFlow1)"/>
+                  <path d="M8 8 Q14 6 20 12 Q24 16 22 20 Q18 22 14 20 Q10 18 8 14 Q6 10 10 8" 
+                        fill="url(#fabricFlow2)"/>
+                  <path d="M12 12 Q16 10 20 14 Q22 16 20 18 Q16 20 14 16 Q12 14 12 12" 
+                        fill="url(#fabricFlow3)"/>
                   <defs>
-                    <linearGradient id="fabricGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="fabricFlow1" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#40E0D0"/>
                       <stop offset="50%" stopColor="#20B2AA"/>
                       <stop offset="100%" stopColor="#008B8B"/>
                     </linearGradient>
-                    <linearGradient id="fabricGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="fabricFlow2" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#48CAE4"/>
                       <stop offset="100%" stopColor="#0077B6"/>
+                    </linearGradient>
+                    <linearGradient id="fabricFlow3" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#5DD39E"/>
+                      <stop offset="100%" stopColor="#348F50"/>
                     </linearGradient>
                   </defs>
                 </svg>
