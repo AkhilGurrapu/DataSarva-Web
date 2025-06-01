@@ -154,6 +154,52 @@
   }
 }
 
+@keyframes centralSphere {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+    box-shadow: 0 0 60px rgba(59, 130, 246, 0.3);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05) rotateY(180deg);
+    box-shadow: 0 0 80px rgba(168, 85, 247, 0.4);
+  }
+}
+
+@keyframes rotateRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes floatModule {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.9;
+  }
+  25% { 
+    transform: translateY(-15px) translateX(5px) rotate(2deg);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(0px) translateX(10px) rotate(0deg);
+    opacity: 0.95;
+  }
+  75% { 
+    transform: translateY(15px) translateX(5px) rotate(-2deg);
+    opacity: 1;
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translateY(-30px) translateX(20px);
+    opacity: 0.8;
+  }
+}
+
 /* Cursor following effect */
 .cursor-glow {
   pointer-events: none;
