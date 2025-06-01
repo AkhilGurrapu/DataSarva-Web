@@ -47,94 +47,133 @@ const HeroSection = () => {
         animation: 'gradientShift 8s ease infinite'
       }}
     >
-      {/* Star Wars Space Background */}
+      {/* Network Nodes Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Starfield */}
+        {/* Background Dots */}
         <div className="absolute inset-0">
-          {Array.from({ length: 200 }, (_, i) => (
+          {Array.from({ length: 80 }, (_, i) => (
             <div
               key={i}
-              className="absolute bg-white rounded-full"
+              className="absolute bg-white rounded-full opacity-60"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                width: `${Math.random() * 2 + 1}px`,
-                height: `${Math.random() * 2 + 1}px`,
-                animation: `twinkle ${3 + Math.random() * 4}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * 3}s`,
-                opacity: Math.random() * 0.8 + 0.2
+                width: `${Math.random() * 3 + 2}px`,
+                height: `${Math.random() * 3 + 2}px`,
+                animation: `twinkle ${4 + Math.random() * 6}s ease-in-out infinite`,
+                animationDelay: `${Math.random() * 4}s`
               }}
             />
           ))}
         </div>
 
-        {/* Moving Stars Effect */}
-        <div ref={particlesRef} className="absolute inset-0">
-          {Array.from({ length: 50 }, (_, i) => (
-            <div
-              key={i}
-              className="absolute bg-white"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                width: '1px',
-                height: `${Math.random() * 60 + 20}px`,
-                animation: `starWarp ${8 + Math.random() * 4}s linear infinite`,
-                animationDelay: `${Math.random() * 8}s`,
-                opacity: 0.6,
-                transformOrigin: 'center center'
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Nebula Effect */}
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `
-              radial-gradient(ellipse at 20% 50%, rgba(75, 0, 130, 0.4) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 20%, rgba(46, 139, 87, 0.3) 0%, transparent 50%),
-              radial-gradient(ellipse at 40% 80%, rgba(0, 71, 171, 0.3) 0%, transparent 50%)
-            `,
-            animation: 'nebulaShift 20s ease-in-out infinite'
-          }}
-        />
-
-        {/* Digital Grid Lines */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
-            transform: 'perspective(1000px) rotateX(60deg) translateZ(-200px)',
-            animation: 'gridScroll 15s linear infinite'
-          }}
-        />
-
-        {/* Holographic Elements */}
-        <div className="absolute top-1/4 left-10 opacity-20">
-          <div 
-            className="w-24 h-24 border border-cyan-400 rounded-full"
+        {/* Network Connection Lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-40" style={{ zIndex: 1 }}>
+          {/* Animated connection lines */}
+          <path
+            d="M100,100 Q300,200 500,150 T800,250 L1000,200"
+            stroke="rgba(34, 197, 94, 0.6)"
+            strokeWidth="2"
+            fill="none"
             style={{
-              boxShadow: '0 0 20px rgba(0, 255, 255, 0.5)',
-              animation: 'holoScan 6s ease-in-out infinite'
+              strokeDasharray: '20 10',
+              animation: 'drawNetwork 8s linear infinite'
+            }}
+          />
+          <path
+            d="M150,300 Q400,150 650,300 T900,200"
+            stroke="rgba(59, 130, 246, 0.5)"
+            strokeWidth="1.5"
+            fill="none"
+            style={{
+              strokeDasharray: '15 8',
+              animation: 'drawNetwork 12s linear infinite reverse'
+            }}
+          />
+          <path
+            d="M50,250 Q200,400 400,250 T700,350 L950,300"
+            stroke="rgba(168, 85, 247, 0.4)"
+            strokeWidth="1"
+            fill="none"
+            style={{
+              strokeDasharray: '10 5',
+              animation: 'drawNetwork 10s linear infinite'
+            }}
+          />
+        </svg>
+
+        {/* Moving Network Nodes */}
+        <div ref={particlesRef} className="absolute inset-0">
+          {Array.from({ length: 12 }, (_, i) => (
+            <div
+              key={i}
+              className="absolute"
+              style={{
+                left: `${20 + (i % 4) * 25}%`,
+                top: `${20 + Math.floor(i / 4) * 30}%`,
+                animation: `nodeFloat ${6 + Math.random() * 4}s ease-in-out infinite`,
+                animationDelay: `${i * 0.5}s`
+              }}
+            >
+              <div 
+                className="w-4 h-4 bg-green-400 rounded-full"
+                style={{
+                  boxShadow: '0 0 15px rgba(34, 197, 94, 0.8)',
+                  animation: `pulse ${2 + Math.random()}s ease-in-out infinite`
+                }}
+              />
+              {/* Connection lines from each node */}
+              <div 
+                className="absolute top-2 left-2 w-20 h-px bg-gradient-to-r from-green-400 to-transparent opacity-60"
+                style={{
+                  transformOrigin: 'left center',
+                  animation: `lineGlow ${3 + Math.random() * 2}s ease-in-out infinite`
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* 3D Geometric Shapes */}
+        <div className="absolute top-20 right-20 opacity-30">
+          <div 
+            className="w-32 h-32 border-2 border-green-400"
+            style={{
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              boxShadow: '0 0 25px rgba(34, 197, 94, 0.4)',
+              animation: 'float3D 8s ease-in-out infinite',
+              transform: 'perspective(500px) rotateX(45deg) rotateY(45deg)'
             }}
           />
         </div>
         
-        <div className="absolute bottom-1/4 right-16 opacity-25">
+        <div className="absolute bottom-32 left-16 opacity-25">
           <div 
-            className="w-16 h-16 border-2 border-blue-400"
+            className="w-24 h-24 border border-blue-400"
             style={{
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-              boxShadow: '0 0 15px rgba(0, 100, 255, 0.4)',
-              animation: 'holoRotate 8s linear infinite'
+              borderRadius: '30%',
+              boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
+              animation: 'float3D 6s ease-in-out infinite reverse',
+              transform: 'perspective(400px) rotateZ(45deg)'
             }}
           />
+        </div>
+
+        {/* Large Network Hub */}
+        <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 opacity-40">
+          <div 
+            className="w-40 h-40 border-2 border-green-400 rounded-lg"
+            style={{
+              boxShadow: '0 0 40px rgba(34, 197, 94, 0.3)',
+              animation: 'networkHub 10s linear infinite',
+              transform: 'perspective(600px) rotateX(30deg) rotateY(20deg)'
+            }}
+          >
+            {/* Inner geometric pattern */}
+            <div className="absolute inset-4 border border-green-300 rounded opacity-60">
+              <div className="absolute inset-2 border border-green-200 rounded opacity-40" />
+            </div>
+          </div>
         </div>
       </div>
 

@@ -119,6 +119,41 @@
   100% { transform: rotateY(360deg) rotateZ(45deg); }
 }
 
+@keyframes drawNetwork {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 200; }
+}
+
+@keyframes nodeFloat {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(0px) translateX(10px); }
+  75% { transform: translateY(10px) translateX(5px); }
+}
+
+@keyframes lineGlow {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+  50% { opacity: 0.8; transform: scaleX(1.2); }
+}
+
+@keyframes float3D {
+  0%, 100% { 
+    transform: perspective(500px) rotateX(45deg) rotateY(45deg) translateZ(0px);
+  }
+  50% { 
+    transform: perspective(500px) rotateX(45deg) rotateY(45deg) translateZ(20px);
+  }
+}
+
+@keyframes networkHub {
+  0% { 
+    transform: perspective(600px) rotateX(30deg) rotateY(20deg) rotateZ(0deg);
+  }
+  100% { 
+    transform: perspective(600px) rotateX(30deg) rotateY(20deg) rotateZ(360deg);
+  }
+}
+
 /* Cursor following effect */
 .cursor-glow {
   pointer-events: none;
