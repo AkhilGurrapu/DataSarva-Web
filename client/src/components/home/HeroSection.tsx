@@ -275,9 +275,10 @@ const HeroSection = () => {
                   <span className="text-xs text-white/80 font-mono">DATABRICKS</span>
                 </div>
                 <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                  <rect x="4" y="18" width="24" height="8" rx="1" fill="#FF3621"/>
-                  <rect x="8" y="12" width="16" height="8" rx="1" fill="#FF5722"/>
-                  <rect x="12" y="6" width="8" height="8" rx="1" fill="#FF7043"/>
+                  <rect x="4" y="20" width="24" height="6" rx="1" fill="#FF3621"/>
+                  <rect x="6" y="14" width="20" height="6" rx="1" fill="#FF5722"/>
+                  <rect x="8" y="8" width="16" height="6" rx="1" fill="#FF6B35"/>
+                  <rect x="10" y="2" width="12" height="6" rx="1" fill="#FF8C42"/>
                 </svg>
                 <div className="text-xs text-white/60 mt-1">Unified Analytics</div>
               </div>
@@ -293,10 +294,20 @@ const HeroSection = () => {
                   <div className="w-3 h-3 bg-indigo-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-white/80 font-mono">MS FABRIC</span>
                 </div>
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
-                  <path d="M2 6 L8 2 L16 6 L22 2 L22 10 L16 14 L8 10 L2 14 Z" fill="#00BCF2"/>
-                  <path d="M8 10 L16 6 L22 10 L16 14 L8 18 L2 14 Z" fill="#0078D4"/>
-                  <path d="M8 18 L16 14 L22 18 L16 22 L8 18 Z" fill="#40E0D0"/>
+                <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                  <path d="M4 8 Q8 4 16 8 Q24 12 28 8 Q24 16 16 12 Q8 8 4 16 Q8 20 16 16 Q24 20 28 16 Q24 24 16 20 Q8 16 4 24 Z" fill="url(#fabricGradient1)"/>
+                  <path d="M6 12 Q12 8 20 12 Q26 16 24 20 Q18 16 10 20 Q6 16 6 12 Z" fill="url(#fabricGradient2)"/>
+                  <defs>
+                    <linearGradient id="fabricGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#40E0D0"/>
+                      <stop offset="50%" stopColor="#20B2AA"/>
+                      <stop offset="100%" stopColor="#008B8B"/>
+                    </linearGradient>
+                    <linearGradient id="fabricGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#48CAE4"/>
+                      <stop offset="100%" stopColor="#0077B6"/>
+                    </linearGradient>
+                  </defs>
                 </svg>
                 <div className="text-xs text-white/60 mt-1">Unified Platform</div>
               </div>
