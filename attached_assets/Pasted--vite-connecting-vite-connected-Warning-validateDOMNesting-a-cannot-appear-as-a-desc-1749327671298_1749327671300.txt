@@ -1,0 +1,41 @@
+[vite] connecting...
+[vite] connected.
+Warning: validateDOMNesting(...): <a> cannot appear as a descendant of &lt;a&gt;.
+    at a
+    at a
+    at https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=06cc5206:337:18
+    at li
+    at ul
+    at div
+    at div
+    at div
+    at footer
+    at Footer
+    at div
+    at Home
+    at Route (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=06cc5206:323:16)
+    at Switch (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=06cc5206:379:17)
+    at Router
+    at QueryClientProvider (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=06cc5206:2805:3)
+    at App
+at a
+at a
+at https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=06cc5206:337:18
+at li
+at ul
+at div
+at div
+at div
+at footer
+at Footer
+at div
+at Home
+at Route (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=06cc5206:323:16)
+at Switch (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=06cc5206:379:17)
+at Router
+at QueryClientProvider (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=06cc5206:2805:3)
+at App
+at t.value (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://d43a150a-7082-44af-85cf-a9bbef1fec85-00-3m2iayaggsdck.spock.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400

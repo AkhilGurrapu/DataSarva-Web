@@ -90,10 +90,8 @@ const Footer = () => {
             <ul className="space-y-4">
               {solutionsLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href}>
-                    <a className="text-neutral-300 hover:text-white transition-all duration-300">
-                      {link.label}
-                    </a>
+                  <Link href={link.href} className="text-neutral-300 hover:text-white transition-all duration-300">
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -105,10 +103,8 @@ const Footer = () => {
             <ul className="space-y-4">
               {servicesLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href}>
-                    <a className="text-neutral-300 hover:text-white transition-all duration-300">
-                      {link.label}
-                    </a>
+                  <Link href={link.href} className="text-neutral-300 hover:text-white transition-all duration-300">
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -120,10 +116,8 @@ const Footer = () => {
             <ul className="space-y-4">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href}>
-                    <a className="text-neutral-300 hover:text-white transition-all duration-300">
-                      {link.label}
-                    </a>
+                  <Link href={link.href} className="text-neutral-300 hover:text-white transition-all duration-300">
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -137,10 +131,8 @@ const Footer = () => {
           </div>
           <div className="flex flex-wrap justify-center gap-6">
             {legalLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <a className="text-neutral-400 hover:text-white transition-all duration-300">
-                  {link.label}
-                </a>
+              <Link key={link.href} href={link.href} className="text-neutral-400 hover:text-white transition-all duration-300">
+                {link.label}
               </Link>
             ))}
           </div>
