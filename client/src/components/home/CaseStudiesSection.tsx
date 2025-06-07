@@ -52,66 +52,64 @@ const caseStudies: CaseStudy[] = [
 
 const CaseStudiesSection = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
-          <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Success Stories</h2>
+          <p className="text-lg sm:text-xl text-neutral-700 max-w-3xl mx-auto">
             See how we've helped organizations transform their data operations and achieve measurable business results.
           </p>
         </div>
 
-        <div className="flex flex-wrap -mx-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {caseStudies.map((caseStudy) => (
-            <div key={caseStudy.id} className="w-full lg:w-1/2 px-4 mb-8">
-              <div className="bg-neutral-100 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full">
-                <div className="md:flex h-full">
-                  <div className="md:w-2/5">
-                    <div 
-                      className="h-64 md:h-full w-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${caseStudy.image})` }}
-                      aria-label={`${caseStudy.title} illustration`}
-                    ></div>
-                  </div>
-                  <div className="md:w-3/5 p-6">
-                    <div className="flex flex-wrap items-center gap-2 mb-4">
-                      <Badge 
-                        variant="default" 
-                        className="bg-primary text-white text-xs font-bold py-1 px-2 rounded mr-2"
-                      >
-                        {caseStudy.industry}
-                      </Badge>
-                      <Badge 
-                        variant="default" 
-                        className={`${caseStudy.category === 'AI' ? 'bg-accent' : 'bg-secondary'} text-white text-xs font-bold py-1 px-2 rounded`}
-                      >
-                        {caseStudy.category}
-                      </Badge>
-                    </div>
-                    <h3 className="text-xl font-bold mb-3">{caseStudy.title}</h3>
-                    <p className="text-neutral-700 mb-4">
-                      {caseStudy.description}
-                    </p>
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <div className="text-sm font-bold">Results:</div>
-                        {caseStudy.results.map((result, index) => (
-                          <div key={index} className="text-sm text-neutral-700">{result}</div>
-                        ))}
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold">Technologies:</div>
-                        <div className="text-sm text-neutral-700">{caseStudy.technologies.join(", ")}</div>
-                      </div>
-                    </div>
-                    <a 
-                      href={caseStudy.link} 
-                      className="text-primary font-medium flex items-center hover:underline"
+            <div key={caseStudy.id} className="bg-neutral-100 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full">
+              <div className="flex flex-col xl:flex-row h-full">
+                <div className="xl:w-2/5">
+                  <div 
+                    className="h-48 sm:h-56 xl:h-full w-full bg-cover bg-center"
+                    style={{ backgroundImage: `url(${caseStudy.image})` }}
+                    aria-label={`${caseStudy.title} illustration`}
+                  ></div>
+                </div>
+                <div className="xl:w-3/5 p-4 sm:p-6 flex flex-col">
+                  <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+                    <Badge 
+                      variant="default" 
+                      className="bg-primary text-white text-xs font-bold py-1 px-2 rounded"
                     >
-                      Read full case study
-                      <ArrowRight className="ml-1 w-4 h-4" />
-                    </a>
+                      {caseStudy.industry}
+                    </Badge>
+                    <Badge 
+                      variant="default" 
+                      className={`${caseStudy.category === 'AI' ? 'bg-accent' : 'bg-secondary'} text-white text-xs font-bold py-1 px-2 rounded`}
+                    >
+                      {caseStudy.category}
+                    </Badge>
                   </div>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{caseStudy.title}</h3>
+                  <p className="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base flex-1">
+                    {caseStudy.description}
+                  </p>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 sm:mb-4 space-y-3 sm:space-y-0 sm:space-x-4">
+                    <div>
+                      <div className="text-xs sm:text-sm font-bold mb-1">Results:</div>
+                      {caseStudy.results.map((result, index) => (
+                        <div key={index} className="text-xs sm:text-sm text-neutral-700">{result}</div>
+                      ))}
+                    </div>
+                    <div>
+                      <div className="text-xs sm:text-sm font-bold mb-1">Technologies:</div>
+                      <div className="text-xs sm:text-sm text-neutral-700">{caseStudy.technologies.join(", ")}</div>
+                    </div>
+                  </div>
+                  <a 
+                    href={caseStudy.link} 
+                    className="text-primary font-medium flex items-center hover:underline text-sm sm:text-base mt-auto"
+                  >
+                    Read full case study
+                    <ArrowRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4" />
+                  </a>
                 </div>
               </div>
             </div>

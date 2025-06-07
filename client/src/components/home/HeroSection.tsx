@@ -213,10 +213,10 @@ const HeroSection = () => {
               {/* Central Data Sphere */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div 
-                  className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/30 flex items-center justify-center relative overflow-hidden"
+                  className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/30 flex items-center justify-center relative overflow-hidden"
                   style={{
                     animation: 'centralSphere 10s ease-in-out infinite',
-                    boxShadow: '0 0 60px rgba(59, 130, 246, 0.3)'
+                    boxShadow: '0 0 40px rgba(59, 130, 246, 0.3)'
                   }}
                 >
                   {/* Pulsing energy waves */}
