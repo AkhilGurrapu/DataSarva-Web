@@ -1,8 +1,27 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [, navigate] = useLocation();
+
+  const handleNavigation = (href: string) => {
+    if (href.startsWith('/#')) {
+      navigate('/');
+      
+      setTimeout(() => {
+        const elementId = href.substring(2);
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      navigate(href);
+      // Scroll to top when navigating to new pages
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   
   const solutionsLinks = [
     { href: "/#snowflake", label: "Snowflake Integration" },
@@ -90,9 +109,12 @@ const Footer = () => {
             <ul className="space-y-4">
               {solutionsLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-neutral-300 hover:text-white transition-all duration-300">
+                  <button 
+                    onClick={() => handleNavigation(link.href)}
+                    className="text-neutral-300 hover:text-white transition-all duration-300 text-left"
+                  >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -103,9 +125,12 @@ const Footer = () => {
             <ul className="space-y-4">
               {servicesLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-neutral-300 hover:text-white transition-all duration-300">
+                  <button 
+                    onClick={() => handleNavigation(link.href)}
+                    className="text-neutral-300 hover:text-white transition-all duration-300 text-left"
+                  >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -116,9 +141,12 @@ const Footer = () => {
             <ul className="space-y-4">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-neutral-300 hover:text-white transition-all duration-300">
+                  <button 
+                    onClick={() => handleNavigation(link.href)}
+                    className="text-neutral-300 hover:text-white transition-all duration-300 text-left"
+                  >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -131,9 +159,13 @@ const Footer = () => {
           </div>
           <div className="flex flex-wrap justify-center gap-6">
             {legalLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="text-neutral-400 hover:text-white transition-all duration-300">
+              <button 
+                key={link.href}
+                onClick={() => handleNavigation(link.href)}
+                className="text-neutral-400 hover:text-white transition-all duration-300"
+              >
                 {link.label}
-              </Link>
+              </button>
             ))}
           </div>
         </div>

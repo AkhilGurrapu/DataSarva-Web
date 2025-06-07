@@ -296,6 +296,11 @@ const Blog = () => {
   const [showFilters, setShowFilters] = useState(false);
   // State for different tabs
   const [activeTab, setActiveTab] = useState("all");
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const filterBlogPosts = (posts: BlogPost[]) => {
     return posts
