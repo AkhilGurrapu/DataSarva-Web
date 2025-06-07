@@ -42,7 +42,7 @@ const HeroSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative bg-gradient-to-r from-primary to-accent pt-32 pb-24 md:pt-40 md:pb-32 text-white overflow-hidden"
+      className="relative bg-gradient-to-r from-primary to-accent pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-40 lg:pb-32 text-white overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #0047AB 0%, #4B0082 50%, #2E8B57 100%)',
         backgroundSize: '400% 400%',
@@ -179,16 +179,16 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row items-center md:space-x-12">
-          <div className="w-full md:w-1/2 mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center lg:space-x-12">
+          <div className="w-full lg:w-1/2 mb-8 sm:mb-10 lg:mb-0 text-center lg:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
               Transform Your Data Into Business Intelligence
             </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 opacity-90 leading-relaxed">
               Leverage the power of data analytics and AI with our enterprise solutions and expert consulting services.
             </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
               <Link href="#products">
                 <Button 
                   size="lg" 
@@ -208,8 +208,8 @@ const HeroSection = () => {
               </Link>
             </div>
           </div>
-          <div className="w-full md:w-1/2">
-            <div className="relative h-[600px]">
+          <div className="w-full lg:w-1/2">
+            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px]">
               {/* Central Data Sphere */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div 

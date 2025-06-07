@@ -107,7 +107,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden px-6 py-4 bg-white border-t border-neutral-200 ${
+      <div className={`lg:hidden px-4 sm:px-6 py-4 bg-white border-t border-neutral-200 shadow-lg ${
         isOpen ? "block" : "hidden"
       }`}>
         <nav className="flex flex-col space-y-4">
@@ -115,14 +115,14 @@ const Header = () => {
             <div 
               key={link.href} 
               onClick={() => handleNavigation(link.href)} 
-              className="text-neutral-800 hover:text-primary font-medium transition-all duration-300 cursor-pointer"
+              className="text-neutral-800 hover:text-primary font-medium transition-all duration-300 cursor-pointer py-2 text-base"
             >
               {link.label}
             </div>
           ))}
           <Button 
             onClick={() => handleNavigation("/#contact")}
-            className="w-full bg-primary hover:bg-primary/90 text-white"
+            className="w-full bg-primary hover:bg-primary/90 text-white py-3 mt-4"
           >
             Get Started
           </Button>
