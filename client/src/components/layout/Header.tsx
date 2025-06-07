@@ -60,11 +60,11 @@ const Header = () => {
         isScrolled ? "shadow-md bg-white/95" : "bg-white"
       }`}
     >
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
         <div className="flex items-center">
           <div 
             onClick={() => navigate('/')} 
-            className="text-2xl font-bold cursor-pointer"
+            className="text-xl sm:text-2xl font-bold cursor-pointer"
           >
             <span className="text-primary">Data</span>
             <span className="text-accent">AI</span>
@@ -72,12 +72,12 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden lg:flex space-x-6 xl:space-x-8">
           {navLinks.map((link) => (
             <div 
               key={link.href} 
               onClick={() => handleNavigation(link.href)} 
-              className="text-neutral-800 hover:text-primary font-medium transition-all duration-300 cursor-pointer"
+              className="text-neutral-800 hover:text-primary font-medium transition-all duration-300 cursor-pointer text-sm xl:text-base"
             >
               {link.label}
             </div>
@@ -86,21 +86,21 @@ const Header = () => {
 
         {/* Mobile Navigation Toggle */}
         <button 
-          className="md:hidden flex items-center"
+          className="lg:hidden flex items-center p-2"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
           {isOpen ? (
-            <X className="h-6 w-6 text-neutral-800" />
+            <X className="h-5 w-5 sm:h-6 sm:w-6 text-neutral-800" />
           ) : (
-            <Menu className="h-6 w-6 text-neutral-800" />
+            <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-neutral-800" />
           )}
         </button>
 
         {/* Contact Button (Desktop) */}
         <Button 
           onClick={() => handleNavigation("/#contact")}
-          className="hidden md:block bg-primary hover:bg-primary/90 text-white"
+          className="hidden lg:block bg-primary hover:bg-primary/90 text-white text-sm xl:text-base px-4 xl:px-6"
         >
           Get Started
         </Button>

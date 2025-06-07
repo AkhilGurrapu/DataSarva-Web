@@ -69,21 +69,21 @@ const ProductsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
           {products.map((product) => (
             <Card 
               key={product.id}
-              className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
+              className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1 h-full flex flex-col"
             >
-              <div className="h-48 overflow-hidden">
+              <div className="h-40 sm:h-48 overflow-hidden">
                 <div 
                   className="w-full h-full bg-cover bg-center"
                   style={{ backgroundImage: `url(${product.image})` }}
                   aria-label={`${product.title} illustration`}
                 ></div>
               </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-3" 
+              <CardContent className="p-4 sm:p-6 flex-1 flex flex-col">
+                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3" 
                    style={{ 
                      color: product.color === "text-primary" ? "#0047AB" : 
                             product.color === "text-secondary" ? "#2E8B57" : 
@@ -92,26 +92,26 @@ const ProductsSection = () => {
                 >
                   {product.title}
                 </h3>
-                <p className="text-neutral-700 mb-4">
+                <p className="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base flex-1">
                   {product.description}
                 </p>
-                <ul className="mb-6 space-y-2">
+                <ul className="mb-4 sm:mb-6 space-y-2">
                   {product.features.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle 
-                        className={`w-4 h-4 mr-2 mt-1 flex-shrink-0`} 
+                        className={`w-3 h-3 sm:w-4 sm:h-4 mr-2 mt-1 flex-shrink-0`} 
                         style={{ 
                           color: product.color === "text-primary" ? "#0047AB" : 
                                  product.color === "text-secondary" ? "#2E8B57" : 
                                  product.color === "text-accent" ? "#4B0082" : "#0047AB" 
                         }} 
                       />
-                      <span className="text-sm">{feature}</span>
+                      <span className="text-xs sm:text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <div 
-                  className="font-medium flex items-center hover:underline cursor-pointer" 
+                  className="font-medium flex items-center hover:underline cursor-pointer text-sm sm:text-base mt-auto" 
                   style={{ 
                     color: product.color === "text-primary" ? "#0047AB" : 
                            product.color === "text-secondary" ? "#2E8B57" : 
