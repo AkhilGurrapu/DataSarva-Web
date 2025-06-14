@@ -77,6 +77,12 @@ This is a modern full-stack web application for DataAI Consulting, a data analyt
 - **Edge Functions**: Serverless functions for custom business logic
 - **Connection Pooling**: Built-in connection management and auto-scaling
 
+### Email Services
+- **Resend**: Professional email delivery service for notifications
+- **Contact Notifications**: Automated admin alerts and customer confirmations
+- **Template System**: HTML-formatted professional email templates
+- **Delivery Tracking**: Built-in analytics and delivery monitoring
+
 ### UI and Styling
 - **Radix UI**: Accessible, unstyled UI primitives
 - **Tailwind CSS**: Utility-first CSS framework
@@ -121,6 +127,11 @@ Changelog:
   - Updated frontend to use Supabase client library
   - Verified end-to-end functionality with live database
   - Removed Express API dependencies and fallback code
+- June 14, 2025: Email notification system integrated
+  - Added Resend email service integration to Edge Function
+  - Implemented dual email notifications (admin + customer)
+  - Created professional HTML email templates
+  - Added comprehensive setup documentation
 ```
 
 ## User Preferences
