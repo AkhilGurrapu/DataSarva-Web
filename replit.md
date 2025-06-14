@@ -16,10 +16,12 @@ This is a modern full-stack web application for DataAI Consulting, a data analyt
 - **Build Tool**: Vite for fast development and optimized builds
 
 ### Backend Architecture
-- **Runtime**: Node.js with Express.js framework
+- **Primary Backend**: Supabase (managed PostgreSQL + Edge Functions)
+- **Fallback**: Node.js with Express.js framework (during migration)
 - **Language**: TypeScript with ES modules
-- **Database ORM**: Drizzle ORM with PostgreSQL
-- **Session Management**: express-session with PostgreSQL store
+- **Database**: Supabase PostgreSQL with Row Level Security
+- **Authentication**: Supabase Auth (replaces express-session)
+- **API Layer**: Supabase Edge Functions + direct database queries
 - **Validation**: Zod schemas for API request/response validation
 - **Development**: TSX for TypeScript execution
 
@@ -68,9 +70,10 @@ This is a modern full-stack web application for DataAI Consulting, a data analyt
 ## External Dependencies
 
 ### Database
-- **PostgreSQL**: Primary database for persistent data storage
-- **Neon Database**: Serverless PostgreSQL for production deployment
-- **Connection Pooling**: Built-in connection management
+- **Supabase**: Managed PostgreSQL with built-in authentication and real-time features
+- **Row Level Security**: Database-level security policies for data protection
+- **Edge Functions**: Serverless functions for custom business logic
+- **Connection Pooling**: Built-in connection management and auto-scaling
 
 ### UI and Styling
 - **Radix UI**: Accessible, unstyled UI primitives

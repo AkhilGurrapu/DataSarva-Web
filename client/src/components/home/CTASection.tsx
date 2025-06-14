@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ContactFormData } from "@/lib/types";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 import { apiRequest } from "@/lib/queryClient";
 import { useMutation } from "@tanstack/react-query";
 
@@ -51,11 +52,25 @@ const CTASection = () => {
     }
   });
 
-  // Set up mutation for form submission
+  // Set up mutation for form submission - uses Supabase if configured, otherwise falls back to Express API
   const mutation = useMutation({
-    mutationFn: (data: ContactFormData) => {
-      return apiRequest("POST", "/api/contact", data)
-        .then(res => res.json());
+    mutationFn: async (data: ContactFormData) => {
+      if (isSupabaseConfigured()) {
+        // Use Supabase Edge Function
+        const { data: result, error } = await supabase.functions.invoke('contact-form', {
+          body: data
+        });
+        
+        if (error) {
+          throw new Error(error.message || 'Failed to submit contact request');
+        }
+        
+        return result;
+      } else {
+        // Fallback to Express API
+        const response = await apiRequest("POST", "/api/contact", data);
+        return response.json();
+      }
     },
     onSuccess: () => {
       setIsSubmitted(true);
@@ -65,7 +80,7 @@ const CTASection = () => {
         variant: "default"
       });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast({
         title: "Submission failed",
         description: error.message || "There was a problem submitting your request. Please try again.",
