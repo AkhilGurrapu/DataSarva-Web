@@ -9,6 +9,7 @@ import BlogPreviewSection from "@/components/home/BlogPreviewSection";
 import CTASection from "@/components/home/CTASection";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { SupabaseStatus } from "@/components/SupabaseStatus";
 
 const Home = () => {
   return (
@@ -23,6 +24,9 @@ const Home = () => {
         <TestimonialsSection />
         <ResourcesSection />
         <BlogPreviewSection />
+        <div className="container mx-auto px-6">
+          <SupabaseStatus />
+        </div>
         <CTASection />
       </main>
       <Footer />

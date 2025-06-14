@@ -1,0 +1,90 @@
+Specific Use Cases for Your Application
+Here are the primary features in your app that should be implemented as Edge Functions:
+
+Contact Form Submission: This is the most immediate and critical use case. You do not want anonymous users to have permission to write directly to your contacts table. An Edge Function will receive the form data, validate it, and securely insert it into the database.
+
+Sending Automated Emails: When a user fills out the contact form, you could trigger an Edge Function to send a confirmation email to the user and a notification email to your consulting inbox using a service like Resend.
+
+Future Integrations: If you decide to add features like a newsletter subscription (integrating with Mailchimp) or paid content (integrating with Stripe), Edge Functions will be required to handle the webhooks and API calls securely.
+
+The Edge Function Development Workflow
+While you can create a basic function from the Supabase dashboard, the professional workflow for development and deployment relies on the Supabase CLI and your local machine. This ensures your functions are version-controlled and can be tested before going live.
+
+Here is the process the AI agent will follow:
+
+Initialize Supabase Locally: The project will be set up with supabase init.
+
+Create a New Function: A new function is created with the command supabase functions new <function-name>. This creates a new folder (e.g., /supabase/functions/contact-form) with an index.ts file.
+
+Local Development and Testing: The agent will run the Supabase services locally using Docker. The command supabase functions serve <function-name> starts a local server for the function, allowing it to be tested without deploying it.
+
+Deployment: Once the function is working correctly, it is deployed to your live Supabase project with supabase functions deploy <function-name>.
+
+Instructions for Your Administrative Setup
+As the project owner, you don't need to write the code, but you do need to understand the concept and ensure the environment is ready. Your role is minimal for this part.
+
+There are no specific dashboard settings you need to enable for Edge Functions to work. They are an inherent part of the Supabase platform. Your main responsibility is to ensure the project's secrets are available for the AI agent to use in a CI/CD environment.
+
+Instructions for Your AI Agent
+Here are the actionable instructions for the AI agent to implement the Contact Form functionality using an Edge Function.
+
+Task: Create a Secure Endpoint for the Contact Form
+
+Create the Edge Function: In the project's root directory, create a new Edge Function named contact-form-handler.
+
+bash
+supabase functions new contact-form-handler
+Implement the Function Logic: Edit the file at supabase/functions/contact-form-handler/index.ts. The code should perform the following actions:
+
+Expect a POST request with a JSON body containing name, email, and message.
+
+Include CORS headers to allow requests from your application's domain.
+
+Initialize a Supabase admin client using the SUPABASE_SERVICE_ROLE_KEY. This key must be used for any operation that requires bypassing Row Level Security (RLS), such as inserting into a table that public users cannot write to.
+
+Insert the validated data into the contacts table.
+
+Return a success or error response.
+
+Example index.ts file:
+
+typescript
+import { createClient } from 'npm:@supabase/supabase-js@2'
+import { corsHeaders } from '../_shared/cors.ts'
+
+Deno.serve(async (req) => {
+  // Handle preflight OPTIONS request for CORS
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const { name, email, message } = await req.json()
+
+    // Create an admin client to securely insert data
+    const supabaseAdmin = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    )
+
+    const { error } = await supabaseAdmin.from('contacts').insert({ name, email, message })
+
+    if (error) throw error
+
+    return new Response(JSON.stringify({ message: "Form submitted successfully!" }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200,
+    })
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 400,
+    })
+  }
+})
+Update the Frontend: Modify the React contact form component. Instead of a standard form submission, it should use the Supabase client library to invoke the contact-form-handler function and pass the form data in the body.
+
+Deployment: Once tested locally, deploy the function to the production Supabase project.
+
+bash
+supabase functions deploy contact-form-handler
