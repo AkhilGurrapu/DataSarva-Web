@@ -111,7 +111,13 @@ This is a modern full-stack web application for DataAI Consulting, a data analyt
 
 ```
 Changelog:
-- June 14, 2025. Initial setup
+- June 14, 2025: Initial setup
+- June 14, 2025: Supabase migration setup completed
+  - Added Supabase client library and configuration
+  - Created database migration SQL file
+  - Built Edge Function for contact form processing
+  - Updated frontend to support both Supabase and Express API
+  - Added comprehensive migration guide and documentation
 ```
 
 ## User Preferences
