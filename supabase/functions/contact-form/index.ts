@@ -6,6 +6,41 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Email sending function using Resend
+async function sendEmail(to: string, subject: string, html: string) {
+  const resendApiKey = Deno.env.get('RESEND_API_KEY')
+  
+  if (!resendApiKey) {
+    console.log('RESEND_API_KEY not configured, skipping email notification')
+    return
+  }
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'DataAI Consulting <noreply@dataai-consulting.com>',
+        to: [to],
+        subject: subject,
+        html: html,
+      }),
+    })
+
+    if (!response.ok) {
+      const error = await response.text()
+      console.error('Failed to send email:', error)
+    } else {
+      console.log('Email sent successfully to:', to)
+    }
+  } catch (error) {
+    console.error('Error sending email:', error)
+  }
+}
+
 interface ContactFormData {
   name: string;
   email: string;
@@ -70,6 +105,62 @@ Deno.serve(async (req) => {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         }
       )
+    }
+
+    // Send notification emails after successful database insert
+    try {
+      // Email template for admin notification
+      const adminEmailHtml = `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Company:</strong> ${company}</p>
+        <p><strong>Interest:</strong> ${interest}</p>
+        <p><strong>Message:</strong></p>
+        <div style="background: #f5f5f5; padding: 15px; border-radius: 5px;">
+          ${message.replace(/\n/g, '<br>')}
+        </div>
+        <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
+        <p><strong>Contact ID:</strong> ${data.id}</p>
+      `
+
+      // Email template for customer confirmation
+      const customerEmailHtml = `
+        <h2>Thank you for contacting DataAI Consulting</h2>
+        <p>Hello ${name},</p>
+        <p>We've received your inquiry about ${interest} and will get back to you within 24 hours.</p>
+        
+        <h3>Your message:</h3>
+        <div style="background: #f5f5f5; padding: 15px; border-radius: 5px;">
+          ${message.replace(/\n/g, '<br>')}
+        </div>
+        
+        <p>Best regards,<br>
+        DataAI Consulting Team</p>
+        
+        <hr>
+        <p style="font-size: 12px; color: #666;">
+          This is an automated confirmation. Please do not reply to this email.
+        </p>
+      `
+
+      // Send admin notification (replace with your admin email)
+      await sendEmail(
+        'admin@dataai-consulting.com',
+        `New Contact Form: ${name} - ${interest}`,
+        adminEmailHtml
+      )
+
+      // Send customer confirmation
+      await sendEmail(
+        email,
+        'Thank you for contacting DataAI Consulting',
+        customerEmailHtml
+      )
+
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError)
+      // Don't fail the request if emails fail
     }
 
     return new Response(

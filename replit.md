@@ -64,7 +64,10 @@ This is a modern full-stack web application for DataAI Consulting, a data analyt
 2. Form data validated using Zod schema
 3. Supabase Edge Function processes and stores contact request
 4. Database stores contact information with RLS security
-5. Success/error feedback displayed to user
+5. Email notifications sent via Resend API:
+   - Admin notification with full contact details
+   - Customer confirmation with professional message
+6. Success/error feedback displayed to user
 
 ## External Dependencies
 

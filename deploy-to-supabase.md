@@ -58,119 +58,29 @@ CREATE POLICY "Users can update own data" ON users
   WITH CHECK (auth.uid()::text = id::text);
 ```
 
-## Step 2: Deploy Edge Function
+## Step 2: Deploy Edge Function with Email Notifications
 
 ### Option A: Using Supabase Dashboard (Recommended)
 
 1. Go to Edge Functions in your Supabase dashboard
 2. Click "New Function"
 3. Name it `contact-form`
-4. Replace the template code with:
+4. Replace the template code with (includes email notifications):
 
-```typescript
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-// CORS headers for allowing frontend requests
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  company: string;
-  interest: string;
-  message: string;
-}
-
-Deno.serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
-  }
-
-  try {
-    // Create Supabase client with service role key for admin access
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    )
-
-    // Parse request body
-    const { name, email, company, interest, message }: ContactFormData = await req.json()
-
-    // Validate required fields
-    if (!name || !email || !company || !interest || !message) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          message: 'All fields are required'
-        }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
-
-    // Insert contact request into database
-    const { data, error } = await supabase
-      .from('contact_requests')
-      .insert({
-        name,
-        email,
-        company,
-        interest,
-        message,
-        created_at: new Date().toISOString()
-      })
-      .select()
-      .single()
-
-    if (error) {
-      console.error('Database error:', error)
-      return new Response(
-        JSON.stringify({
-          success: false,
-          message: 'Failed to submit contact request'
-        }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        }
-      )
-    }
-
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Contact request submitted successfully',
-        id: data.id
-      }),
-      {
-        status: 201,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      }
-    )
-
-  } catch (error) {
-    console.error('Error processing contact form:', error)
-    return new Response(
-      JSON.stringify({
-        success: false,
-        message: 'Invalid request format'
-      }),
-      {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      }
-    )
-  }
-})
-```
+Copy the complete code from `supabase/functions/contact-form/index.ts` in your project files.
 
 5. Click "Deploy"
+
+## Step 3: Configure Email Notifications
+
+1. Sign up for a free account at [resend.com](https://resend.com)
+2. Get your API key from the Resend dashboard
+3. In your Supabase project, go to **Settings** → **Edge Functions**
+4. Add environment variable:
+   - **Name**: `RESEND_API_KEY`
+   - **Value**: Your Resend API key
+5. Update the admin email address in the Edge Function code (line 149)
+6. Redeploy the function
 
 ### Option B: Using CLI (Advanced)
 
@@ -180,14 +90,18 @@ If you have the Supabase CLI installed:
 supabase functions deploy contact-form
 ```
 
-## Step 3: Test the Setup
+## Step 4: Test the Complete Setup
 
-After completing both steps, your contact form will automatically switch to using Supabase. You can verify by:
+After completing all steps, test the full functionality:
 
-1. Submitting a test contact form
-2. Checking the `contact_requests` table in your Supabase dashboard
-3. Looking for any error messages in the Edge Function logs
+1. Submit a test contact form
+2. Check the `contact_requests` table in your Supabase dashboard for the new entry
+3. Verify email notifications:
+   - Check your admin email for the notification
+   - Check the test email address for the confirmation
+   - Look in spam folders if emails don't appear immediately
+4. Monitor Edge Function logs for any errors
 
 ## Verification
 
-Your application will show a green status indicator when Supabase is properly configured and ready to use.
+Your application shows a green status indicator confirming the migration is complete. With email notifications enabled, you'll receive immediate alerts for new contact requests while customers get professional confirmation messages.
