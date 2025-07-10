@@ -16,10 +16,10 @@ const Home = () => {
       <main>
         <HeroSection />
         <ClientsSection />
-        <ProductsSection />
         <ServicesSection />
-        <CaseStudiesSection />
         <ResourcesSection />
+        <ProductsSection />
+        <CaseStudiesSection />
         <BlogPreviewSection />
         <CTASection />
       </main>

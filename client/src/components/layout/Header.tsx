@@ -30,9 +30,9 @@ const Header = () => {
   }, [location]);
 
   const navLinks = [
-    { href: "/#products", label: "Products" },
     { href: "/#services", label: "Services" },
     { href: "/#resources", label: "Resources" },
+    { href: "/#products", label: "Technology Deep Dives" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
   ];
