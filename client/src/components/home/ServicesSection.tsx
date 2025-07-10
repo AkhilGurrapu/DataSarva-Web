@@ -40,60 +40,60 @@ const serviceApproach = [
 const services: Service[] = [
   {
     id: "data-strategy",
-    title: "Data Strategy Consulting",
-    description: "Create a comprehensive data strategy aligned with your business objectives and technical capabilities.",
+    title: "Data Strategy Patterns",
+    description: "Analysis of successful data strategy implementations and architectural patterns across industries.",
     features: [
-      "Data governance frameworks",
-      "Technology stack recommendations",
-      "ROI-focused roadmaps"
+      "Governance framework studies",
+      "Technology stack comparisons",
+      "ROI case study analysis"
     ],
     icon: "BarChart2",
     color: "bg-primary-light"
   },
   {
     id: "ai-implementation",
-    title: "AI Implementation",
-    description: "Harness the power of artificial intelligence with practical, value-driven implementations.",
+    title: "AI Engineering Insights",
+    description: "Deep exploration of AI/ML engineering practices, model deployment patterns, and MLOps workflows.",
     features: [
-      "AI use case identification",
-      "Model development & deployment",
-      "AI oversight & maintenance"
+      "MLOps pipeline analysis",
+      "Model deployment strategies",
+      "LLM integration patterns"
     ],
     icon: "Brain",
     color: "bg-accent"
   },
   {
     id: "cloud-architecture",
-    title: "Cloud Data Architecture",
-    description: "Design and implement scalable, secure, and cost-effective cloud data solutions.",
+    title: "Cloud Architecture Studies",
+    description: "Comprehensive analysis of cloud-native data architectures across AWS, Azure, and GCP platforms.",
     features: [
-      "Multi-cloud strategy",
-      "Data lake & warehouse design",
-      "Migration planning & execution"
+      "Multi-cloud architecture patterns",
+      "Data lakehouse implementations",
+      "Migration strategy analysis"
     ],
     icon: "Cloud",
     color: "bg-secondary"
   },
   {
     id: "data-engineering",
-    title: "Data Engineering",
-    description: "Build robust data pipelines and processing systems to make your data accessible and actionable.",
+    title: "Data Engineering Mastery",
+    description: "In-depth coverage of modern data engineering tools, patterns, and best practices.",
     features: [
-      "ETL/ELT pipeline development",
-      "Data quality frameworks",
-      "Real-time data processing"
+      "dbt transformation patterns",
+      "Airflow orchestration guides",
+      "Real-time streaming architectures"
     ],
     icon: "Database",
     color: "bg-primary"
   },
   {
     id: "analytics",
-    title: "Analytics & Visualization",
-    description: "Transform raw data into actionable insights with advanced analytics and intuitive visualizations.",
+    title: "Analytics Excellence",
+    description: "Advanced analytics techniques, visualization best practices, and modern BI architecture patterns.",
     features: [
-      "KPI definition & tracking",
-      "Custom dashboard creation",
-      "Self-service analytics enablement"
+      "Modern BI architectures",
+      "Advanced visualization techniques",
+      "Self-service analytics patterns"
     ],
     icon: "LineChart",
     color: "bg-accent"
@@ -130,9 +130,9 @@ const ServicesSection = () => {
     <section id="services" className="py-20 bg-neutral-100">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Consulting Services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Expert Analysis & Insights</h2>
           <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
-            Our expert team provides tailored consulting services to help you derive the most value from your data.
+            In-depth analysis of data engineering patterns, architectural decisions, and implementation strategies across the modern data ecosystem.
           </p>
         </div>
 

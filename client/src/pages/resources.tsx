@@ -149,9 +149,9 @@ const Resources = () => {
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Resource Hub</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Data Insights Hub</h1>
             <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
-              Explore our library of resources to enhance your data and AI knowledge.
+              Explore our comprehensive library of data technology analysis, industry insights, and practical guides to stay ahead in the modern data landscape.
             </p>
           </div>
 

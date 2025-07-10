@@ -90,35 +90,35 @@ const CTASection = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2 mb-10 md:mb-0">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Data Strategy?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join the DataSarva Community</h2>
             <p className="text-xl opacity-90 mb-8">
-              Schedule a consultation with our expert team to discover how we can help you unleash the power of your data.
+              Get exclusive access to our weekly insights, implementation guides, and deep-dive analyses of the modern data stack.
             </p>
             <ul className="mb-8 space-y-4">
               <li className="flex items-start">
                 <div className="bg-white text-primary rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">
                   <Check className="h-4 w-4" />
                 </div>
-                <span>Free initial consultation and assessment</span>
+                <span className="text-lg">Weekly implementation deep-dives</span>
               </li>
               <li className="flex items-start">
                 <div className="bg-white text-primary rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">
                   <Check className="h-4 w-4" />
                 </div>
-                <span>Tailored recommendations for your specific challenges</span>
+                <span className="text-lg">Exclusive technology analyses</span>
               </li>
               <li className="flex items-start">
                 <div className="bg-white text-primary rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">
                   <Check className="h-4 w-4" />
                 </div>
-                <span>Flexible engagement models to fit your needs</span>
+                <span className="text-lg">Early access to research insights</span>
               </li>
             </ul>
           </div>
 
           <div className="w-full md:w-1/2 md:pl-12">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-primary text-2xl font-bold mb-6">Contact Us</h3>
+              <h3 className="text-primary text-2xl font-bold mb-6">Join Our Newsletter</h3>
               
               {isSubmitted ? (
                 <div className="text-center py-8">
@@ -202,11 +202,11 @@ const CTASection = () => {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="snowflake">Snowflake Solutions</SelectItem>
-                              <SelectItem value="databricks">Databricks Solutions</SelectItem>
-                              <SelectItem value="powerbi">Power BI Implementation</SelectItem>
-                              <SelectItem value="ai">AI Applications</SelectItem>
-                              <SelectItem value="consulting">Consulting Services</SelectItem>
+                              <SelectItem value="snowflake">Snowflake Deep Dives</SelectItem>
+                              <SelectItem value="databricks">Databricks Intelligence</SelectItem>
+                              <SelectItem value="powerbi">Power BI Mastery</SelectItem>
+                              <SelectItem value="modern-stack">Modern Data Stack</SelectItem>
+                              <SelectItem value="newsletter">Newsletter Updates</SelectItem>
                               <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
@@ -223,7 +223,7 @@ const CTASection = () => {
                           <FormLabel className="text-neutral-800 font-medium">Message</FormLabel>
                           <FormControl>
                             <Textarea 
-                              placeholder="Tell us about your project or requirements" 
+                              placeholder="Tell us what data technologies you're most interested in learning about" 
                               rows={4}
                               className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                               {...field}
@@ -239,7 +239,7 @@ const CTASection = () => {
                       className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-md"
                       disabled={mutation.isPending}
                     >
-                      {mutation.isPending ? "Submitting..." : "Submit Request"}
+                      {mutation.isPending ? "Subscribing..." : "Subscribe to Newsletter"}
                     </Button>
                   </form>
                 </Form>

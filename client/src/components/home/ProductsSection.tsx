@@ -6,12 +6,12 @@ import { Product } from "@/lib/types";
 const products: Product[] = [
   {
     id: "snowflake",
-    title: "Snowflake Integration",
-    description: "Seamlessly integrate and optimize your Snowflake data warehouse with our specialized tools and services.",
+    title: "Snowflake Deep Dives",
+    description: "Comprehensive analysis of Snowflake's architecture, cost optimization strategies, and performance tuning techniques.",
     features: [
-      "Data warehouse optimization",
-      "Cost management",
-      "Security enhancements"
+      "Architecture breakdowns",
+      "Cost optimization guides",
+      "Performance benchmarks"
     ],
     image: "https://unsplash.com/photos/white-and-blue-light-1kLbjTVDJm4/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8ZGF0YSUyMHZpc3VhbGl6YXRpb258ZW58MHx8fHwxNzE3MzcwNzE5fDA&force=true&w=1920",
     color: "text-primary",
@@ -19,12 +19,12 @@ const products: Product[] = [
   },
   {
     id: "databricks",
-    title: "Databricks Solutions",
-    description: "Accelerate your big data analytics and machine learning workflows with our Databricks expertise.",
+    title: "Databricks Intelligence",
+    description: "In-depth exploration of Databricks platform capabilities, lakehouse patterns, and ML engineering best practices.",
     features: [
-      "Lakehouse architecture",
-      "ML workflow optimization",
-      "Delta Lake implementations"
+      "Lakehouse architecture studies",
+      "ML workflow patterns",
+      "Delta Lake deep dives"
     ],
     image: "https://unsplash.com/photos/a-hand-pointing-at-a-computer-screen-BW0vK-FA3eg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NXx8ZGF0YSUyMGFuYWx5dGljc3xlbnwwfHx8fDE3MTczNzA3Mzd8MA&force=true&w=1920",
     color: "text-secondary",
@@ -32,29 +32,29 @@ const products: Product[] = [
   },
   {
     id: "powerbi",
-    title: "Power BI Implementations",
-    description: "Transform your data into compelling visualizations and interactive dashboards with our Power BI expertise.",
+    title: "Power BI Mastery",
+    description: "Advanced Power BI techniques, DAX optimization, and modern analytics patterns for enterprise implementations.",
     features: [
-      "Custom dashboard creation",
-      "Data modeling & optimization",
-      "Integration with data sources"
+      "Advanced DAX patterns",
+      "Performance optimization",
+      "Modern analytics design"
     ],
     image: "https://unsplash.com/photos/person-typing-on-black-laptop-computer-npxXWgQ33ZQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8ZGF0YSUyMGltcGxlbWVudGF0aW9ufGVufDB8fHx8MTcxNzM3MDc2M3ww&force=true&w=1920",
     color: "text-primary",
     link: "#powerbi-details"
   },
   {
-    id: "ai",
-    title: "AI Applications",
-    description: "Create intelligent applications powered by cutting-edge AI models tailored to your business needs.",
+    id: "modern-stack",
+    title: "Modern Data Stack",
+    description: "Complete coverage of dbt, Fivetran, Airflow, and cloud platforms with practical implementation insights.",
     features: [
-      "Custom AI model development",
-      "Predictive analytics",
-      "AI integration & deployment"
+      "dbt transformation patterns",
+      "ELT pipeline design",
+      "Cloud architecture guides"
     ],
     image: "https://unsplash.com/photos/person-typing-on-silver-macbook-pro-MYbhN8KaaEc/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fEFJJTIwYXBwbGljYXRpb25zfGVufDB8fHx8MTcxNzM3MDc5MHww&force=true&w=1920",
     color: "text-accent",
-    link: "#ai-details"
+    link: "#modern-stack-details"
   }
 ];
 
@@ -63,9 +63,9 @@ const ProductsSection = () => {
     <section id="products" className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Solutions</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Technology Deep Dives</h2>
           <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
-            Powerful data analytics and AI products designed to transform how you interact with your data.
+            Comprehensive analysis and insights into the modern data stack technologies that power today's data-driven organizations.
           </p>
         </div>
 

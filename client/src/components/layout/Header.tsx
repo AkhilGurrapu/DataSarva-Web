@@ -67,7 +67,7 @@ const Header = () => {
             className="text-xl sm:text-2xl font-bold cursor-pointer"
           >
             <span className="text-primary">Data</span>
-            <span className="text-accent">AI</span>
+            <span className="text-accent">Sarva</span>
           </div>
         </div>
 
@@ -102,7 +102,7 @@ const Header = () => {
           onClick={() => handleNavigation("/#contact")}
           className="hidden lg:block bg-primary hover:bg-primary/90 text-white text-sm xl:text-base px-4 xl:px-6"
         >
-          Get Started
+          Join Newsletter
         </Button>
       </div>
 
@@ -124,7 +124,7 @@ const Header = () => {
             onClick={() => handleNavigation("/#contact")}
             className="w-full bg-primary hover:bg-primary/90 text-white py-3 mt-4"
           >
-            Get Started
+            Join Newsletter
           </Button>
         </nav>
       </div>

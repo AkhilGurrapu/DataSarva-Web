@@ -183,10 +183,10 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center lg:space-x-12">
           <div className="w-full lg:w-1/2 mb-8 sm:mb-10 lg:mb-0 text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
-              Transform Your Data Into Business Intelligence
+              Your Complete Data Insights Hub
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 opacity-90 leading-relaxed">
-              Leverage the power of data analytics and AI with our enterprise solutions and expert consulting services.
+              Master the modern data stack with deep-dive analyses, implementation guides, and industry insights from Snowflake to Databricks.
             </p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
               <Link href="#products">
@@ -194,7 +194,7 @@ const HeroSection = () => {
                   size="lg" 
                   className="bg-white text-primary hover:bg-neutral-100 w-full sm:w-auto"
                 >
-                  Explore Solutions
+                  Explore Tech Insights
                 </Button>
               </Link>
               <Link href="#contact">
@@ -203,7 +203,7 @@ const HeroSection = () => {
                   variant="outline" 
                   className="bg-transparent border-2 border-white hover:bg-white hover:text-primary text-white w-full sm:w-auto"
                 >
-                  Schedule Consultation
+                  Join Our Newsletter
                 </Button>
               </Link>
             </div>
