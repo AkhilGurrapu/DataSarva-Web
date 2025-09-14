@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Resource } from "@/lib/types";
 import { CSSMountainBackdrop } from "@/components/3d/CSSMountainEnvironment";
-import { CompactTechShowcase } from "@/components/3d/SimpleTechShowcase";
 
 const resources: Resource[] = [
   {
@@ -114,11 +113,6 @@ const ResourcesSection = () => {
           <p className="text-xl text-white/90 max-w-3xl mx-auto">
             Access comprehensive resources, guides, and insights to accelerate your data and AI journey
           </p>
-          
-          {/* Enhanced Tech Showcase */}
-          <div className="mt-8 mb-12">
-            <CompactTechShowcase height="250px" className="opacity-90" />
-          </div>
         </div>
 
         {/* Resource Filters */}

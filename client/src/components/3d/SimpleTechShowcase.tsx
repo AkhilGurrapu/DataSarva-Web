@@ -62,7 +62,7 @@ function FloatingTechCard({ card, delay = 0 }: { card: TechCard; delay?: number 
 
   return (
     <div
-      className={`relative p-4 rounded-lg border transition-all duration-1000 transform hover:scale-105 ${
+      className={`relative p-2 sm:p-3 md:p-4 rounded-lg border transition-all duration-1000 transform hover:scale-105 min-h-[80px] sm:min-h-[100px] md:min-h-[120px] ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}
       style={{
@@ -84,10 +84,10 @@ function FloatingTechCard({ card, delay = 0 }: { card: TechCard; delay?: number 
       />
 
       {/* Content */}
-      <div className="relative z-10 text-center">
+      <div className="relative z-10 text-center h-full flex flex-col justify-center">
         {/* Icon */}
         <div
-          className="text-3xl mb-2"
+          className="text-xl sm:text-2xl md:text-3xl mb-1 sm:mb-2"
           style={{
             color: card.color,
             textShadow: `0 0 8px ${card.glowColor}50`,
@@ -100,21 +100,21 @@ function FloatingTechCard({ card, delay = 0 }: { card: TechCard; delay?: number 
 
         {/* Name */}
         <h3
-          className="text-sm font-bold mb-1 tracking-wider"
+          className="text-xs sm:text-sm md:text-sm font-bold mb-1 tracking-wider leading-tight"
           style={{ color: card.color }}
         >
           {card.name}
         </h3>
 
         {/* Description */}
-        <p className="text-xs text-white/60 leading-tight">
+        <p className="text-[10px] sm:text-xs md:text-xs text-white/60 leading-tight px-1">
           {card.description}
         </p>
       </div>
 
       {/* Subtle connecting line */}
       <div
-        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-px opacity-40"
+        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-8 sm:w-12 h-px opacity-40"
         style={{
           background: `linear-gradient(90deg, transparent, ${card.glowColor}60, transparent)`,
           animation: `subtleLineGlow 4s ease-in-out infinite`
@@ -133,10 +133,10 @@ export function SimpleTechShowcase({
   height?: string
   layout?: 'horizontal' | 'grid'
 }) {
-  
+
   return (
-    <div 
-      className={`relative overflow-hidden ${className}`} 
+    <div
+      className={`relative overflow-hidden ${className}`}
       style={{ height }}
     >
       {/* Starfield background */}
@@ -154,7 +154,7 @@ export function SimpleTechShowcase({
           />
         ))}
       </div>
-      
+
       {/* Network connections */}
       <svg className="absolute inset-0 w-full h-full opacity-30">
         {techCards.map((_, index) => (
@@ -173,25 +173,26 @@ export function SimpleTechShowcase({
           />
         ))}
       </svg>
-      
+
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center p-4">
+      <div className="relative z-10 h-full flex items-center justify-center p-2 sm:p-4">
         {layout === 'horizontal' ? (
-          <div className="flex space-x-4 overflow-x-auto">
-            {techCards.slice(0, 3).map((card, index) => (
-              <FloatingTechCard 
-                key={card.id} 
-                card={card} 
-                delay={index * 200}
-              />
+          <div className="flex space-x-2 sm:space-x-4 overflow-x-auto pb-2 px-2 w-full">
+            {techCards.map((card, index) => (
+              <div key={card.id} className="flex-shrink-0 w-24 sm:w-32 md:w-40">
+                <FloatingTechCard
+                  card={card}
+                  delay={index * 200}
+                />
+              </div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 w-full max-w-6xl px-2">
             {techCards.map((card, index) => (
-              <FloatingTechCard 
-                key={card.id} 
-                card={card} 
+              <FloatingTechCard
+                key={card.id}
+                card={card}
                 delay={index * 150}
               />
             ))}
@@ -230,7 +231,8 @@ export function EnhancedTechLogos({
       className={`relative overflow-hidden ${className}`}
       style={{
         height,
-        background: 'transparent'
+        background: 'transparent',
+        minHeight: '300px' // Ensure minimum height for mobile visibility
       }}
     >
       {/* Subtle starfield that blends with background */}
@@ -270,15 +272,13 @@ export function EnhancedTechLogos({
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 h-full flex items-center justify-center">
+      <div className="relative z-10 h-full flex items-center justify-center p-2 sm:p-4">
         <SimpleTechShowcase
           height="100%"
           layout="grid"
           className="w-full max-w-4xl"
         />
       </div>
-
-
     </div>
   )
 }

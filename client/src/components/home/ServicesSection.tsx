@@ -14,7 +14,6 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Service } from "@/lib/types";
 import { CSSMountainBackdrop } from "@/components/3d/CSSMountainEnvironment";
-import { CompactTechShowcase } from "@/components/3d/SimpleTechShowcase";
 
 const serviceApproach = [
   {
@@ -144,10 +143,6 @@ const ServicesSection = () => {
             Comprehensive analysis and implementation guidance for modern data engineering, AI, and analytics solutions
           </p>
           
-          {/* Enhanced Tech Showcase */}
-          <div className="mt-8 mb-12">
-            <CompactTechShowcase height="200px" className="opacity-90" />
-          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
