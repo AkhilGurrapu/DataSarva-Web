@@ -54,75 +54,77 @@ const techCards: TechCard[] = [
 
 function FloatingTechCard({ card, delay = 0 }: { card: TechCard; delay?: number }) {
   const [isVisible, setIsVisible] = useState(false)
-  
+
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), delay)
     return () => clearTimeout(timer)
   }, [delay])
-  
+
   return (
-    <div 
-      className={`relative p-4 rounded-lg border-2 transition-all duration-1000 transform hover:scale-105 hover:rotate-1 ${
+    <div
+      className={`relative p-4 rounded-lg border transition-all duration-1000 transform hover:scale-105 ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}
       style={{
-        borderColor: card.color,
-        background: `linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%)`,
-        boxShadow: `0 0 20px ${card.glowColor}40, inset 0 0 10px ${card.glowColor}20`,
-        animation: `float 6s ease-in-out infinite`,
+        borderColor: `${card.color}40`,
+        background: `linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%)`,
+        backdropFilter: 'blur(10px)',
+        boxShadow: `0 0 15px ${card.glowColor}20, inset 0 0 5px ${card.glowColor}10`,
+        animation: `gentleFloat 8s ease-in-out infinite`,
         animationDelay: `${delay * 0.2}s`
       }}
     >
-      {/* Glow effect */}
-      <div 
-        className="absolute inset-0 rounded-lg opacity-20 blur-md"
+      {/* Subtle glow effect */}
+      <div
+        className="absolute inset-0 rounded-lg opacity-10 blur-sm"
         style={{
-          background: `linear-gradient(135deg, ${card.glowColor} 0%, transparent 70%)`,
-          animation: `pulse 2s ease-in-out infinite`
+          background: `linear-gradient(135deg, ${card.glowColor} 0%, transparent 60%)`,
+          animation: `gentlePulse 4s ease-in-out infinite`
         }}
       />
-      
+
       {/* Content */}
       <div className="relative z-10 text-center">
         {/* Icon */}
-        <div 
-          className="text-4xl mb-2 animate-bounce"
-          style={{ 
+        <div
+          className="text-3xl mb-2"
+          style={{
             color: card.color,
-            textShadow: `0 0 10px ${card.glowColor}`,
+            textShadow: `0 0 8px ${card.glowColor}50`,
+            animation: `gentleGlow 3s ease-in-out infinite`,
             animationDelay: `${delay * 0.1}s`
           }}
         >
           {card.icon}
         </div>
-        
+
         {/* Name */}
-        <h3 
+        <h3
           className="text-sm font-bold mb-1 tracking-wider"
           style={{ color: card.color }}
         >
           {card.name}
         </h3>
-        
+
         {/* Description */}
-        <p className="text-xs text-white/70 leading-tight">
+        <p className="text-xs text-white/60 leading-tight">
           {card.description}
         </p>
       </div>
-      
-      {/* Connecting line */}
-      <div 
-        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-0.5 opacity-60"
+
+      {/* Subtle connecting line */}
+      <div
+        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-px opacity-40"
         style={{
-          background: `linear-gradient(90deg, transparent, ${card.glowColor}, transparent)`,
-          animation: `lineGlow 3s ease-in-out infinite`
+          background: `linear-gradient(90deg, transparent, ${card.glowColor}60, transparent)`,
+          animation: `subtleLineGlow 4s ease-in-out infinite`
         }}
       />
     </div>
   )
 }
 
-export function SimpleTechShowcase({ 
+export function SimpleTechShowcase({
   className = '',
   height = '300px',
   layout = 'horizontal'
@@ -131,14 +133,6 @@ export function SimpleTechShowcase({
   height?: string
   layout?: 'horizontal' | 'grid'
 }) {
-  const [activeIndex, setActiveIndex] = useState(0)
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % techCards.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
   
   return (
     <div 
@@ -204,22 +198,6 @@ export function SimpleTechShowcase({
           </div>
         )}
       </div>
-      
-      {/* Status indicator */}
-      <div className="absolute top-4 right-4 bg-black/20 backdrop-blur-sm border border-cyan-400/30 rounded-lg p-2 text-cyan-400 font-mono text-xs">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span>ONLINE</span>
-        </div>
-      </div>
-      
-      {/* Tech count */}
-      <div className="absolute bottom-4 left-4 bg-black/20 backdrop-blur-sm border border-purple-400/30 rounded-lg p-2 text-purple-400 font-mono text-xs">
-        <div className="text-center">
-          <div className="text-sm font-bold">{techCards.length}</div>
-          <div className="text-[10px] opacity-80">PLATFORMS</div>
-        </div>
-      </div>
     </div>
   )
 }
@@ -240,7 +218,7 @@ export function CompactTechShowcase({
   )
 }
 
-export function EnhancedTechLogos({ 
+export function EnhancedTechLogos({
   className = '',
   height = '600px'
 }: {
@@ -248,53 +226,59 @@ export function EnhancedTechLogos({
   height?: string
 }) {
   return (
-    <div 
-      className={`relative overflow-hidden ${className}`} 
-      style={{ 
+    <div
+      className={`relative overflow-hidden ${className}`}
+      style={{
         height,
-        background: 'linear-gradient(135deg, #0a0a23 0%, #1a1a3a 50%, #2a2a4a 100%)'
+        background: 'transparent'
       }}
     >
-      {/* Enhanced starfield */}
+      {/* Subtle starfield that blends with background */}
       <div className="absolute inset-0">
-        {Array.from({ length: 200 }, (_, i) => (
+        {Array.from({ length: 80 }, (_, i) => (
           <div
             key={i}
-            className="absolute bg-white rounded-full"
+            className="absolute bg-white rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              opacity: Math.random() * 0.8 + 0.2,
-              animation: `twinkle ${2 + Math.random() * 6}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 4}s`
+              width: `${Math.random() * 2 + 1}px`,
+              height: `${Math.random() * 2 + 1}px`,
+              animation: `twinkle ${3 + Math.random() * 4}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 3}s`
             }}
           />
         ))}
       </div>
-      
+
+      {/* Gentle snowfall animation */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 30 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute bg-white rounded-full opacity-40"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${-10 + Math.random() * 20}%`,
+              width: `${Math.random() * 4 + 2}px`,
+              height: `${Math.random() * 4 + 2}px`,
+              animation: `gentleSnowfall ${8 + Math.random() * 6}s linear infinite`,
+              animationDelay: `${Math.random() * 8}s`
+            }}
+          />
+        ))}
+      </div>
+
       {/* Main content */}
       <div className="relative z-10 h-full flex items-center justify-center">
-        <SimpleTechShowcase 
+        <SimpleTechShowcase
           height="100%"
           layout="grid"
           className="w-full max-w-4xl"
         />
       </div>
-      
-      {/* System info overlay */}
-      <div className="absolute top-4 left-4 bg-black/20 backdrop-blur-sm border border-cyan-400/30 rounded-lg p-3 text-cyan-400 font-mono text-xs">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span>SYSTEM ONLINE</span>
-        </div>
-        <div className="text-[10px] opacity-80">
-          <div>NET: 98.7% ████████░</div>
-          <div>CPU: 45.2% ████░░░░░</div>
-          <div>MEM: 67.1% ██████░░░</div>
-        </div>
-      </div>
+
+
     </div>
   )
 }

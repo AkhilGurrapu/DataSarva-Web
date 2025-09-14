@@ -341,20 +341,6 @@ const HeroSection = () => {
               <div className="absolute top-0 left-0 w-full h-full">
                 <EnhancedTechLogos height="100%" />
               </div>
-
-              {/* AI Insights Display */}
-              <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm p-3 rounded border border-cyan-400/50 font-mono text-xs text-cyan-400 z-20">
-                <div className="flex items-center space-x-2 mb-1">
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                  <span>AI INSIGHTS</span>
-                </div>
-                <div className="space-y-1 text-[10px]">
-                  <div>LLM: 97% ████████░</div>
-                  <div>RAG: 92% █████████░</div>
-                  <div>MLOps: 89% ████████░</div>
-                  <div>Analytics: 95% █████████░</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

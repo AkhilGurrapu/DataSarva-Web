@@ -79,10 +79,11 @@ function FloatingTechLogo({ logo }: { logo: TechLogo }) {
       logoRef.current.scale.setScalar(scale * logo.size)
     }
     
-    if (glowRef.current) {
+    if (glowRef.current && glowRef.current.material) {
       // Pulsing glow effect
       const intensity = 0.5 + Math.sin(state.clock.elapsedTime * 2) * 0.3
-      glowRef.current.material.opacity = intensity * (hovered ? 1.5 : 1.0)
+      const material = glowRef.current.material as THREE.MeshBasicMaterial
+      material.opacity = intensity * (hovered ? 1.5 : 1.0)
     }
   })
   

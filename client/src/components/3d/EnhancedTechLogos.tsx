@@ -96,10 +96,11 @@ function FloatingTechCard({ card }: { card: TechCard }) {
       cardRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1)
     }
     
-    if (glowRef.current) {
+    if (glowRef.current && glowRef.current.material) {
       // Pulsing glow
       const intensity = 0.3 + Math.sin(state.clock.elapsedTime * 2) * 0.2
-      glowRef.current.material.opacity = intensity * (hovered ? 1.5 : 1.0)
+      const material = glowRef.current.material as THREE.MeshBasicMaterial
+      material.opacity = intensity * (hovered ? 1.5 : 1.0)
     }
   })
 
