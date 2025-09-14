@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Service } from "@/lib/types";
+import { CSSMountainBackdrop } from "@/components/3d/CSSMountainEnvironment";
+import { CompactTechShowcase } from "@/components/3d/SimpleTechShowcase";
 
 const serviceApproach = [
   {
@@ -127,31 +129,43 @@ const iconComponents = {
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-20 bg-neutral-100">
-      <div className="container mx-auto px-6">
+    <CSSMountainBackdrop 
+      height="auto"
+      className="py-20 relative overflow-hidden"
+      showSnow={true}
+      intensity="light"
+    >
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Expert Analysis & Insights</h2>
-          <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
-            In-depth analysis of data engineering patterns, architectural decisions, and implementation strategies across the modern data ecosystem.
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
+            Solutions & Expertise
+          </h2>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto">
+            Comprehensive analysis and implementation guidance for modern data engineering, AI, and analytics solutions
           </p>
+          
+          {/* Enhanced Tech Showcase */}
+          <div className="mt-8 mb-12">
+            <CompactTechShowcase height="200px" className="opacity-90" />
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-1/3">
             <div className="lg:sticky lg:top-32">
-              <h3 className="text-xl sm:text-2xl font-bold text-primary mb-4 sm:mb-6">Our Approach</h3>
-              <p className="text-neutral-700 mb-4 sm:mb-6 text-sm sm:text-base">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Our Approach</h3>
+              <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
                 We combine deep technical expertise with business acumen to deliver solutions that drive real business outcomes.
               </p>
               <div className="space-y-6 sm:space-y-8">
                 {serviceApproach.map((approach, index) => (
                   <div key={index} className="flex items-start">
-                    <div className="bg-primary text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0">
+                    <div className="bg-white/20 backdrop-blur-sm text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center mr-3 sm:mr-4 flex-shrink-0 border border-white/30">
                       <approach.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <div>
-                      <h4 className="font-bold mb-1 text-sm sm:text-base">{approach.title}</h4>
-                      <p className="text-xs sm:text-sm text-neutral-700">{approach.description}</p>
+                      <h4 className="font-bold mb-1 text-sm sm:text-base text-white">{approach.title}</h4>
+                      <p className="text-xs sm:text-sm text-white/70">{approach.description}</p>
                     </div>
                   </div>
                 ))}
@@ -165,25 +179,24 @@ const ServicesSection = () => {
                 const IconComponent = iconComponents[service.icon as keyof typeof iconComponents];
                 
                 return (
-                  <Card key={service.id} className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full">
+                  <Card key={service.id} className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40">
                     <CardContent className="p-4 sm:p-6 h-full flex flex-col">
                       <div className="flex items-center mb-3 sm:mb-4">
                         <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${service.color} flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0`}>
                           <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
-                        <h3 className="text-base sm:text-lg font-bold leading-tight">{service.title}</h3>
+                        <h3 className="text-base sm:text-lg font-bold leading-tight text-white">{service.title}</h3>
                       </div>
-                      <p className="text-neutral-700 mb-3 sm:mb-4 text-sm sm:text-base flex-1">
+                      <p className="text-white/80 mb-3 sm:mb-4 text-sm sm:text-base flex-1">
                         {service.description}
                       </p>
                       <ul className="mb-4 space-y-2">
                         {service.features.map((feature, index) => (
                           <li key={index} className="flex items-start">
                             <CheckCircle 
-                              className="w-3 h-3 sm:w-4 sm:h-4 mr-2 mt-1 flex-shrink-0" 
-                              style={{ color: "#0047AB" }}
+                              className="w-3 h-3 sm:w-4 sm:h-4 mr-2 mt-1 flex-shrink-0 text-cyan-400" 
                             />
-                            <span className="text-xs sm:text-sm">{feature}</span>
+                            <span className="text-xs sm:text-sm text-white/90">{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -193,27 +206,27 @@ const ServicesSection = () => {
               })}
             </div>
 
-            <div className="mt-12 bg-white rounded-xl shadow-md p-8 border-l-4 border-primary">
-              <h3 className="text-xl font-bold mb-4">Engagement Models</h3>
+            <div className="mt-12 bg-white/10 backdrop-blur-sm rounded-xl shadow-md p-8 border-l-4 border-cyan-400">
+              <h3 className="text-xl font-bold mb-4 text-white">Engagement Models</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="flex flex-col items-center p-4 bg-neutral-100 rounded-lg">
-                  <div className="text-primary text-lg font-bold mb-2">Strategic Advisory</div>
-                  <p className="text-center text-sm">Expert guidance for long-term data strategy and technology decisions</p>
+                <div className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                  <div className="text-cyan-400 text-lg font-bold mb-2">Strategic Advisory</div>
+                  <p className="text-center text-sm text-white/80">Expert guidance for long-term data strategy and technology decisions</p>
                 </div>
-                <div className="flex flex-col items-center p-4 bg-neutral-100 rounded-lg">
-                  <div className="text-primary text-lg font-bold mb-2">Project-Based</div>
-                  <p className="text-center text-sm">Focused engagements with clear deliverables and timelines</p>
+                <div className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                  <div className="text-cyan-400 text-lg font-bold mb-2">Project-Based</div>
+                  <p className="text-center text-sm text-white/80">Focused engagements with clear deliverables and timelines</p>
                 </div>
-                <div className="flex flex-col items-center p-4 bg-neutral-100 rounded-lg">
-                  <div className="text-primary text-lg font-bold mb-2">Managed Services</div>
-                  <p className="text-center text-sm">Ongoing support and optimization of your data ecosystem</p>
+                <div className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                  <div className="text-cyan-400 text-lg font-bold mb-2">Managed Services</div>
+                  <p className="text-center text-sm text-white/80">Ongoing support and optimization of your data ecosystem</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </CSSMountainBackdrop>
   );
 };
 

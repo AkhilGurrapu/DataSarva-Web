@@ -1,8 +1,7 @@
 import HeroSection from "@/components/home/HeroSection";
+import { ContentSections } from "@/components/home/ContentSections";
 import ClientsSection from "@/components/home/ClientsSection";
-import ProductsSection from "@/components/home/ProductsSection";
 import ServicesSection from "@/components/home/ServicesSection";
-import CaseStudiesSection from "@/components/home/CaseStudiesSection";
 import ResourcesSection from "@/components/home/ResourcesSection";
 import BlogPreviewSection from "@/components/home/BlogPreviewSection";
 import CTASection from "@/components/home/CTASection";
@@ -15,11 +14,10 @@ const Home = () => {
       <Header />
       <main>
         <HeroSection />
+        <ContentSections />
         <ClientsSection />
         <ServicesSection />
         <ResourcesSection />
-        <ProductsSection />
-        <CaseStudiesSection />
         <BlogPreviewSection />
         <CTASection />
       </main>

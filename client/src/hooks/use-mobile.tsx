@@ -20,3 +20,6 @@ export function useMobile(): boolean {
 
   return isMobile;
 }
+
+// For compatibility with existing imports
+export const useIsMobile = useMobile;

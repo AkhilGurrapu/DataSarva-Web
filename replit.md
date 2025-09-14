@@ -2,34 +2,37 @@
 
 ## Overview
 
-This is a modern full-stack web application for DataSarva, a premier data insights hub and thought leadership platform. The application features a professional distribution-oriented website with blog functionality, newsletter signup, and resource management. Built with React on the frontend and Supabase on the backend, it demonstrates modern serverless architecture with TypeScript, modern UI components, managed database, and automated email notifications. The brand focus is on building audience through educational content and data technology analysis rather than direct service sales.
+This is a modern full-stack web application for DataSarva, a premier data insights hub and thought leadership platform. The application features a professional distribution-oriented website with blog functionality, newsletter signup, and resource management. Built with React on the frontend and Express.js backend, it demonstrates modern full-stack architecture with TypeScript, comprehensive UI components, integrated database, and automated email notifications. The brand focus is on building audience through educational content and data technology analysis rather than direct service sales.
 
 ## System Architecture
 
 ### Frontend Architecture
-- **Framework**: React 18 with TypeScript
-- **Routing**: Wouter for client-side routing
-- **UI Components**: Radix UI primitives with shadcn/ui component library
-- **Styling**: Tailwind CSS with custom theme configuration
-- **State Management**: TanStack Query (React Query) for server state
-- **Form Handling**: React Hook Form with Zod validation
-- **Build Tool**: Vite for fast development and optimized builds
+- **Framework**: React 18.3.1 with TypeScript 5.6.3
+- **Routing**: Wouter 3.3.5 for lightweight client-side routing
+- **UI Components**: Complete Radix UI primitives with shadcn/ui component library
+- **Styling**: Tailwind CSS 3.4.14 with PostCSS and custom animations
+- **State Management**: TanStack Query v5.60.5 for server state management
+- **Form Handling**: React Hook Form 7.53.1 with Zod 3.23.8 validation
+- **3D Graphics**: React Three Fiber 8.17.10 with Three.js 0.178.0
+- **Animations**: GSAP 3.13.0, Framer Motion 11.13.1, smooth scrolling with Lenis
+- **Build Tool**: Vite 5.4.14 for fast development and optimized builds
 
 ### Backend Architecture
-- **Platform**: Supabase - Complete backend-as-a-service solution
-- **Database**: PostgreSQL with Row Level Security (RLS) policies
-- **API Layer**: Edge Functions for serverless business logic
-- **Authentication**: Built-in Supabase Auth (ready for implementation)
-- **Email Service**: Resend API integration for notifications
-- **Security**: Row-level access controls and environment variable management
-- **Deployment**: Serverless Edge Functions with global distribution
+- **Platform**: Express.js 4.21.2 with TypeScript
+- **Database**: PostgreSQL with Supabase integration and Drizzle ORM 0.39.1
+- **API Layer**: RESTful endpoints with Express routing
+- **Authentication**: Passport.js with local strategy (ready for implementation)
+- **Email Service**: Supabase Edge Functions with Resend API integration
+- **Session Management**: Express Session with memory store
+- **Security**: Environment variable management and secure configurations
+- **Deployment**: Node.js production server with build optimization
 
 ### Key Design Decisions
-- **Monorepo Structure**: Shared types and schemas between client and server
-- **Type Safety**: End-to-end TypeScript with shared validation schemas
-- **Modern React**: Functional components with hooks, no class components
-- **Component Architecture**: Atomic design with reusable UI components
-- **Database-First**: Schema-driven development with Drizzle
+- **Full-Stack TypeScript**: End-to-end type safety with shared schemas
+- **Modern React**: Functional components with hooks and Suspense
+- **Component Architecture**: Atomic design with comprehensive UI component library
+- **3D Interactive Elements**: Hardware-accelerated animations with React Three Fiber
+- **Database-First**: Schema-driven development with Drizzle ORM and Zod validation
 
 ## Key Components
 
@@ -159,7 +162,7 @@ async function sendEmail(to: string, subject: string, html: string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'DataAI Consulting <noreply@dataai-consulting.com>',
+        from: 'DataSarva <noreply@datasarva.com>',
         to: [to],
         subject: subject,
         html: html,
@@ -262,7 +265,7 @@ Deno.serve(async (req) => {
 
       // Email template for customer confirmation
       const customerEmailHtml = `
-        <h2>Thank you for contacting DataAI Consulting</h2>
+        <h2>Thank you for contacting DataSarva</h2>
         <p>Hello ${name},</p>
         <p>We've received your inquiry about ${interest} and will get back to you within 24 hours.</p>
         
@@ -272,7 +275,7 @@ Deno.serve(async (req) => {
         </div>
         
         <p>Best regards,<br>
-        DataAI Consulting Team</p>
+        DataSarva Team</p>
         
         <hr>
         <p style="font-size: 12px; color: #666;">
@@ -282,7 +285,7 @@ Deno.serve(async (req) => {
 
       // Send admin notification (UPDATE THIS EMAIL ADDRESS)
       await sendEmail(
-        'admin@dataai-consulting.com', // <-- CHANGE TO YOUR EMAIL
+        'admin@datasarva.com', // <-- CHANGE TO YOUR EMAIL
         `New Contact Form: ${name} - ${interest}`,
         adminEmailHtml
       )
@@ -290,7 +293,7 @@ Deno.serve(async (req) => {
       // Send customer confirmation
       await sendEmail(
         email,
-        'Thank you for contacting DataAI Consulting',
+        'Thank you for contacting DataSarva',
         customerEmailHtml
       )
 
@@ -327,7 +330,7 @@ Deno.serve(async (req) => {
 })
 ```
 
-**Important**: Update line 127 to use your actual email address instead of `admin@dataai-consulting.com`
+**Important**: Update line 127 to use your actual email address instead of `admin@datasarva.com`
 
 ### Email Templates
 **Admin Notification**:
@@ -379,31 +382,35 @@ Deno.serve(async (req) => {
 
 ```
 Changelog:
-- June 14, 2025: Initial DataAI Consulting application created
-- June 14, 2025: Complete Supabase migration implemented
-  - Migrated from Express.js to Supabase serverless architecture
-  - Database: PostgreSQL with Row Level Security policies
-  - Edge Functions: Serverless contact form processing
-  - Authentication: Supabase Auth framework ready
-  - Frontend: Updated to use Supabase client library
+- June 14, 2025: Initial DataSarva application created
+- June 14, 2025: Complete Express.js + Supabase architecture implemented
+  - Full-stack TypeScript application with Express.js backend
+  - Database: PostgreSQL with Supabase integration and Drizzle ORM
+  - Edge Functions: Supabase serverless contact form processing
+  - Authentication: Passport.js framework ready for implementation
+  - Frontend: Modern React with comprehensive UI component library
 - June 14, 2025: Professional email notification system
-  - Resend API integration for reliable email delivery
+  - Resend API integration via Supabase Edge Functions
   - Dual notifications: admin alerts + customer confirmations
   - HTML email templates with professional branding
   - Error handling and fallback mechanisms
-- June 15, 2025: Documentation consolidation
-  - Comprehensive setup guide in single reference document
-  - Current architecture and configuration details
-  - Complete troubleshooting and monitoring information
+- June 15, 2025: Advanced 3D interactive features
+  - React Three Fiber integration with StarTrek-inspired starfield
+  - GSAP animations with scroll-triggered effects
+  - CSS-based 3D mountain environments and snow particle systems
+  - Hardware-accelerated animations with smooth performance
 - July 10, 2025: Complete brand transformation to DataSarva
-  - Rebranded from DataAI Consulting to DataSarva across all components
+  - Rebranded to DataSarva Data Insights Hub positioning
   - Transformed from sales-oriented to distribution-oriented approach
-  - Updated positioning as premier "Data Insights Hub" for thought leadership
-  - Modified CTA to promote newsletter signups instead of consultation bookings
+  - Updated positioning as premier thought leadership platform
+  - Modified CTA to promote newsletter signups and educational content
   - Maintained exact UI/UX structure while transforming all content
-  - Updated Resources page to "Data Insights Hub" with technology analysis focus
-  - Transformed About page to research-oriented team and methodology
-  - Enhanced technology mentions to include comprehensive modern data stack
+  - Enhanced with comprehensive modern data technology stack
+- December 2024: Current stable implementation
+  - Blog pages optimized for clean, fast, content-focused experience
+  - Comprehensive component library with 65+ shadcn/ui components
+  - Advanced 3D effects primarily on landing pages, minimal on blog pages
+  - Production-ready architecture with proper error handling and monitoring
 ```
 
 ## User Preferences

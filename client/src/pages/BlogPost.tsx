@@ -37,7 +37,7 @@ const CodeBlock = ({ language, code }: { language: string; code: string }) => {
         <span className="text-xs font-mono">{language}</span>
         <button 
           onClick={copyToClipboard}
-          className="text-neutral-400 hover:text-white transition-colors"
+          className="text-neutral-400"
           aria-label="Copy code"
         >
           {copied ? (
@@ -262,11 +262,11 @@ const BlogPostPage = () => {
         <div className="bg-neutral-100 py-3 border-b border-neutral-200 mb-8">
           <div className="container mx-auto px-6">
             <div className="flex items-center text-sm">
-              <a href="/blog" className="text-neutral-600 hover:text-primary transition-colors">
+              <a href="/blog" className="text-neutral-600">
                 Blog
               </a>
               <ChevronRight className="h-4 w-4 mx-2 text-neutral-400" />
-              <a href={`/blog/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="text-neutral-600 hover:text-primary transition-colors">
+              <a href={`/blog/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="text-neutral-600">
                 {post.category}
               </a>
               <ChevronRight className="h-4 w-4 mx-2 text-neutral-400" />
@@ -297,7 +297,7 @@ const BlogPostPage = () => {
                     <li key={section.id}>
                       <a 
                         href={`#${section.id}`}
-                        className={`block py-1 border-l-2 pl-3 text-sm hover:text-primary transition-colors ${
+                        className={`block py-1 border-l-2 pl-3 text-sm ${
                           activeSection === section.id 
                             ? "border-primary text-primary font-medium" 
                             : "border-neutral-200 text-neutral-700"
@@ -358,7 +358,7 @@ const BlogPostPage = () => {
             <div className="w-full md:w-3/4 md:pl-8">
               <div className="max-w-3xl">
                 <div>
-                  <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-4">
+                  <span className="inline-block px-3 py-1 bg-blue-100 text-primary text-sm font-medium rounded-full mb-4">
                     {post.category}
                   </span>
                   <h1 className="text-3xl md:text-4xl font-bold mb-6">{post.title}</h1>
@@ -367,7 +367,7 @@ const BlogPostPage = () => {
                     <img 
                       src={post.image} 
                       alt={post.title} 
-                      className="w-full h-auto rounded-xl shadow-md"
+                      className="w-full h-auto rounded-xl border border-gray-200"
                     />
                   </div>
                 </div>
@@ -412,7 +412,7 @@ const BlogPostPage = () => {
                 <div className="prose max-w-none">
                   {isLoading ? (
                     <div className="flex justify-center py-12">
-                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                      <div className="rounded-full h-12 w-12 border-b-2 border-primary"></div>
                     </div>
                   ) : error ? (
                     <div className="bg-red-50 text-red-800 p-4 rounded-md">
@@ -455,7 +455,7 @@ const BlogPostPage = () => {
                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                             .replace(/\*(.*?)\*/g, '<em>$1</em>')
                             // Process links
-                            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-primary hover:underline">$1</a>')
+                            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-primary">$1</a>')
                             // Process paragraphs
                             .replace(/^(?!<[a-z]|$)(.*?)$/gm, '<p>$1</p>')
                             // Close sections
@@ -494,7 +494,7 @@ const BlogPostPage = () => {
                         <a 
                           key={relatedPost.id} 
                           href={relatedPost.link}
-                          className="block bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-shadow"
+                          className="block bg-white rounded-xl border border-neutral-200 overflow-hidden"
                         >
                           <div className="h-40 overflow-hidden">
                             <img 
@@ -504,7 +504,7 @@ const BlogPostPage = () => {
                             />
                           </div>
                           <div className="p-4">
-                            <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">
+                            <span className="text-xs text-primary bg-blue-100 px-2 py-1 rounded-full">
                               {relatedPost.category}
                             </span>
                             <h3 className="font-bold mt-2 mb-1">{relatedPost.title}</h3>

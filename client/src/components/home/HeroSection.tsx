@@ -1,12 +1,15 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
-import databricksLogo from "@assets/image_1748765701224.png";
-import fabricLogo from "@assets/image_1748765764182.png";
+import { EnhancedTechLogos } from "@/components/3d/SimpleTechShowcase";
+import { CSSMountainEnvironment } from "@/components/3d/CSSMountainEnvironment";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -32,25 +35,83 @@ const HeroSection = () => {
       });
     };
 
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      
+      const scrolled = window.pageYOffset;
+      const section = sectionRef.current;
+      const rect = section.getBoundingClientRect();
+      
+      // Enhanced parallax effect for background elements
+      const parallaxElements = section.querySelectorAll('.parallax-bg');
+      parallaxElements.forEach((element, index) => {
+        const speed = (index + 1) * 0.2;
+        const yPos = -(scrolled * speed);
+        (element as HTMLElement).style.transform = `translateY(${yPos}px) scale(${1 + scrolled * 0.0001})`;
+      });
+
+      // Advanced content animations based on scroll position
+      const scrollPercent = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
+      
+      // Title slide-in animation
+      if (titleRef.current) {
+        const titleTransform = Math.max(0, (1 - scrollPercent) * 50);
+        titleRef.current.style.transform = `translateY(-${titleTransform}px)`;
+        titleRef.current.style.opacity = Math.max(0.3, scrollPercent).toString();
+      }
+      
+      // Content fade and slide animation
+      if (contentRef.current) {
+        const contentTransform = Math.max(0, (1 - scrollPercent) * 30);
+        contentRef.current.style.transform = `translateY(${contentTransform}px)`;
+        contentRef.current.style.opacity = Math.max(0.5, scrollPercent).toString();
+      }
+      
+      // Visual section 3D rotation effect
+      if (visualRef.current) {
+        const rotateX = (1 - scrollPercent) * 15;
+        const rotateY = (1 - scrollPercent) * 10;
+        visualRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
+
+      // Advanced tech module animations
+      const techModules = section.querySelectorAll('.tech-module');
+      techModules.forEach((module, index) => {
+        const element = module as HTMLElement;
+        const moduleScrollOffset = scrolled * (0.1 + index * 0.02);
+        const rotateValue = scrolled * 0.1 + index * 10;
+        element.style.transform = `translateY(${moduleScrollOffset}px) rotate(${rotateValue}deg) scale(${1 + scrollPercent * 0.1})`;
+      });
+    };
+
     const section = sectionRef.current;
     if (section) {
       section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
+      window.addEventListener('scroll', handleScroll);
+      
+      // Initial animation trigger
+      handleScroll();
+      
+      return () => {
+        section.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('scroll', handleScroll);
+      };
     }
   }, []);
 
   return (
-    <section 
-      ref={sectionRef}
-      className="relative bg-gradient-to-r from-primary to-accent pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-40 lg:pb-32 text-white overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #0047AB 0%, #4B0082 50%, #2E8B57 100%)',
-        backgroundSize: '400% 400%',
-        animation: 'gradientShift 8s ease infinite'
-      }}
+    <CSSMountainEnvironment 
+      height="100vh"
+      showSnow={true}
+      intensity="light"
+      className="relative overflow-hidden"
     >
+      <section 
+        ref={sectionRef}
+        className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-40 lg:pb-32 text-white overflow-hidden"
+      >
       {/* Network Nodes Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden parallax-bg">
         {/* Background Dots */}
         <div className="absolute inset-0">
           {Array.from({ length: 80 }, (_, i) => (
@@ -137,7 +198,7 @@ const HeroSection = () => {
         </div>
 
         {/* 3D Geometric Shapes */}
-        <div className="absolute top-20 right-20 opacity-30">
+        <div className="absolute top-20 right-20 opacity-30 parallax-bg">
           <div 
             className="w-32 h-32 border-2 border-green-400"
             style={{
@@ -149,7 +210,7 @@ const HeroSection = () => {
           />
         </div>
         
-        <div className="absolute bottom-32 left-16 opacity-25">
+        <div className="absolute bottom-32 left-16 opacity-25 parallax-bg">
           <div 
             className="w-24 h-24 border border-blue-400"
             style={{
@@ -162,7 +223,7 @@ const HeroSection = () => {
         </div>
 
         {/* Large Network Hub */}
-        <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 opacity-40">
+        <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 opacity-40 parallax-bg">
           <div 
             className="w-40 h-40 border-2 border-green-400 rounded-lg"
             style={{
@@ -181,291 +242,117 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center lg:space-x-12">
-          <div className="w-full lg:w-1/2 mb-8 sm:mb-10 lg:mb-0 text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6">
-              Your Complete Data Insights Hub
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 opacity-90 leading-relaxed">
-              Master the modern data stack with deep-dive analyses, implementation guides, and industry insights from Snowflake to Databricks.
-            </p>
-            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
-              <Link href="#products">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-primary hover:bg-neutral-100 w-full sm:w-auto"
-                >
-                  Explore Tech Insights
-                </Button>
-              </Link>
-              <Link href="#contact">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="bg-transparent border-2 border-white hover:bg-white hover:text-primary text-white w-full sm:w-auto"
-                >
-                  Join Our Newsletter
-                </Button>
-              </Link>
+          <div className="w-full lg:w-3/5 mb-8 sm:mb-10 lg:mb-0 text-center lg:text-left">
+            <div ref={titleRef} className="mb-6 sm:mb-8" style={{ opacity: 0.3 }}>
+              <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
+                <span className="text-cyan-400">🚀</span> DataSarva Universe
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 bg-gradient-to-r from-white via-cyan-200 to-blue-200 bg-clip-text text-transparent">
+                AI & Analytics
+                <br />
+                <span className="text-white">Resource Hub</span>
+              </h1>
+            </div>
+            
+            <div ref={contentRef} className="space-y-6 sm:space-y-8" style={{ opacity: 0.5 }}>
+              <div className="space-y-4">
+                <p className="text-xl sm:text-2xl md:text-3xl font-medium leading-relaxed text-cyan-100">
+                  Transform your data journey with comprehensive resources, tools, and insights
+                </p>
+                <p className="text-lg sm:text-xl opacity-90 leading-relaxed max-w-2xl">
+                  From machine learning frameworks to real-time analytics, discover cutting-edge solutions that power modern data-driven organizations.
+                </p>
+              </div>
+              
+              {/* Key Features Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:border-cyan-400/50 transition-all duration-300">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold">AI</div>
+                    <div>
+                      <h3 className="font-semibold">AI/ML Resources</h3>
+                      <p className="text-sm opacity-80">Models, frameworks & tools</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:border-purple-400/50 transition-all duration-300">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold">📊</div>
+                    <div>
+                      <h3 className="font-semibold">Analytics Platform</h3>
+                      <p className="text-sm opacity-80">Real-time insights & BI</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:border-green-400/50 transition-all duration-300">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold">🔧</div>
+                    <div>
+                      <h3 className="font-semibold">Open Source Tools</h3>
+                      <p className="text-sm opacity-80">Free community resources</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:border-orange-400/50 transition-all duration-300">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-orange-400 to-red-500 rounded-lg flex items-center justify-center text-white font-bold">📚</div>
+                    <div>
+                      <h3 className="font-semibold">Learning Hub</h3>
+                      <p className="text-sm opacity-80">Tutorials & documentation</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
+                <Link href="#products">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold w-full sm:w-auto transform hover:scale-105 transition-all duration-300"
+                  >
+                    🚀 Explore Resources
+                  </Button>
+                </Link>
+                <Link href="#contact">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="bg-transparent border-2 border-white hover:bg-white hover:text-primary text-white w-full sm:w-auto transform hover:scale-105 transition-all duration-300"
+                  >
+                    💎 Free Tools
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="w-full lg:w-1/2">
-            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px]">
-              {/* Central Data Sphere */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div 
-                  className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-sm border border-white/30 flex items-center justify-center relative overflow-hidden"
-                  style={{
-                    animation: 'centralSphere 10s ease-in-out infinite',
-                    boxShadow: '0 0 40px rgba(59, 130, 246, 0.3)'
-                  }}
-                >
-                  {/* Pulsing energy waves */}
-                  <div 
-                    className="absolute inset-0 rounded-full border-2 border-cyan-400/30"
-                    style={{ animation: 'pulseWave 3s ease-out infinite' }}
-                  />
-                  <div 
-                    className="absolute inset-2 rounded-full border border-purple-400/30"
-                    style={{ animation: 'pulseWave 3s ease-out infinite 1s' }}
-                  />
-                  <div 
-                    className="absolute inset-4 rounded-full border border-green-400/30"
-                    style={{ animation: 'pulseWave 3s ease-out infinite 2s' }}
-                  />
-                  
-                  {/* Inner rotating rings */}
-                  <div 
-                    className="absolute inset-8 border-2 border-green-400/50 rounded-full"
-                    style={{ animation: 'rotateRing 15s linear infinite' }}
-                  />
-                  <div 
-                    className="absolute inset-12 border border-blue-400/40 rounded-full"
-                    style={{ animation: 'rotateRing 12s linear infinite reverse' }}
-                  />
-                  
-                  {/* Swirling data particles inside sphere */}
-                  <div className="absolute inset-0 rounded-full overflow-hidden">
-                    {Array.from({ length: 8 }, (_, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-1 h-1 bg-cyan-400 rounded-full"
-                        style={{
-                          left: '50%',
-                          top: '50%',
-                          transformOrigin: `${30 + i * 10}px 0`,
-                          animation: `orbitSphere ${8 + i * 2}s linear infinite`,
-                          animationDelay: `${i * 0.5}s`
-                        }}
-                      />
-                    ))}
-                  </div>
-                  
-                  {/* Central holographic icon */}
-                  <div className="text-4xl font-bold text-white relative z-10" style={{ animation: 'hologramFlicker 4s ease-in-out infinite' }}>∞</div>
-                </div>
+          <div ref={visualRef} className="w-full lg:w-2/5">
+            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px]"
+                 style={{
+                   animation: 'slideInFromRight 1s ease-out',
+                   animationDelay: '0.8s',
+                   opacity: '0',
+                   animationFillMode: 'forwards'
+                 }}>
+              
+              {/* Enhanced Tech Logos Display */}
+              <div className="absolute top-0 left-0 w-full h-full">
+                <EnhancedTechLogos height="100%" />
               </div>
-
-              {/* Floating Tech Modules */}
-              <div 
-                className="absolute top-16 left-16 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer group"
-                style={{
-                  animation: 'floatModule 8s ease-in-out infinite',
-                  boxShadow: '0 8px 32px rgba(59, 130, 246, 0.2)'
-                }}
-              >
-                {/* Glowing border effect on hover */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                <div className="flex items-center space-x-2 mb-2 relative z-10">
-                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">SNOWFLAKE</span>
-                </div>
-                <div className="text-2xl relative z-10 group-hover:animate-bounce">❄️</div>
-                <div className="text-xs text-white/60 mt-1 relative z-10">Cloud DW</div>
-                
-                {/* Sparkle effects */}
-                <div className="absolute top-2 right-2 w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100" style={{ animation: 'sparkle 2s ease-in-out infinite' }} />
-                <div className="absolute bottom-2 left-2 w-1 h-1 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100" style={{ animation: 'sparkle 2s ease-in-out infinite 0.5s' }} />
-              </div>
-
-              <div 
-                className="absolute top-32 right-12 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
-                style={{
-                  animation: 'floatModule 8s ease-in-out infinite 2s',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
-                }}
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">AI</span>
-                </div>
-                <div className="text-2xl">🤖</div>
-                <div className="text-xs text-white/60 mt-1">GPT • LLMs • GenAI</div>
-              </div>
-
-              <div 
-                className="absolute bottom-8 left-32 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
-                style={{
-                  animation: 'floatModule 8s ease-in-out infinite 4s',
-                  boxShadow: '0 8px 32px rgba(251, 146, 60, 0.2)'
-                }}
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">DATABRICKS</span>
-                </div>
-                <img src={databricksLogo} alt="Databricks" className="w-8 h-8 object-contain" />
-                <div className="text-xs text-white/60 mt-1">Unified Analytics</div>
-              </div>
-
-              <div 
-                className="absolute bottom-8 right-12 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
-                style={{
-                  animation: 'floatModule 8s ease-in-out infinite 6s',
-                  boxShadow: '0 8px 32px rgba(64, 224, 208, 0.2)'
-                }}
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">MS FABRIC</span>
-                </div>
-                <img src={fabricLogo} alt="Microsoft Fabric" className="w-8 h-8 object-contain" />
-                <div className="text-xs text-white/60 mt-1">Unified Platform</div>
-              </div>
-
-              <div 
-                className="absolute top-1/2 transform -translate-y-1/2 left-8 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 transform hover:scale-105 transition-all duration-300"
-                style={{
-                  animation: 'floatModule 8s ease-in-out infinite 8s',
-                  boxShadow: '0 8px 32px rgba(245, 158, 11, 0.2)'
-                }}
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-white/80 font-mono">POWER BI</span>
-                </div>
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
-                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="#F59E0B" strokeWidth="1" fill="none"/>
-                  <rect x="6" y="12" width="3" height="6" fill="#F59E0B"/>
-                  <rect x="10" y="8" width="3" height="10" fill="#FBBF24"/>
-                  <rect x="14" y="6" width="3" height="12" fill="#FCD34D"/>
-                  <circle cx="18" cy="6" r="1" fill="#F59E0B"/>
-                </svg>
-                <div className="text-xs text-white/60 mt-1">Visualization</div>
-              </div>
-
-              {/* Data Flow Lines */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                {/* Animated connection lines to central sphere */}
-                {/* Snowflake (blue) */}
-                <path
-                  d="M80,80 Q200,150 240,300"
-                  stroke="rgba(59, 130, 246, 0.4)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '10 5',
-                    animation: 'dataFlow 4s ease-in-out infinite'
-                  }}
-                />
-                {/* AI/ML (purple) */}
-                <path
-                  d="M320,150 Q300,200 240,300"
-                  stroke="rgba(168, 85, 247, 0.4)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '8 4',
-                    animation: 'dataFlow 4s ease-in-out infinite 1s'
-                  }}
-                />
-                {/* Databricks (orange) */}
-                <path
-                  d="M140,540 Q190,420 240,300"
-                  stroke="rgba(251, 146, 60, 0.4)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '12 6',
-                    animation: 'dataFlow 4s ease-in-out infinite 2s'
-                  }}
-                />
-                {/* Microsoft Fabric (teal) */}
-                <path
-                  d="M360,540 Q300,420 240,300"
-                  stroke="rgba(64, 224, 208, 0.4)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '6 3',
-                    animation: 'dataFlow 4s ease-in-out infinite 3s'
-                  }}
-                />
-                {/* Power BI (yellow) */}
-                <path
-                  d="M60,300 Q150,300 240,300"
-                  stroke="rgba(234, 179, 8, 0.4)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '8 6',
-                    animation: 'dataFlow 4s ease-in-out infinite 4s'
-                  }}
-                />
-              </svg>
-
-              {/* Floating Data Particles */}
-              <div className="absolute inset-0 pointer-events-none">
-                {Array.from({ length: 30 }, (_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-1 h-1 bg-white rounded-full opacity-60"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animation: `particleFloat ${4 + Math.random() * 8}s ease-in-out infinite`,
-                      animationDelay: `${Math.random() * 4}s`
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Lightning Energy Bolts */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
-                <path
-                  d="M80,80 L90,100 L85,120 L95,140 L240,280"
-                  stroke="rgba(0, 255, 255, 0.6)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '4 8',
-                    animation: 'energyBolt 6s ease-in-out infinite',
-                    filter: 'drop-shadow(0 0 4px rgba(0, 255, 255, 0.8))'
-                  }}
-                />
-                <path
-                  d="M320,150 L310,170 L315,190 L305,210 L240,290"
-                  stroke="rgba(255, 0, 255, 0.6)"
-                  strokeWidth="2"
-                  fill="none"
-                  style={{
-                    strokeDasharray: '6 10',
-                    animation: 'energyBolt 6s ease-in-out infinite 2s',
-                    filter: 'drop-shadow(0 0 4px rgba(255, 0, 255, 0.8))'
-                  }}
-                />
-              </svg>
 
               {/* AI Insights Display */}
-              <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm p-3 rounded border border-cyan-400/50 font-mono text-xs text-cyan-400">
+              <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm p-3 rounded border border-cyan-400/50 font-mono text-xs text-cyan-400 z-20">
                 <div className="flex items-center space-x-2 mb-1">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                   <span>AI INSIGHTS</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>LLM: 97% ████████░</div>
-                  <div>NLP: 84% ███████░░</div>
                   <div>RAG: 92% █████████░</div>
+                  <div>MLOps: 89% ████████░</div>
+                  <div>Analytics: 95% █████████░</div>
                 </div>
               </div>
             </div>
@@ -473,6 +360,7 @@ const HeroSection = () => {
         </div>
       </div>
     </section>
+    </CSSMountainEnvironment>
   );
 };
 

@@ -25,6 +25,7 @@ import { z } from "zod";
 import { ContactFormData } from "@/lib/types";
 import { supabase } from "@/lib/supabaseClient";
 import { useMutation } from "@tanstack/react-query";
+import { CSSMountainEnvironment } from "@/components/3d/CSSMountainEnvironment";
 
 // Form validation schema
 const formSchema = z.object({
@@ -86,8 +87,14 @@ const CTASection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-r from-primary to-accent text-white">
-      <div className="container mx-auto px-6">
+    <CSSMountainEnvironment 
+      height="auto"
+      showSnow={true}
+      showBlizzard={true}
+      intensity="heavy"
+      className="py-20 relative overflow-hidden"
+    >
+      <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2 mb-10 md:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Join the DataSarva Community</h2>
@@ -117,16 +124,16 @@ const CTASection = () => {
           </div>
 
           <div className="w-full md:w-1/2 md:pl-12">
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-primary text-2xl font-bold mb-6">Join Our Newsletter</h3>
+            <div className="bg-white/10 backdrop-blur-lg rounded-xl shadow-lg p-8 border border-white/20">
+              <h3 className="text-white text-2xl font-bold mb-6">Join Our Newsletter</h3>
               
               {isSubmitted ? (
                 <div className="text-center py-8">
-                  <div className="text-primary text-5xl mb-4">
+                  <div className="text-cyan-400 text-5xl mb-4">
                     <Check className="h-16 w-16 mx-auto" />
                   </div>
-                  <h3 className="text-2xl font-bold text-neutral-800 mb-4">Thank You!</h3>
-                  <p className="text-neutral-700 mb-6">Your message has been received. We'll contact you shortly.</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">Thank You!</h3>
+                  <p className="text-white/80 mb-6">Your message has been received. We'll contact you shortly.</p>
                 </div>
               ) : (
                 <Form {...form}>
@@ -136,11 +143,11 @@ const CTASection = () => {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-neutral-800 font-medium">Full Name</FormLabel>
+                          <FormLabel className="text-white font-medium">Full Name</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Your name" 
-                              className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-white placeholder-white/60"
                               {...field}
                             />
                           </FormControl>
@@ -154,12 +161,12 @@ const CTASection = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-neutral-800 font-medium">Email Address</FormLabel>
+                          <FormLabel className="text-white font-medium">Email Address</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="your.email@company.com" 
                               type="email"
-                              className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-white placeholder-white/60"
                               {...field}
                             />
                           </FormControl>
@@ -173,11 +180,11 @@ const CTASection = () => {
                       name="company"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-neutral-800 font-medium">Company</FormLabel>
+                          <FormLabel className="text-white font-medium">Company</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Your company name" 
-                              className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-white placeholder-white/60"
                               {...field}
                             />
                           </FormControl>
@@ -191,13 +198,13 @@ const CTASection = () => {
                       name="interest"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-neutral-800 font-medium">I'm interested in:</FormLabel>
+                          <FormLabel className="text-white font-medium">I'm interested in:</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                              <SelectTrigger className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-white">
                                 <SelectValue placeholder="Select an option" />
                               </SelectTrigger>
                             </FormControl>
@@ -220,12 +227,12 @@ const CTASection = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-neutral-800 font-medium">Message</FormLabel>
+                          <FormLabel className="text-white font-medium">Message</FormLabel>
                           <FormControl>
                             <Textarea 
                               placeholder="Tell us what data technologies you're most interested in learning about" 
                               rows={4}
-                              className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                              className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-white placeholder-white/60"
                               {...field}
                             />
                           </FormControl>
@@ -236,7 +243,7 @@ const CTASection = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-md"
+                      className="w-full bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-md"
                       disabled={mutation.isPending}
                     >
                       {mutation.isPending ? "Subscribing..." : "Subscribe to Newsletter"}
@@ -248,7 +255,7 @@ const CTASection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </CSSMountainEnvironment>
   );
 };
 

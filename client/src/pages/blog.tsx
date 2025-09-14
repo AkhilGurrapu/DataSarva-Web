@@ -156,9 +156,9 @@ const estimateReadTime = (description: string): number => {
 
 // Component for each learning path card
 const LearningPathCard = ({ path }: { path: any }) => (
-  <Card className="rounded-lg hover:shadow-md transition-all duration-300 border-l-4 border-primary">
+  <Card className="rounded-lg border-l-4 border-primary">
     <CardContent className="p-4 flex">
-      <div className="bg-primary/10 rounded-full p-3 mr-3 flex-shrink-0">
+      <div className="bg-gray-100 rounded-full p-3 mr-3 flex-shrink-0">
         {path.icon}
       </div>
       <div>
@@ -197,7 +197,7 @@ const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: b
   
   if (featured) {
     return (
-      <Card className="rounded-xl shadow-md overflow-hidden bg-white border-none">
+      <Card className="rounded-xl overflow-hidden bg-white border border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           <div className="h-full">
             <div 
@@ -217,7 +217,7 @@ const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: b
                   <span>{post.date}</span>
                 </div>
               </div>
-              <span className="inline-block bg-primary/10 text-primary text-xs px-3 py-1 rounded-full mb-3">
+              <span className="inline-block bg-blue-100 text-primary text-xs px-3 py-1 rounded-full mb-3">
                 {post.category}
               </span>
               <h3 className="text-xl font-bold mb-3 line-clamp-2">{post.title}</h3>
@@ -232,7 +232,7 @@ const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: b
               </div>
               <a 
                 href={post.link} 
-                className="text-primary font-medium flex items-center hover:underline"
+                className="text-primary font-medium flex items-center"
               >
                 Read Post
                 <ArrowRight className="ml-1 w-4 h-4" />
@@ -245,7 +245,7 @@ const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: b
   }
   
   return (
-    <Card className="rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden bg-white border-none">
+    <Card className="rounded-xl overflow-hidden bg-white border border-gray-200">
       <div className="h-40 overflow-hidden relative">
         <div 
           className="w-full h-full bg-cover bg-center"
@@ -258,7 +258,7 @@ const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: b
       </div>
       <CardContent className="p-5">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+          <span className="text-xs bg-blue-100 text-primary px-2 py-1 rounded-full">
             {post.category}
           </span>
           <div className="flex items-center text-neutral-500 text-xs">
@@ -277,7 +277,7 @@ const BlogPostCard = ({ post, featured = false }: { post: BlogPost, featured?: b
           </div>
           <a 
             href={post.link} 
-            className="text-primary font-medium flex items-center hover:underline text-sm"
+            className="text-primary font-medium flex items-center text-sm"
           >
             Read Post
             <ArrowRight className="ml-1 w-3 h-3" />
@@ -347,22 +347,22 @@ const Blog = () => {
       <Header />
       <main className="pt-24 pb-20">
         {/* Hero Banner */}
-        <div className="bg-gradient-to-r from-primary/90 to-primary text-white py-12 mb-8">
+        <div className="bg-primary text-white py-12 mb-8">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Knowledge Center</h1>
-              <p className="text-xl opacity-90 mb-8">
+              <p className="text-xl mb-8">
                 Discover tutorials, guides, and insights to accelerate your data analytics journey
               </p>
               <div className="relative max-w-2xl mx-auto">
                 <Input
                   type="text"
                   placeholder="Search for articles, tutorials, and more..."
-                  className="pl-10 py-6 text-lg rounded-full bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                  className="pl-10 py-6 text-lg rounded-full bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white/70 h-5 w-5" />
+                <Search className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500 h-5 w-5" />
               </div>
             </div>
           </div>
@@ -376,7 +376,7 @@ const Blog = () => {
                 <BookMarked className="mr-2 h-6 w-6 text-primary" />
                 Learning Paths
               </h2>
-              <a href="#" className="text-primary font-medium flex items-center hover:underline">
+              <a href="#" className="text-primary font-medium flex items-center">
                 View all paths
                 <ChevronRight className="ml-1 w-4 h-4" />
               </a>
@@ -432,7 +432,7 @@ const Blog = () => {
             
             {/* Filters */}
             {showFilters && (
-              <div className="bg-white p-4 rounded-lg shadow-sm mb-6 border border-neutral-200">
+              <div className="bg-white p-4 rounded-lg mb-6 border border-neutral-200">
                 <h3 className="font-medium mb-3">Filter by category:</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {categories.map((category) => (
@@ -441,8 +441,8 @@ const Blog = () => {
                       className={`px-3 py-1.5 rounded-full text-sm ${
                         activeCategory === category 
                           ? "bg-primary text-white" 
-                          : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
-                      } transition-all duration-300`}
+                          : "bg-neutral-100 text-neutral-700"
+                      }`}
                       onClick={() => setActiveCategory(category)}
                     >
                       {category}
@@ -455,7 +455,7 @@ const Blog = () => {
                   {popularTags.map((tag, index) => (
                     <span 
                       key={index} 
-                      className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700 cursor-pointer hover:bg-neutral-200"
+                      className="inline-flex items-center px-3 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700 cursor-pointer"
                     >
                       <Tag className="mr-1 h-3 w-3" />
                       {tag}

@@ -35,11 +35,13 @@ const blogPosts: BlogPost[] = [
 
 const BlogPreviewSection = () => {
   return (
-    <section className="py-20 bg-neutral-100">
+    <section className="py-20 bg-neutral-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">From Our Blog</h2>
-          <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900">
+            From Our Blog
+          </h2>
+          <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
             Stay updated with our latest insights, tutorials, and industry trends.
           </p>
         </div>
@@ -48,7 +50,7 @@ const BlogPreviewSection = () => {
           {blogPosts.map((post) => (
             <Card 
               key={post.id}
-              className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
+              className="rounded-xl overflow-hidden bg-white border border-neutral-200"
             >
               <div className="h-48 overflow-hidden">
                 <div 
@@ -59,17 +61,17 @@ const BlogPreviewSection = () => {
               </div>
               <CardContent className="p-6">
                 <div className="flex items-center mb-3">
-                  <span className="text-xs text-neutral-700">{post.date}</span>
-                  <span className="mx-2">•</span>
-                  <span className="text-xs text-neutral-700">{post.category}</span>
+                  <span className="text-xs text-neutral-500">{post.date}</span>
+                  <span className="mx-2 text-neutral-300">•</span>
+                  <span className="text-xs text-primary font-medium">{post.category}</span>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{post.title}</h3>
-                <p className="text-neutral-700 mb-4 text-sm">
+                <h3 className="text-lg font-bold mb-2 text-neutral-900">{post.title}</h3>
+                <p className="text-neutral-600 mb-4 text-sm">
                   {post.description}
                 </p>
                 <a 
                   href={post.link} 
-                  className="text-primary font-medium flex items-center hover:underline"
+                  className="text-primary font-medium flex items-center"
                 >
                   Read Post
                   <ArrowRight className="ml-1 w-4 h-4" />
@@ -81,7 +83,7 @@ const BlogPreviewSection = () => {
 
         <div className="text-center mt-12">
           <Button 
-            className="bg-primary hover:bg-primary/90 text-white"
+            className="bg-primary text-white"
             size="lg"
             asChild
           >

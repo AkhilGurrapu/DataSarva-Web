@@ -4,14 +4,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Resource } from "@/lib/types";
+import { CSSMountainBackdrop } from "@/components/3d/CSSMountainEnvironment";
+import { CompactTechShowcase } from "@/components/3d/SimpleTechShowcase";
 
 const resources: Resource[] = [
   {
     id: "whitepaper-1",
-    title: "Modern Cloud Data Architecture: Best Practices for 2023",
-    description: "Explore the key principles and components of a modern cloud data architecture that delivers scalability, security, and performance.",
+    title: "The AI Revolution in Data Analytics: 2024 Trends Report",
+    description: "Comprehensive analysis of how artificial intelligence is transforming data analytics, featuring real-world case studies and implementation strategies.",
     category: "whitepapers",
-    readTime: "10 min read",
+    readTime: "12 min read",
     image: "https://unsplash.com/photos/person-writing-on-white-paper-vw3Ahg4x1tY/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8OXx8Y2xvdWQlMjBhcmNoaXRlY3R1cmV8ZW58MHx8fHwxNzE3MzcxMzAxfDA&force=true&w=1920",
     link: "#whitepaper-1",
     linkText: "Download PDF",
@@ -19,8 +21,8 @@ const resources: Resource[] = [
   },
   {
     id: "casestudy-1",
-    title: "Global Bank's Journey to Data-Driven Decision Making",
-    description: "How a leading financial institution transformed their data architecture to enable faster, more accurate decision making.",
+    title: "Fortune 500 Company's ML-Powered Analytics Transformation",
+    description: "How a major enterprise deployed machine learning models to automate their data pipeline and achieved 40% faster insights delivery.",
     category: "casestudies",
     readTime: "8 min read",
     image: "https://unsplash.com/photos/people-sitting-in-front-of-computer-monitors-jLJ8sCmm1U0/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fGJhbmslMjBkYXRhfGVufDB8fHx8MTcxNzM3MTMyM3ww&force=true&w=1920",
@@ -30,10 +32,10 @@ const resources: Resource[] = [
   },
   {
     id: "guide-1",
-    title: "Ultimate Guide to Snowflake Cost Optimization",
-    description: "Practical strategies and techniques to optimize your Snowflake implementation for performance and cost efficiency.",
+    title: "Complete Guide to MLOps: From Development to Production",
+    description: "Step-by-step guide to implementing MLOps practices, including model versioning, automated testing, and continuous deployment.",
     category: "guides",
-    readTime: "15 min read",
+    readTime: "20 min read",
     image: "https://unsplash.com/photos/turned-on-gray-laptop-computer-hxkdPpZMCcE/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fHNub3dmbGFrZSUyMGRhdGF8ZW58MHx8fHwxNzE3MzcxMzQxfDA&force=true&w=1920",
     link: "#guide-1",
     linkText: "Read Guide",
@@ -41,10 +43,10 @@ const resources: Resource[] = [
   },
   {
     id: "webinar-1",
-    title: "Practical AI: From Hype to Business Impact",
-    description: "Join industry experts as they discuss real-world AI implementations and how to measure ROI on your AI investments.",
+    title: "Real-Time AI Analytics: Building Streaming ML Pipelines",
+    description: "Deep dive into creating real-time machine learning pipelines with Apache Kafka, Spark, and modern ML frameworks.",
     category: "webinars",
-    readTime: "45 min",
+    readTime: "50 min",
     image: "https://unsplash.com/photos/woman-wearing-gray-blazer-8Nppf8IG54Y/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8d2ViaW5hcnxlbnwwfHx8fDE3MTczNzEzNTd8MA&force=true&w=1920",
     link: "#webinar-1",
     linkText: "Watch Webinar",
@@ -52,10 +54,10 @@ const resources: Resource[] = [
   },
   {
     id: "whitepaper-2",
-    title: "Building a Robust Data Governance Framework",
-    description: "Learn how to establish effective data governance practices that balance compliance requirements with business agility.",
+    title: "RAG Systems in Production: Architecture and Best Practices",
+    description: "Comprehensive guide to building and deploying Retrieval-Augmented Generation systems for enterprise applications.",
     category: "whitepapers",
-    readTime: "12 min read",
+    readTime: "15 min read",
     image: "https://unsplash.com/photos/person-typing-on-laptop-computer-hpjSkU2UYSU/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8OHx8ZGF0YSUyMGdvdmVybmFuY2V8ZW58MHx8fHwxNzE3MzcxMzc0fDA&force=true&w=1920",
     link: "#whitepaper-2",
     linkText: "Download PDF",
@@ -63,10 +65,10 @@ const resources: Resource[] = [
   },
   {
     id: "guide-2",
-    title: "Creating Effective Power BI Dashboards: A Complete Guide",
-    description: "Step-by-step instructions for designing, building, and optimizing Power BI dashboards that drive insights and action.",
+    title: "Open Source AI Tools: Your Complete Toolkit",
+    description: "Curated collection of the best open-source AI and ML tools, with installation guides and practical examples.",
     category: "guides",
-    readTime: "18 min read",
+    readTime: "25 min read",
     image: "https://unsplash.com/photos/person-using-macbook-pro-on-desk-N_Y88TWmGwA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fGRhc2hib2FyZHxlbnwwfHx8fDE3MTczNzEzODl8MA&force=true&w=1920",
     link: "#guide-2",
     linkText: "Read Guide",
@@ -98,13 +100,25 @@ const ResourcesSection = () => {
   };
 
   return (
-    <section id="resources" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
+    <CSSMountainBackdrop 
+      height="auto"
+      className="py-20 relative overflow-hidden"
+      showSnow={true}
+      intensity="medium"
+    >
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Resource Hub</h2>
-          <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
-            Explore our library of resources to enhance your data and AI knowledge.
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
+            Knowledge Center
+          </h2>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto">
+            Access comprehensive resources, guides, and insights to accelerate your data and AI journey
           </p>
+          
+          {/* Enhanced Tech Showcase */}
+          <div className="mt-8 mb-12">
+            <CompactTechShowcase height="250px" className="opacity-90" />
+          </div>
         </div>
 
         {/* Resource Filters */}
@@ -114,8 +128,8 @@ const ResourcesSection = () => {
               variant={activeFilter === "all" ? "default" : "outline"}
               className={`rounded-full border ${
                 activeFilter === "all" 
-                  ? "bg-primary text-white" 
-                  : "border-primary text-primary hover:bg-primary hover:text-white"
+                  ? "bg-white/20 backdrop-blur-sm text-white border-white/40" 
+                  : "border-white/40 text-white hover:bg-white/20 hover:backdrop-blur-sm"
               }`}
               onClick={() => setActiveFilter("all")}
             >
@@ -125,8 +139,8 @@ const ResourcesSection = () => {
               variant={activeFilter === "whitepapers" ? "default" : "outline"}
               className={`rounded-full border ${
                 activeFilter === "whitepapers" 
-                  ? "bg-primary text-white" 
-                  : "border-primary text-primary hover:bg-primary hover:text-white"
+                  ? "bg-white/20 backdrop-blur-sm text-white border-white/40" 
+                  : "border-white/40 text-white hover:bg-white/20 hover:backdrop-blur-sm"
               }`}
               onClick={() => setActiveFilter("whitepapers")}
             >
@@ -136,8 +150,8 @@ const ResourcesSection = () => {
               variant={activeFilter === "casestudies" ? "default" : "outline"}
               className={`rounded-full border ${
                 activeFilter === "casestudies" 
-                  ? "bg-primary text-white" 
-                  : "border-primary text-primary hover:bg-primary hover:text-white"
+                  ? "bg-white/20 backdrop-blur-sm text-white border-white/40" 
+                  : "border-white/40 text-white hover:bg-white/20 hover:backdrop-blur-sm"
               }`}
               onClick={() => setActiveFilter("casestudies")}
             >
@@ -147,8 +161,8 @@ const ResourcesSection = () => {
               variant={activeFilter === "guides" ? "default" : "outline"}
               className={`rounded-full border ${
                 activeFilter === "guides" 
-                  ? "bg-primary text-white" 
-                  : "border-primary text-primary hover:bg-primary hover:text-white"
+                  ? "bg-white/20 backdrop-blur-sm text-white border-white/40" 
+                  : "border-white/40 text-white hover:bg-white/20 hover:backdrop-blur-sm"
               }`}
               onClick={() => setActiveFilter("guides")}
             >
@@ -158,8 +172,8 @@ const ResourcesSection = () => {
               variant={activeFilter === "webinars" ? "default" : "outline"}
               className={`rounded-full border ${
                 activeFilter === "webinars" 
-                  ? "bg-primary text-white" 
-                  : "border-primary text-primary hover:bg-primary hover:text-white"
+                  ? "bg-white/20 backdrop-blur-sm text-white border-white/40" 
+                  : "border-white/40 text-white hover:bg-white/20 hover:backdrop-blur-sm"
               }`}
               onClick={() => setActiveFilter("webinars")}
             >
@@ -176,7 +190,7 @@ const ResourcesSection = () => {
             return (
               <Card 
                 key={resource.id}
-                className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
+                className="rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1 bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40"
               >
                 <div className="h-48 overflow-hidden">
                   <div 
@@ -195,19 +209,15 @@ const ResourcesSection = () => {
                        resource.category === "casestudies" ? "Case Study" : 
                        resource.category === "guides" ? "Guide" : "Webinar"}
                     </Badge>
-                    <span className="text-xs text-neutral-700">{resource.readTime}</span>
+                    <span className="text-xs text-white/70">{resource.readTime}</span>
                   </div>
-                  <h3 className="text-lg font-bold mb-2">{resource.title}</h3>
-                  <p className="text-neutral-700 mb-4 text-sm">
+                  <h3 className="text-lg font-bold mb-2 text-white">{resource.title}</h3>
+                  <p className="text-white/80 mb-4 text-sm">
                     {resource.description}
                   </p>
                   <a 
                     href={resource.link} 
-                    className={`${
-                      resource.category === "guides" ? "text-accent" : 
-                      resource.category === "casestudies" ? "text-secondary" : 
-                      "text-primary"
-                    } font-medium flex items-center hover:underline`}
+                    className="text-cyan-400 font-medium flex items-center hover:underline hover:text-cyan-300"
                   >
                     {resource.linkText}
                     <IconComponent className="ml-1 w-4 h-4" />
@@ -220,7 +230,7 @@ const ResourcesSection = () => {
 
         <div className="text-center mt-12">
           <Button 
-            className="bg-primary hover:bg-primary/90 text-white"
+            className="bg-white/20 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-white"
             size="lg"
             asChild
           >
@@ -228,7 +238,7 @@ const ResourcesSection = () => {
           </Button>
         </div>
       </div>
-    </section>
+    </CSSMountainBackdrop>
   );
 };
 

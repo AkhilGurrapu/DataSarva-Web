@@ -8,7 +8,7 @@ import { useMobile } from "@/hooks/use-mobile";
 const testimonials: Testimonial[] = [
   {
     id: "1",
-    quote: "The DataAI team transformed how we use data. Their Snowflake implementation and custom dashboards gave us insights we never had before, directly impacting our bottom line.",
+    quote: "The DataSarva team transformed how we use data. Their Snowflake implementation and custom dashboards gave us insights we never had before, directly impacting our bottom line.",
     author: "Sarah Johnson",
     position: "CIO",
     company: "Global Financial Services",
@@ -16,7 +16,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: "2",
-    quote: "Working with DataAI on our AI implementation was a game-changer. Their expertise in machine learning and business process optimization delivered results that exceeded our expectations.",
+    quote: "Working with DataSarva on our AI implementation was a game-changer. Their expertise in machine learning and business process optimization delivered results that exceeded our expectations.",
     author: "Michael Chen",
     position: "VP of Analytics",
     company: "Healthcare Solutions",
@@ -24,7 +24,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: "3",
-    quote: "The DataAI consulting team provided expert guidance on our data strategy and architecture. Their ability to translate complex technical concepts into business value made all the difference.",
+    quote: "The DataSarva team provided expert guidance on our data strategy and architecture. Their ability to translate complex technical concepts into business value made all the difference.",
     author: "Rebecca Torres",
     position: "Director of Data",
     company: "Retail Innovations",

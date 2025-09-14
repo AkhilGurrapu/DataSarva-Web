@@ -23,7 +23,7 @@ async function sendEmail(to: string, subject: string, html: string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'DataAI Consulting <noreply@dataai-consulting.com>',
+        from: 'DataSarva <noreply@datasarva.com>',
         to: [to],
         subject: subject,
         html: html,
@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
 
       // Email template for customer confirmation
       const customerEmailHtml = `
-        <h2>Thank you for contacting DataAI Consulting</h2>
+        <h2>Thank you for contacting DataSarva</h2>
         <p>Hello ${name},</p>
         <p>We've received your inquiry about ${interest} and will get back to you within 24 hours.</p>
         
@@ -136,7 +136,7 @@ Deno.serve(async (req) => {
         </div>
         
         <p>Best regards,<br>
-        DataAI Consulting Team</p>
+        DataSarva Team</p>
         
         <hr>
         <p style="font-size: 12px; color: #666;">
@@ -146,7 +146,7 @@ Deno.serve(async (req) => {
 
       // Send admin notification (replace with your admin email)
       await sendEmail(
-        'admin@dataai-consulting.com',
+        'admin@datasarva.com',
         `New Contact Form: ${name} - ${interest}`,
         adminEmailHtml
       )
@@ -154,7 +154,7 @@ Deno.serve(async (req) => {
       // Send customer confirmation
       await sendEmail(
         email,
-        'Thank you for contacting DataAI Consulting',
+        'Thank you for contacting DataSarva',
         customerEmailHtml
       )
 

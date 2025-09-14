@@ -155,7 +155,7 @@ const Footer = () => {
         
         <div className="border-t border-neutral-700 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center">
           <div className="text-neutral-400 mb-4 sm:mb-0 text-sm sm:text-base text-center sm:text-left">
-            &copy; {currentYear} DataAI Consulting. All rights reserved.
+            &copy; {currentYear} DataSarva. All rights reserved.
           </div>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {legalLinks.map((link) => (
