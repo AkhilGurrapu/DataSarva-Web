@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Resource } from "@/lib/types";
-import { CSSMountainBackdrop } from "@/components/3d/CSSMountainEnvironment";
+// Removed CSSMountainBackdrop import for better performance
 
 const resources: Resource[] = [
   {
@@ -99,12 +99,21 @@ const ResourcesSection = () => {
   };
 
   return (
-    <CSSMountainBackdrop 
-      height="auto"
-      className="py-20 relative overflow-hidden"
-      showSnow={true}
-      intensity="medium"
-    >
+    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-slate-800 to-gray-900">
+      {/* Simple background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        {Array.from({ length: 20 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute bg-cyan-400 rounded-full w-1 h-1"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
@@ -232,7 +241,7 @@ const ResourcesSection = () => {
           </Button>
         </div>
       </div>
-    </CSSMountainBackdrop>
+    </section>
   );
 };
 

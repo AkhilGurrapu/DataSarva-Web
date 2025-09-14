@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Service } from "@/lib/types";
-import { CSSMountainBackdrop } from "@/components/3d/CSSMountainEnvironment";
+// Removed CSSMountainBackdrop import for better performance
 
 const serviceApproach = [
   {
@@ -128,12 +128,21 @@ const iconComponents = {
 
 const ServicesSection = () => {
   return (
-    <CSSMountainBackdrop 
-      height="auto"
-      className="py-20 relative overflow-hidden"
-      showSnow={true}
-      intensity="light"
-    >
+    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-gray-900 to-slate-900">
+      {/* Simple background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        {Array.from({ length: 15 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute bg-white rounded-full w-1 h-1"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
@@ -221,7 +230,7 @@ const ServicesSection = () => {
           </div>
         </div>
       </div>
-    </CSSMountainBackdrop>
+    </section>
   );
 };
 

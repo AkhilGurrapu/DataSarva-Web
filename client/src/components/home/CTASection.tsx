@@ -25,7 +25,7 @@ import { z } from "zod";
 import { ContactFormData } from "@/lib/types";
 import { supabase } from "@/lib/supabaseClient";
 import { useMutation } from "@tanstack/react-query";
-import { CSSMountainEnvironment } from "@/components/3d/CSSMountainEnvironment";
+// Removed CSSMountainEnvironment import for better performance
 
 // Form validation schema
 const formSchema = z.object({
@@ -87,13 +87,21 @@ const CTASection = () => {
   };
 
   return (
-    <CSSMountainEnvironment 
-      height="auto"
-      showSnow={true}
-      showBlizzard={true}
-      intensity="heavy"
-      className="py-20 relative overflow-hidden"
-    >
+    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+      {/* Simple background dots */}
+      <div className="absolute inset-0 opacity-10">
+        {Array.from({ length: 20 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute bg-white rounded-full w-1 h-1"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center">
           <div className="w-full md:w-1/2 mb-10 md:mb-0">
@@ -255,7 +263,7 @@ const CTASection = () => {
           </div>
         </div>
       </div>
-    </CSSMountainEnvironment>
+    </section>
   );
 };
 
